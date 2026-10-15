@@ -137,6 +137,18 @@
     if (userPaused) car.classList.add('paused'); else start();
   }
 
+  /* ---- dialogs (e.g. Sunrise Project on the about page) ---- */
+  document.querySelectorAll('[data-open-dialog]').forEach(function (btn) {
+    var dlg = document.getElementById(btn.getAttribute('data-open-dialog'));
+    if (!dlg || typeof dlg.showModal !== 'function') return;
+    btn.addEventListener('click', function () { dlg.showModal(); });
+    dlg.addEventListener('click', function (e) {
+      var r = dlg.getBoundingClientRect();
+      var outside = e.clientX < r.left || e.clientX > r.right || e.clientY < r.top || e.clientY > r.bottom;
+      if ((e.target === dlg && outside) || e.target.closest('[data-close-dialog]')) dlg.close();
+    });
+  });
+
   /* ---- contact form ---- */
   var form = document.querySelector('form.inquiry');
   if (form) {

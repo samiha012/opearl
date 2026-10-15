@@ -32,7 +32,7 @@ body {
   overflow-x: hidden;
 }
 html[data-lang="ja"] body { font-family: "Noto Sans JP", "Inter", system-ui, sans-serif; }
-img { max-width: 100%; display: block; }
+img { max-width: 100%; height: auto; display: block; }
 a { color: inherit; }
 :focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
 
@@ -59,6 +59,9 @@ header.site .wrap { display: flex; align-items: center; gap: 24px; height: 72px;
   box-shadow: inset 0 -2px 6px rgba(23, 51, 42, .25), 0 1px 2px rgba(23, 51, 42, .2);
 }
 .logo-text { display: flex; flex-direction: column; line-height: 1.15; }
+.logo-img { display: block; flex: none; align-self: flex-start; height: 28px; width: auto; max-width: none; object-fit: contain; }
+.logo-text .logo-img { margin-bottom: 3px; }
+footer.site .logo-img { height: 32px; }
 .logo-text b { font-size: 20px; letter-spacing: .02em; }
 .logo-text small { font-size: 11px; color: var(--muted); font-weight: 500; letter-spacing: .02em; white-space: nowrap; }
 @media (max-width: 420px) { .logo-text small { font-size: 9px; letter-spacing: 0; } .lang button { padding: 4px 9px; } }
@@ -83,6 +86,14 @@ nav.main a[aria-current="page"] { font-weight: 700; }
 .drop a:hover { background: var(--accent-soft); }
 .drop a b { display: block; font-size: 14px; }
 .drop a span { font-size: 12px; color: var(--muted); }
+.drop .drop-item { display: block; padding: 10px 12px; border-radius: 8px; line-height: 1.4; cursor: default; }
+.drop .drop-item b { display: block; font-size: 14px; color: var(--muted); }
+.drop .drop-item > span { font-size: 12px; color: var(--muted); }
+.soon-pill {
+  display: inline-block; margin-left: 6px; padding: 2px 8px; border-radius: 999px; vertical-align: 1px;
+  font-size: 10px; font-weight: 600; letter-spacing: .02em; white-space: nowrap;
+  background: var(--accent-soft); color: var(--accent-strong);
+}
 @media (hover: hover) and (min-width: 901px) {
   .has-drop:hover .drop { display: block; }
 }
@@ -202,6 +213,8 @@ html[data-lang="en"] .hero h1 { font-family: "Inter", sans-serif; font-weight: 7
 .aud-card .aud-icon { width: 64px; height: 64px; border-radius: 16px; display: grid; place-items: center; background: var(--accent-soft); color: var(--accent-strong); }
 .aud-card.biz .aud-icon { background: var(--pearl-2); color: var(--gold); }
 .aud-card .aud-icon svg { width: 30px; height: 30px; }
+.aud-card .aud-icon.brand { background: var(--white); border: 1px solid var(--line); }
+.aud-card .aud-icon.brand img { width: 70%; height: auto; }
 .aud-card small { display: block; font-family: "Inter", sans-serif; font-size: 11px; font-weight: 700; letter-spacing: .14em; color: var(--muted); }
 .aud-card b { display: block; font-size: 18px; line-height: 1.4; }
 .aud-card span.d { display: block; font-size: 13px; color: var(--ink-2); line-height: 1.6; margin-top: 2px; }
@@ -230,6 +243,8 @@ html[data-lang="en"] .hero h1 { font-family: "Inter", sans-serif; font-weight: 7
 html[data-lang="ja"] .page-hero h1 { font-family: "Shippori Mincho B1", serif; font-weight: 800; }
 .page-hero p { color: var(--ink-2); max-width: 720px; margin: 0; font-size: 17px; }
 .page-hero .ctas { margin-top: 28px; }
+.page-hero h1.hero-line { font-size: 17px; font-weight: 500; line-height: 1.6; color: var(--ink-2); margin: 0; }
+html[data-lang="ja"] .page-hero h1.hero-line { font-family: inherit; font-weight: 500; }
 .anchors { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 24px; }
 .anchors a { font-size: 14px; text-decoration: none; background: var(--white); border: 1px solid var(--line); border-radius: 999px; padding: 6px 16px; }
 .anchors a:hover { border-color: var(--accent); color: var(--accent-strong); }
@@ -380,7 +395,7 @@ ul.ticks li::before {
 
 .team { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 24px; max-width: 760px; }
 .member { padding: 0; overflow: hidden; }
-.member img { width: 100%; aspect-ratio: 1; object-fit: cover; background: var(--pearl-2); }
+.member img { width: 100%; height: auto; aspect-ratio: 1; object-fit: cover; background: var(--pearl-2); }
 .member .m-body { padding: 22px 24px 26px; }
 .member .role { font-size: 13px; font-weight: 700; color: var(--accent-strong); }
 .member h3 { margin: 2px 0 8px; font-size: 21px; }
@@ -770,3 +785,61 @@ html[data-lang="ja"] .ceo-text p { font-family: "Shippori Mincho B1", serif; fon
 
 /* keep anchored sections clear of the sticky header */
 section[id], article[id] { scroll-margin-top: 80px; }
+
+/* ---------- coming soon (disabled HR Solutions links) ---------- */
+.aud-card.is-soon { cursor: default; }
+.aud-card.is-soon:hover { transform: none; border-color: var(--line); }
+.aud-card.is-soon .soon-pill { margin-left: 0; align-self: center; }
+.btn.is-disabled, .btn.is-disabled:hover { cursor: default; border-color: var(--line); color: var(--muted); background: var(--white); }
+.foot-soon { color: var(--muted); cursor: default; }
+
+/* ---------- Sunrise Project (about page) ---------- */
+.fab-sunrise { border: 0; cursor: pointer; font-family: inherit; background: var(--shu); box-shadow: 0 6px 20px rgba(192, 71, 47, .35), 0 2px 4px rgba(23, 51, 42, .2); }
+.fab-sunrise:hover { background: #a33a25; }
+.fab-sunrise .fab-icon { color: var(--shu); }
+dialog.sunrise {
+  width: min(640px, calc(100% - 32px)); max-height: calc(100% - 32px); padding: 32px; border: 0; border-radius: 18px;
+  background: var(--bg); color: var(--ink); box-shadow: 0 24px 60px rgba(23, 51, 42, .3);
+}
+dialog.sunrise::backdrop { background: rgba(23, 51, 42, .45); }
+dialog.sunrise h2 { font-size: clamp(24px, 3vw, 30px); margin: 4px 0 8px; }
+dialog.sunrise .lead { color: var(--ink-2); margin: 0 0 20px; }
+.dialog-close { position: absolute; top: 14px; right: 14px; width: 36px; height: 36px; border: 0; border-radius: 50%; background: var(--pearl-2); color: var(--ink); cursor: pointer; display: grid; place-items: center; }
+.dialog-close:hover { background: var(--pearl-3); }
+.dialog-close svg { width: 18px; height: 18px; }
+.sr-partners { display: grid; gap: 10px; }
+.sr-partners > div { background: var(--white); border: 1px solid var(--line); border-radius: 12px; padding: 12px 16px; }
+.sr-partners b { display: block; font-size: 15px; }
+.sr-partners b + span { font-size: 13px; color: var(--ink-2); }
+.sr-flow { list-style: none; counter-reset: sr; display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin: 20px 0 0; padding: 0; }
+.sr-flow li { counter-increment: sr; background: var(--deep); color: #fff; border-radius: 10px; padding: 10px 12px; font-size: 13px; font-weight: 600; line-height: 1.4; }
+.sr-flow li::before { content: counter(sr, decimal-leading-zero); display: block; font-size: 11px; color: #f2b8a4; letter-spacing: .08em; }
+@media (max-width: 600px) {
+  dialog.sunrise { padding: 24px 20px; }
+  .sr-flow { grid-template-columns: 1fr 1fr; }
+}
+
+/* ---------- compact images (smaller photos inside sections, Japanese-site style) ---------- */
+.svc .thumb { aspect-ratio: 5 / 2; }
+.svc .thumb img { object-position: center 22%; }
+.tile .thumb { aspect-ratio: 16 / 4.5; }
+.cat-mini .thumb { aspect-ratio: 16 / 6; }
+.feature-split .thumb { aspect-ratio: 3 / 2; max-width: 340px; }
+.reason { grid-template-columns: minmax(0, 300px) 1fr; gap: 40px; }
+.reason:nth-child(even) { grid-template-columns: 1fr minmax(0, 300px); }
+.reason-img img { aspect-ratio: 3 / 2; }
+.reason-img::after { width: 36%; height: 36%; right: -10px; bottom: -10px; }
+.flow-split .side img { aspect-ratio: 16 / 9; }
+.ceo { grid-template-columns: minmax(0, 220px) 1fr; gap: 48px; }
+.ceo-photo::after { left: -10px; bottom: -10px; }
+.team { grid-template-columns: repeat(auto-fill, minmax(160px, 180px)); }
+.member .m-body { padding: 16px 18px 20px; }
+.member h3 { font-size: 18px; }
+@media (max-width: 900px) {
+  .reason, .reason:nth-child(even) { grid-template-columns: 1fr; }
+  .reason-img { max-width: 300px; }
+}
+@media (max-width: 860px) {
+  .ceo { grid-template-columns: 1fr; }
+  .ceo-photo { max-width: 200px; }
+}

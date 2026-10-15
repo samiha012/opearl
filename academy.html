@@ -13,6 +13,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Shippori+Mincho+B1:wght@600;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="assets/img/opearl-mark.png">
   <link rel="stylesheet" href="assets/css/styles.css">
 </head>
 
@@ -25,8 +26,7 @@
   </div>
   <header class="site">
     <div class="wrap">
-      <a class="logo" href="index.html"><span class="logo-mark" aria-hidden="true"></span>
-        <span class="logo-text"><b>OPearl</b><small><i>MIRAI GROUP</i><span class="tl"><span class="ja">みらいコンサルティンググループ</span><span class="en">Mirai Consulting Group</span></span></small></span></a>
+      <a class="logo" href="index.html"><span class="logo-text"><img class="logo-img" src="assets/img/opearl-logo.png" alt="OPearl" width="600" height="134"><small><i>MIRAI GROUP</i><span class="tl"><span class="ja">みらいコンサルティンググループ</span><span class="en">Mirai Consulting Group</span></span></small></span></a>
       <nav class="main" id="main-nav" aria-label="Main">
         <a href="about.html"><span class="ja">会社情報</span><span class="en">About Us</span></a>
         <div class="has-drop">
@@ -34,7 +34,7 @@
           <button class="drop-toggle" type="button" aria-expanded="false" aria-label="Services menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
           <div class="drop">
             <a href="academy.html"><b><span class="ja">OPearlアカデミー</span><span class="en">OPearl Academy</span></b><span><span class="ja">オンラインスクール（学習者の方へ）</span><span class="en">Online school for learners</span></span></a>
-            <a href="hr-solutions.html"><b><span class="ja">人材サービス</span><span class="en">HR Solutions</span></b><span><span class="ja">日本企業の皆さまへ</span><span class="en">For Japanese companies</span></span></a>
+            <div class="drop-item is-soon" aria-disabled="true"><b><span class="ja">人材サービス</span><span class="en">HR Solutions</span> <span class="soon-pill"><span class="ja">近日公開</span><span class="en">Coming soon</span></span></b><span><span class="ja">日本企業の皆さまへ</span><span class="en">For Japanese companies</span></span></div>
           </div>
         </div>
         <a href="news.html"><span class="ja">お知らせ</span><span class="en">News</span></a>
@@ -52,13 +52,7 @@
     <section class="page-hero">
       <div class="wrap">
         <div class="crumbs"><a href="index.html"><span class="ja">ホーム</span><span class="en">Home</span></a> / <span class="ja">OPearlアカデミー</span><span class="en">OPearl Academy</span></div>
-        <div class="eyebrow">OPearl Academy · Online school<span class="jp">オンラインスクール</span></div>
-        <h1><span class="ja">母語で学べる、<br>オンラインスクール。</span><span class="en">An online school that teaches in your language.</span></h1>
-        <p><span class="ja">アカデミック・キッズ・語学・就職準備。録画講座とライブ授業で、いつでもどこでも学べます。</span><span class="en">Academic, kids, language and job preparation, with recorded courses and live classes you can take anywhere.</span></p>
-        <div class="ctas">
-          <a class="btn btn-primary" href="#" data-platform=""><span class="ja">学習を始める</span><span class="en">Start learning</span> <span aria-hidden="true">↗</span></a>
-          <a class="btn btn-ghost" href="contact.html?type=school"><span class="ja">学習相談を予約</span><span class="en">Book a consultation</span></a>
-        </div>
+        <h1 class="hero-line"><span class="ja">録画講座とライブ授業で、いつでもどこでも学べるオンラインスクール。</span><span class="en">An online school with recorded courses and live classes, to learn anytime, anywhere.</span></h1>
         <div class="anchors"><a href="#academic"><span class="ja">アカデミック</span><span class="en">Academic</span></a><a href="#kids"><span class="ja">キッズ</span><span class="en">Kids</span></a><a href="#language"><span class="ja">語学</span><span class="en">Language</span></a><a href="#job-prep"><span class="ja">就職準備</span><span class="en">Job preparation</span></a><a href="#why"><span class="ja">選ばれる理由</span><span class="en">Why OPearl</span></a><a href="#how"><span class="ja">受講の流れ</span><span class="en">How it works</span></a></div>
       </div>
     </section>
@@ -228,7 +222,7 @@
       </div>
       <div class="foot-grid">
         <div>
-          <a class="logo" href="index.html"><span class="logo-mark" aria-hidden="true"></span><span class="logo-text"><b>OPearl</b></span></a>
+          <a class="logo" href="index.html"><img class="logo-img" src="assets/img/opearl-logo.png" alt="OPearl" width="600" height="134"></a>
           <p><span class="ja">母語で学べるオンラインスクールと、日本企業のための人材サービス。</span><span class="en">An online school that teaches in your own language, and HR solutions for Japanese companies.</span></p>
         </div>
         <div>
@@ -245,14 +239,13 @@
           <h4><span class="ja">サービス</span><span class="en">Services</span></h4>
           <ul>
             <li><a href="academy.html"><span class="ja">OPearlアカデミー</span><span class="en">OPearl Academy</span></a></li>
-            <li><a href="hr-solutions.html"><span class="ja">人材サービス</span><span class="en">HR Solutions</span></a></li>
+            <li><span class="foot-soon" aria-disabled="true"><span class="ja">人材サービス</span><span class="en">HR Solutions</span> <span class="soon-pill"><span class="ja">近日公開</span><span class="en">Coming soon</span></span></span></li>
             <li><a href="contact.html?type=teach"><span class="ja">講師募集</span><span class="en">Teach with us</span></a></li>
           </ul>
         </div>
         <div>
           <h4><span class="ja">所在地</span><span class="en">Office</span></h4>
-          <!-- TODO: head office address -->
-          <address><span class="ja">〒000-0000 東京都（本社住所を記載）</span><span class="en">Head office address, Tokyo (to be added)</span></address>
+          <address><span class="ja">〒104-0031 東京都中央区京橋2-2-1 京橋エドグラン19F</span><span class="en">Kyobashi Edogrand 19F, 2-2-1 Kyobashi, Chuo-ku, Tokyo</span></address>
           <p style="margin-top:8px"><a data-email href="#"></a></p>
         </div>
       </div>

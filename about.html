@@ -13,6 +13,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Shippori+Mincho+B1:wght@600;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="assets/img/opearl-mark.png">
   <link rel="stylesheet" href="assets/css/styles.css">
 </head>
 
@@ -25,8 +26,7 @@
   </div>
   <header class="site">
     <div class="wrap">
-      <a class="logo" href="index.html"><span class="logo-mark" aria-hidden="true"></span>
-        <span class="logo-text"><b>OPearl</b><small><i>MIRAI GROUP</i><span class="tl"><span class="ja">みらいコンサルティンググループ</span><span class="en">Mirai Consulting Group</span></span></small></span></a>
+      <a class="logo" href="index.html"><span class="logo-text"><img class="logo-img" src="assets/img/opearl-logo.png" alt="OPearl" width="600" height="134"><small><i>MIRAI GROUP</i><span class="tl"><span class="ja">みらいコンサルティンググループ</span><span class="en">Mirai Consulting Group</span></span></small></span></a>
       <nav class="main" id="main-nav" aria-label="Main">
         <a href="about.html" aria-current="page"><span class="ja">会社情報</span><span class="en">About Us</span></a>
         <div class="has-drop">
@@ -34,7 +34,7 @@
           <button class="drop-toggle" type="button" aria-expanded="false" aria-label="Services menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
           <div class="drop">
             <a href="academy.html"><b><span class="ja">OPearlアカデミー</span><span class="en">OPearl Academy</span></b><span><span class="ja">オンラインスクール（学習者の方へ）</span><span class="en">Online school for learners</span></span></a>
-            <a href="hr-solutions.html"><b><span class="ja">人材サービス</span><span class="en">HR Solutions</span></b><span><span class="ja">日本企業の皆さまへ</span><span class="en">For Japanese companies</span></span></a>
+            <div class="drop-item is-soon" aria-disabled="true"><b><span class="ja">人材サービス</span><span class="en">HR Solutions</span> <span class="soon-pill"><span class="ja">近日公開</span><span class="en">Coming soon</span></span></b><span><span class="ja">日本企業の皆さまへ</span><span class="en">For Japanese companies</span></span></div>
           </div>
         </div>
         <a href="news.html"><span class="ja">お知らせ</span><span class="en">News</span></a>
@@ -74,9 +74,11 @@
         <table class="profile">
           <tr><th><span class="ja">商号</span><span class="en">Company name</span></th><td><span class="ja">OPearl株式会社</span><span class="en">OPearl Co., Ltd.</span></td></tr>
           <tr><th><span class="ja">設立</span><span class="en">Established</span></th><td><span class="ja">2026年5月</span><span class="en">May 2026</span></td></tr>
-          <tr><th><span class="ja">代表者</span><span class="en">Representative</span></th><td class="tbd"><span class="ja">代表取締役CEO（氏名を記載）</span><span class="en">CEO (name to be added)</span></td></tr>
+          <tr><th><span class="ja">代表者</span><span class="en">Representative</span></th><td><span class="ja">代表取締役CEO　Fatemee IMAN</span><span class="en">Fatemee IMAN, Representative Director / CEO</span></td></tr>
           <tr><th><span class="ja">親会社</span><span class="en">Parent company</span></th><td><a href="https://www.miraic.jp/" target="_blank" rel="noopener"><span class="ja">みらいコンサルティンググループ</span><span class="en">Mirai Consulting Group</span></a></td></tr>
-          <tr><th><span class="ja">本社</span><span class="en">Head office</span></th><td class="tbd"><span class="ja">（本社住所を記載）</span><span class="en">(Head office address to be added)</span></td></tr>
+          <tr><th><span class="ja">本社</span><span class="en">Head office</span></th><td><span class="ja">〒104-0031 東京都中央区京橋2-2-1 京橋エドグラン19F</span><span class="en">Kyobashi Edogrand 19F, 2-2-1 Kyobashi, Chuo-ku, Tokyo</span></td></tr>
+          <tr><th><span class="ja">資本金</span><span class="en">Capital</span></th><td><span class="ja">1,500万円</span><span class="en">JPY 15 million</span></td></tr>
+          <tr><th><span class="ja">役員</span><span class="en">Management</span></th><td><span class="ja">代表取締役CEO　Fatemee IMAN<br>取締役　Kenichi KANAI</span><span class="en">Fatemee IMAN, Representative Director / CEO<br>Kenichi KANAI, Director</span></td></tr>
           <tr><th><span class="ja">スタジオ</span><span class="en">Studio</span></th><td class="tbd"><span class="ja">埼玉県戸田市（住所を記載）</span><span class="en">Toda, Saitama (address to be added)</span></td></tr>
           <tr><th><span class="ja">事業内容</span><span class="en">Business</span></th><td><span class="ja">教育（オンラインスクール「OPearlアカデミー」）、人材サービス</span><span class="en">Education (OPearl Academy online school), HR solutions</span></td></tr>
         </table>
@@ -112,21 +114,21 @@
       <div class="wrap has-k" data-k="人">
         <div class="eyebrow">Team<span class="jp">メンバー紹介</span></div>
         <h2 class="title"><span class="ja">メンバー紹介</span><span class="en">Our team</span></h2>
-        <!-- Add more .member cards to this grid as the team grows. Replace placeholder photos. -->
+        <!-- Add more .member cards to this grid as the team grows. -->
         <div class="team" style="margin-top:32px">
           <article class="card member">
-            <img src="assets/img/placeholder-person.svg" alt="" width="400" height="400">
+            <img src="assets/img/team-fatemee-iman.jpg" alt="Fatemee IMAN" width="600" height="600" loading="lazy">
             <div class="m-body">
-              <div class="role"><span class="ja">代表取締役CEO</span><span class="en">CEO</span></div>
-              <h3><span class="ja">氏名（記載予定）</span><span class="en">Name to be added</span></h3>
+              <div class="role"><span class="ja">代表取締役CEO</span><span class="en">Representative Director / CEO</span></div>
+              <h3><span class="ja">Fatemee IMAN</span><span class="en">Fatemee IMAN</span></h3>
               <p><span class="ja">プロフィールを記載予定です（2〜3行）。</span><span class="en">Profile to be added (2–3 lines).</span></p>
             </div>
           </article>
           <article class="card member">
-            <img src="assets/img/placeholder-person.svg" alt="" width="400" height="400">
+            <img src="assets/img/team-kenichi-kanai.jpg" alt="Kenichi KANAI" width="600" height="600" loading="lazy">
             <div class="m-body">
               <div class="role"><span class="ja">取締役</span><span class="en">Director</span></div>
-              <h3><span class="ja">金井</span><span class="en">Mr. Kanai</span></h3>
+              <h3><span class="ja">Kenichi KANAI</span><span class="en">Kenichi KANAI</span></h3>
               <p><span class="ja">プロフィールを記載予定です（2〜3行）。</span><span class="en">Profile to be added (2–3 lines).</span></p>
             </div>
           </article>
@@ -200,7 +202,7 @@
       </div>
       <div class="foot-grid">
         <div>
-          <a class="logo" href="index.html"><span class="logo-mark" aria-hidden="true"></span><span class="logo-text"><b>OPearl</b></span></a>
+          <a class="logo" href="index.html"><img class="logo-img" src="assets/img/opearl-logo.png" alt="OPearl" width="600" height="134"></a>
           <p><span class="ja">母語で学べるオンラインスクールと、日本企業のための人材サービス。</span><span class="en">An online school that teaches in your own language, and HR solutions for Japanese companies.</span></p>
         </div>
         <div>
@@ -217,14 +219,13 @@
           <h4><span class="ja">サービス</span><span class="en">Services</span></h4>
           <ul>
             <li><a href="academy.html"><span class="ja">OPearlアカデミー</span><span class="en">OPearl Academy</span></a></li>
-            <li><a href="hr-solutions.html"><span class="ja">人材サービス</span><span class="en">HR Solutions</span></a></li>
+            <li><span class="foot-soon" aria-disabled="true"><span class="ja">人材サービス</span><span class="en">HR Solutions</span> <span class="soon-pill"><span class="ja">近日公開</span><span class="en">Coming soon</span></span></span></li>
             <li><a href="contact.html?type=teach"><span class="ja">講師募集</span><span class="en">Teach with us</span></a></li>
           </ul>
         </div>
         <div>
           <h4><span class="ja">所在地</span><span class="en">Office</span></h4>
-          <!-- TODO: head office address -->
-          <address><span class="ja">〒000-0000 東京都（本社住所を記載）</span><span class="en">Head office address, Tokyo (to be added)</span></address>
+          <address><span class="ja">〒104-0031 東京都中央区京橋2-2-1 京橋エドグラン19F</span><span class="en">Kyobashi Edogrand 19F, 2-2-1 Kyobashi, Chuo-ku, Tokyo</span></address>
           <p style="margin-top:8px"><a data-email href="#"></a></p>
         </div>
       </div>
@@ -235,7 +236,25 @@
     </div>
   </footer>
 
-  <a class="fab" href="academy.html"><span class="fab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 8l10-4 10 4-10 4z"/><path d="M6 10v5c0 1.7 2.7 3 6 3s6-1.3 6-3v-5"/><path d="M22 8v6"/></svg></span>OPearl Academy</a>
+  <button class="fab fab-sunrise" type="button" data-open-dialog="sunrise" aria-haspopup="dialog"><span class="fab-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 18a5 5 0 0 0-10 0"/><path d="M12 2v7M4.2 10.2l1.4 1.4M1 18h2M21 18h2M18.4 11.6l1.4-1.4M23 22H1M8 6l4-4 4 4"/></svg></span><span class="ja">サンライズ・プロジェクト</span><span class="en">The Sunrise Project</span></button>
+
+  <dialog class="sunrise" id="sunrise" aria-labelledby="sunrise-title">
+    <button class="dialog-close" type="button" data-close-dialog aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    <div class="eyebrow">Joint initiative<span class="jp">共同プロジェクト</span></div>
+    <h2 id="sunrise-title"><span class="ja">サンライズ・プロジェクト</span><span class="en">The Sunrise Project</span></h2>
+    <p class="lead"><span class="ja">十分な準備を整えた優秀な人材を、日本へ。みらいコンサルティンググループ、星槎大学、OPearlの3者による共同プロジェクトです。</span><span class="en">Delivering skilled, well-prepared talent to Japan: a joint project of Mirai Consulting Group, Seisa University and OPearl.</span></p>
+    <div class="sr-partners">
+      <div><b><span class="ja">みらいコンサルティンググループ</span><span class="en">Mirai Consulting Group</span></b><span><span class="ja">日本企業のネットワークと、人事・労務の専門性</span><span class="en">Japanese employer network and HR and labour expertise</span></span></div>
+      <div><b><span class="ja">星槎大学</span><span class="en">Seisa University</span></b><span><span class="ja">教育、日本語教育、認定された学位</span><span class="en">Education, Japanese language and recognised degrees</span></span></div>
+      <div><b>OPearl</b><span><span class="ja">アジアの人材の採用・研修・マッチング</span><span class="en">Recruitment, training and matching of talent from Asia</span></span></div>
+    </div>
+    <ol class="sr-flow">
+      <li><span class="ja">アジアの人材</span><span class="en">Talent in Asia</span></li>
+      <li><span class="ja">学びと研修</span><span class="en">Study and training</span></li>
+      <li><span class="ja">日本での就職</span><span class="en">Placement in Japan</span></li>
+      <li><span class="ja">長く活躍できるキャリア</span><span class="en">Long-term careers</span></li>
+    </ol>
+  </dialog>
 
   <script src="assets/js/main.js"></script>
 </body>
