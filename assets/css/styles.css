@@ -569,6 +569,7 @@ footer.site { background: var(--pearl-2); border-top: 1px solid var(--line); pad
 
 /* logo lockup: OPearl / Powered by Mirai Consulting Group */
 .logo-text small { display: flex; align-items: center; gap: 5px; }
+.logo-text small .mirai-mk { display: block; flex: none; width: auto; height: 14px; }
 
 /* ---------- Mirai group section ---------- */
 .group-sec { background: var(--white); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
