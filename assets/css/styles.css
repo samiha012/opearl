@@ -544,19 +544,6 @@ footer.site { background: var(--pearl-2); border-top: 1px solid var(--line); pad
 .eyebrow .jp { font-family: "Shippori Mincho B1", serif; letter-spacing: .2em; color: var(--ink-2); font-weight: 800; text-transform: none; font-size: 13px; }
 .band .eyebrow .jp { color: #cfe5d8; }
 
-/* ---------- Mirai group bar (top of every page) ---------- */
-.group-bar { background: var(--deep); color: #e7f1ea; font-size: 12.5px; }
-.group-bar .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 36px; }
-.group-bar a { color: #fff; text-decoration: none; font-weight: 600; white-space: nowrap; }
-.group-bar a:hover { text-decoration: underline; }
-.group-bar .gb-left { display: flex; align-items: center; gap: 10px; min-width: 0; }
-.group-bar .gb-left span.msg { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.mirai-mark {
-  font-family: "Shippori Mincho B1", serif; font-weight: 800; letter-spacing: .14em; font-size: 12px;
-  border: 1px solid rgba(255,255,255,.45); border-radius: 3px; padding: 1px 7px; white-space: nowrap; color: #fff;
-}
-@media (max-width: 700px) { .group-bar .msg { display: none; } }
-
 /* logo lockup: OPearl / Powered by Mirai Consulting Group */
 .logo-text small { display: flex; align-items: center; gap: 5px; }
 .logo-text small .mirai-mk { display: block; flex: none; width: auto; height: 14px; }
