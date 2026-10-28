@@ -3,7 +3,7 @@
   // TODO: replace with the real EdTech platform URL and inquiry email before launch.
   var CONFIG = {
     platformUrl: 'https://academy.example.com/',
-    email: 'info@example.com'
+    email: 'info@opearl.jp'
   };
 
   var root = document.documentElement;
