@@ -402,7 +402,7 @@ ul.ticks li::before {
 .member img { width: 100%; height: auto; aspect-ratio: 1; object-fit: cover; background: var(--pearl-2); }
 .member .m-body { padding: 22px 24px 26px; }
 .member .role { font-size: 13px; font-weight: 700; color: var(--accent-strong); }
-.member h3 { margin: 2px 0 8px; font-size: 21px; }
+.member h3 { margin: 2px 0 8px; font-size: 21px; word-break: keep-all; }
 .member p { font-size: 14px; }
 
 .vision { text-align: center; max-width: 860px; margin: 0 auto; }
@@ -486,10 +486,10 @@ footer.site { background: var(--pearl-2); border-top: 1px solid var(--line); pad
 
 
 /* =====================================================================
-   Japanese touches: seigaiha waves, vertical text, hanko seal, kanji marks
+   Japanese touches: seigaiha waves, vertical text, kanji marks
    ===================================================================== */
 :root {
-  --shu: #c0472f;              /* 朱 vermilion, used sparingly for seals */
+  --shu: #c0472f;              /* 朱 vermilion */
   --seigaiha: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='20'%3E%3Cg transform='translate(0 10)'%3E%3Ccircle r='20' fill='%23f7f3ea'/%3E%3Ccircle r='16.5' fill='none' stroke='%232e8b57' stroke-opacity='.22' stroke-width='1.1'/%3E%3Ccircle r='12.5' fill='none' stroke='%232e8b57' stroke-opacity='.22' stroke-width='1.1'/%3E%3Ccircle r='8.5' fill='none' stroke='%232e8b57' stroke-opacity='.22' stroke-width='1.1'/%3E%3Ccircle r='4.5' fill='none' stroke='%232e8b57' stroke-opacity='.22' stroke-width='1.1'/%3E%3C/g%3E%3Cg transform='translate(40 10)'%3E%3Ccircle r='20' fill='%23f7f3ea'/%3E%3Ccircle r='16.5' fill='none' stroke='%232e8b57' stroke-opacity='.22' stroke-width='1.1'/%3E%3Ccircle r='12.5' fill='none' stroke='%232e8b57' stroke-opacity='.22' stroke-width='1.1'/%3E%3Ccircle r='8.5' fill='none' stroke='%232e8b57' stroke-opacity='.22' stroke-width='1.1'/%3E%3Ccircle r='4.5' fill='none' stroke='%232e8b57' stroke-opacity='.22' stroke-width='1.1'/%3E%3C/g%3E%3Cg transform='translate(20 20)'%3E%3Ccircle r='20' fill='%23f7f3ea'/%3E%3Ccircle r='16.5' fill='none' stroke='%232e8b57' stroke-opacity='.22' stroke-width='1.1'/%3E%3Ccircle r='12.5' fill='none' stroke='%232e8b57' stroke-opacity='.22' stroke-width='1.1'/%3E%3Ccircle r='8.5' fill='none' stroke='%232e8b57' stroke-opacity='.22' stroke-width='1.1'/%3E%3Ccircle r='4.5' fill='none' stroke='%232e8b57' stroke-opacity='.22' stroke-width='1.1'/%3E%3C/g%3E%3Cg transform='translate(0 30)'%3E%3Ccircle r='20' fill='%23f7f3ea'/%3E%3Ccircle r='16.5' fill='none' stroke='%232e8b57' stroke-opacity='.22' stroke-width='1.1'/%3E%3Ccircle r='12.5' fill='none' stroke='%232e8b57' stroke-opacity='.22' stroke-width='1.1'/%3E%3Ccircle r='8.5' fill='none' stroke='%232e8b57' stroke-opacity='.22' stroke-width='1.1'/%3E%3Ccircle r='4.5' fill='none' stroke='%232e8b57' stroke-opacity='.22' stroke-width='1.1'/%3E%3C/g%3E%3Cg transform='translate(40 30)'%3E%3Ccircle r='20' fill='%23f7f3ea'/%3E%3Ccircle r='16.5' fill='none' stroke='%232e8b57' stroke-opacity='.22' stroke-width='1.1'/%3E%3Ccircle r='12.5' fill='none' stroke='%232e8b57' stroke-opacity='.22' stroke-width='1.1'/%3E%3Ccircle r='8.5' fill='none' stroke='%232e8b57' stroke-opacity='.22' stroke-width='1.1'/%3E%3Ccircle r='4.5' fill='none' stroke='%232e8b57' stroke-opacity='.22' stroke-width='1.1'/%3E%3C/g%3E%3C/svg%3E");
   --seigaiha-dark: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='20'%3E%3Cg transform='translate(0 10)'%3E%3Ccircle r='20' fill='%231f5c3f'/%3E%3Ccircle r='16.5' fill='none' stroke='%23eadfc4' stroke-opacity='.16' stroke-width='1.1'/%3E%3Ccircle r='12.5' fill='none' stroke='%23eadfc4' stroke-opacity='.16' stroke-width='1.1'/%3E%3Ccircle r='8.5' fill='none' stroke='%23eadfc4' stroke-opacity='.16' stroke-width='1.1'/%3E%3Ccircle r='4.5' fill='none' stroke='%23eadfc4' stroke-opacity='.16' stroke-width='1.1'/%3E%3C/g%3E%3Cg transform='translate(40 10)'%3E%3Ccircle r='20' fill='%231f5c3f'/%3E%3Ccircle r='16.5' fill='none' stroke='%23eadfc4' stroke-opacity='.16' stroke-width='1.1'/%3E%3Ccircle r='12.5' fill='none' stroke='%23eadfc4' stroke-opacity='.16' stroke-width='1.1'/%3E%3Ccircle r='8.5' fill='none' stroke='%23eadfc4' stroke-opacity='.16' stroke-width='1.1'/%3E%3Ccircle r='4.5' fill='none' stroke='%23eadfc4' stroke-opacity='.16' stroke-width='1.1'/%3E%3C/g%3E%3Cg transform='translate(20 20)'%3E%3Ccircle r='20' fill='%231f5c3f'/%3E%3Ccircle r='16.5' fill='none' stroke='%23eadfc4' stroke-opacity='.16' stroke-width='1.1'/%3E%3Ccircle r='12.5' fill='none' stroke='%23eadfc4' stroke-opacity='.16' stroke-width='1.1'/%3E%3Ccircle r='8.5' fill='none' stroke='%23eadfc4' stroke-opacity='.16' stroke-width='1.1'/%3E%3Ccircle r='4.5' fill='none' stroke='%23eadfc4' stroke-opacity='.16' stroke-width='1.1'/%3E%3C/g%3E%3Cg transform='translate(0 30)'%3E%3Ccircle r='20' fill='%231f5c3f'/%3E%3Ccircle r='16.5' fill='none' stroke='%23eadfc4' stroke-opacity='.16' stroke-width='1.1'/%3E%3Ccircle r='12.5' fill='none' stroke='%23eadfc4' stroke-opacity='.16' stroke-width='1.1'/%3E%3Ccircle r='8.5' fill='none' stroke='%23eadfc4' stroke-opacity='.16' stroke-width='1.1'/%3E%3Ccircle r='4.5' fill='none' stroke='%23eadfc4' stroke-opacity='.16' stroke-width='1.1'/%3E%3C/g%3E%3Cg transform='translate(40 30)'%3E%3Ccircle r='20' fill='%231f5c3f'/%3E%3Ccircle r='16.5' fill='none' stroke='%23eadfc4' stroke-opacity='.16' stroke-width='1.1'/%3E%3Ccircle r='12.5' fill='none' stroke='%23eadfc4' stroke-opacity='.16' stroke-width='1.1'/%3E%3Ccircle r='8.5' fill='none' stroke='%23eadfc4' stroke-opacity='.16' stroke-width='1.1'/%3E%3Ccircle r='4.5' fill='none' stroke='%23eadfc4' stroke-opacity='.16' stroke-width='1.1'/%3E%3C/g%3E%3C/svg%3E");
 }
@@ -525,16 +525,6 @@ footer.site { background: var(--pearl-2); border-top: 1px solid var(--line); pad
 .hero .wrap { padding-right: 72px; }
 @media (max-width: 1100px) { .tategaki { display: none; } .hero .wrap { padding-right: 24px; } }
 @media (max-width: 600px) { .hero .wrap { padding-right: 16px; } }
-
-/* hanko seal */
-.hanko {
-  display: inline-grid; place-items: center; width: 44px; height: 44px; flex: none;
-  border: 2.5px solid var(--shu); border-radius: 6px; color: var(--shu);
-  font-family: "Shippori Mincho B1", serif; font-weight: 800; font-size: 13px; line-height: 1.05;
-  writing-mode: vertical-rl; letter-spacing: .05em; transform: rotate(-4deg);
-  background: rgba(192, 71, 47, .04);
-}
-.hanko.lg { width: 64px; height: 64px; font-size: 19px; border-width: 3px; }
 
 /* big faint kanji behind a section heading */
 .has-k { position: relative; }
@@ -667,7 +657,6 @@ html[data-lang="en"] .slide-title { font-family: "Inter", sans-serif; font-weigh
 .car-btn svg { width: 18px; height: 18px; }
 .car-count { font-family: "Inter", sans-serif; font-size: 13px; font-weight: 600; letter-spacing: .1em; opacity: .9; min-width: 44px; }
 .hero-carousel .tategaki { color: #fff; opacity: .92; right: 28px; top: 56px; z-index: 2; text-shadow: 0 1px 10px rgba(0,0,0,.3); }
-.hero-carousel .hanko { background: rgba(255,255,255,.9); }
 .hero-carousel .wave-edge { position: absolute; left: 0; right: 0; bottom: 0; height: 24px; z-index: 2; background: var(--seigaiha) repeat-x; background-size: 48px 24px; }
 @media (max-width: 760px) {
   .hero-carousel { height: 640px; }
