@@ -555,6 +555,8 @@ footer.site { background: var(--pearl-2); border-top: 1px solid var(--line); pad
   font-family: "Shippori Mincho B1", serif; font-weight: 800; letter-spacing: .14em; font-size: 12px;
   border: 1px solid rgba(255,255,255,.45); border-radius: 3px; padding: 1px 7px; white-space: nowrap; color: #fff;
 }
+.mirai-mark { display: inline-flex; align-items: center; gap: 6px; }
+.mirai-mark img { display: block; width: auto; height: 14px; }
 @media (max-width: 700px) { .group-bar .msg { display: none; } }
 
 /* logo lockup: OPearl / Powered by Mirai Consulting Group */
