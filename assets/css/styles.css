@@ -797,7 +797,7 @@ section[id], article[id] { scroll-margin-top: 80px; }
 .btn.is-disabled, .btn.is-disabled:hover { cursor: default; border-color: var(--line); color: var(--muted); background: var(--white); }
 .foot-soon { color: var(--muted); cursor: default; }
 
-/* ---------- Sunrise Project (about page) ---------- */
+/* ---------- Sunrise Project (about page): hidden for now, uncomment with the HTML ----------
 .fab-sunrise { border: 0; cursor: pointer; font-family: inherit; background: var(--shu); box-shadow: 0 6px 20px rgba(192, 71, 47, .35), 0 2px 4px rgba(23, 51, 42, .2); }
 .fab-sunrise:hover { background: #a33a25; }
 .fab-sunrise .fab-icon { color: var(--shu); }
@@ -822,6 +822,7 @@ dialog.sunrise .lead { color: var(--ink-2); margin: 0 0 20px; }
   dialog.sunrise { padding: 24px 20px; }
   .sr-flow { grid-template-columns: 1fr 1fr; }
 }
+*/
 
 /* ---------- compact images (smaller photos inside sections, Japanese-site style) ---------- */
 .svc .thumb { aspect-ratio: 5 / 2; }

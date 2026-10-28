@@ -137,7 +137,7 @@
     if (userPaused) car.classList.add('paused'); else start();
   }
 
-  /* ---- dialogs (e.g. Sunrise Project on the about page) ---- */
+  /* ---- dialogs (Sunrise Project on the about page): hidden for now, uncomment with the HTML ----
   document.querySelectorAll('[data-open-dialog]').forEach(function (btn) {
     var dlg = document.getElementById(btn.getAttribute('data-open-dialog'));
     if (!dlg || typeof dlg.showModal !== 'function') return;
@@ -148,6 +148,7 @@
       if ((e.target === dlg && outside) || e.target.closest('[data-close-dialog]')) dlg.close();
     });
   });
+  */
 
   /* ---- contact form ---- */
   var form = document.querySelector('form.inquiry');
