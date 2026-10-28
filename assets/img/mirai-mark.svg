@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="400 335 465 410" role="img" aria-label="Mirai Consulting Group">
+  <defs>
+    <linearGradient id="mg" x1="430" y1="700" x2="850" y2="380" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#0a55d6"/>
+      <stop offset="1" stop-color="#12c9b2"/>
+    </linearGradient>
+  </defs>
+  <path fill="url(#mg)" d="M738 346c6 3 4 10-3 13L462 641C575 551 710 470 842 449c10-1 15 4 13 14-12 128-150 237-298 271-9 2-13-6-6-12 50-40 104-86 130-142C590 592 520 617 446 668c-10 6-19-1-14-11l77-147c-30 13-58 36-84 53-9 6-17 0-12-9 52-114 180-196 325-208z"/>
+</svg>
