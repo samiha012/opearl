@@ -391,6 +391,10 @@ ul.ticks li::before {
 .profile tr:last-child th, .profile tr:last-child td { border-bottom: 0; }
 .profile th { width: 30%; background: var(--pearl); font-weight: 600; color: var(--ink-2); }
 .profile .tbd { color: var(--muted); }
+.profile .biz-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
+.profile .biz-list b { display: block; color: var(--ink); }
+.profile .biz-list .soon-pill { margin-left: 6px; }
+.profile-close { margin: 28px 0 0; max-width: 720px; font-family: "Shippori Mincho B1", serif; font-weight: 700; font-size: 18px; line-height: 1.7; color: var(--deep); }
 @media (max-width: 600px) { .profile th, .profile td { display: block; width: 100%; padding: 10px 16px; } .profile th { border-bottom: 0; padding-bottom: 2px; background: transparent; font-size: 13px; color: var(--muted); } }
 
 .team { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 24px; max-width: 760px; }
@@ -565,14 +569,9 @@ footer.site { background: var(--pearl-2); border-top: 1px solid var(--line); pad
 .mirai-mark img { width: 14px; height: auto; filter: brightness(0) invert(1); }
 @media (max-width: 700px) { .group-bar .msg { display: none; } }
 
-/* logo lockup: OPearl | MIRAI GROUP */
-.logo-text small { display: flex; align-items: center; gap: 6px; }
-.logo-text small i {
-  font-style: normal; font-family: "Shippori Mincho B1", serif; font-weight: 800; letter-spacing: .08em;
-  color: var(--deep); border: 1px solid #bfdccb; border-radius: 3px; padding: 0 5px; font-size: 10px; line-height: 1.5; background: var(--accent-soft);
-  display: inline-flex; align-items: center; gap: 4px;
-}
-.logo-text small i img { width: 11px; height: auto; }
+/* logo lockup: OPearl / Powered by Mirai Consulting Group */
+.logo-text small { display: flex; align-items: center; gap: 5px; }
+.logo-text small img { width: 12px; height: auto; flex: none; }
 
 /* ---------- Mirai group section ---------- */
 .group-sec { background: var(--white); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
@@ -620,11 +619,9 @@ footer.site { position: relative; }
 footer.site::before { content: ""; position: absolute; left: 0; right: 0; top: -24px; height: 24px; background: var(--seigaiha) repeat-x; background-size: 48px 24px; }
 
 /* phone fixes for the group lockup and bilingual eyebrows */
-.logo-text small .tl { white-space: nowrap; }
 .eyebrow { flex-wrap: wrap; row-gap: 2px; }
 .eyebrow .jp { white-space: nowrap; }
 @media (max-width: 600px) {
-  .logo-text small .tl { display: none; }
   .mirai-logo { padding: 12px 14px; gap: 10px; max-width: 100%; }
   .mirai-logo b { font-size: 15px; }
   .mirai-logo small { font-size: 9.5px; letter-spacing: .1em; }
@@ -711,6 +708,7 @@ html[data-lang="en"] .slide-title { font-family: "Inter", sans-serif; font-weigh
 .reason:nth-child(even) .reason-img { order: 2; }
 .reason-img { position: relative; }
 .reason-img img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 18px; box-shadow: var(--shadow); }
+.reason-img .img-tag { position: absolute; left: 12px; bottom: 12px; padding: 4px 10px; border-radius: 999px; background: rgba(255,255,255,.92); color: var(--deep); font-size: 12px; font-weight: 600; box-shadow: 0 2px 8px rgba(23,51,42,.15); }
 .reason-img::after { content: ""; position: absolute; right: -14px; bottom: -14px; width: 42%; height: 42%; z-index: -1; border-radius: 18px; background: var(--seigaiha) repeat; background-size: 36px 18px; }
 .reason:nth-child(even) .reason-img::after { right: auto; left: -14px; }
 .reason-num { display: flex; align-items: baseline; gap: 12px; margin-bottom: 8px; color: var(--accent-strong); }
@@ -851,3 +849,4 @@ dialog.sunrise .lead { color: var(--ink-2); margin: 0 0 20px; }
 }
 .org .kid.is-soon b { color: var(--muted); }
 .org .kid.is-soon .soon-pill { margin-left: 0; }
+.office-photo { display: block; width: 100%; max-width: 420px; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 12px; margin: 12px 0; border: 1px solid var(--line); }
