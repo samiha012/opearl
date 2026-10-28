@@ -564,25 +564,20 @@ footer.site { background: var(--pearl-2); border-top: 1px solid var(--line); pad
 .mirai-mark {
   font-family: "Shippori Mincho B1", serif; font-weight: 800; letter-spacing: .14em; font-size: 12px;
   border: 1px solid rgba(255,255,255,.45); border-radius: 3px; padding: 1px 7px; white-space: nowrap; color: #fff;
-  display: inline-flex; align-items: center; gap: 5px;
 }
-.mirai-mark img { width: 14px; height: auto; filter: brightness(0) invert(1); }
 @media (max-width: 700px) { .group-bar .msg { display: none; } }
 
 /* logo lockup: OPearl / Powered by Mirai Consulting Group */
 .logo-text small { display: flex; align-items: center; gap: 5px; }
-.logo-text small img { width: 12px; height: auto; flex: none; }
 
 /* ---------- Mirai group section ---------- */
 .group-sec { background: var(--white); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
 .group-grid { display: grid; grid-template-columns: 1.1fr 1fr; gap: 56px; align-items: center; }
 @media (max-width: 900px) { .group-grid { grid-template-columns: 1fr; gap: 36px; } }
 .mirai-logo {
-  display: inline-flex; align-items: center; gap: 14px; padding: 14px 20px; border: 1px solid var(--line); border-radius: 12px; background: var(--pearl); margin-bottom: 20px;
+  display: block; width: 180px; border: 1px solid var(--line); border-radius: 12px; background: #fff; overflow: hidden; margin-bottom: 20px;
 }
-.mirai-logo .mk { width: 44px; height: auto; flex: none; }
-.mirai-logo b { display: block; font-family: "Shippori Mincho B1", serif; font-weight: 800; font-size: 19px; letter-spacing: .06em; line-height: 1.3; }
-.mirai-logo small { display: block; font-size: 11px; letter-spacing: .18em; color: var(--muted); font-weight: 700; }
+.mirai-logo img { display: block; width: 100%; height: auto; }
 .group-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; border: 1px solid var(--line); border-radius: var(--radius); background: var(--pearl); margin: 28px 0; }
 .group-stats div { padding: 18px 16px; border-left: 1px solid var(--line); }
 .group-stats div:first-child { border-left: 0; }
@@ -597,6 +592,9 @@ footer.site { background: var(--pearl-2); border-top: 1px solid var(--line); pad
 }
 .org .org-logo { display: grid; place-items: center; width: 52px; height: 52px; margin: 0 auto 10px; border-radius: 50%; background: var(--white); border: 1px solid var(--line); }
 .org .org-logo img { width: 34px; height: auto; }
+.org .node-parent { background: var(--white); color: var(--ink); border: 2px solid var(--accent); padding: 16px 28px 8px; }
+.org .node-parent small { color: var(--accent-strong); opacity: 1; }
+.org .node-parent img { display: block; width: 150px; height: auto; margin: 0 auto; }
 .org .node-top small { display: block; font-size: 11px; letter-spacing: .18em; opacity: .8; font-weight: 700; }
 .org .node-top b { font-family: "Shippori Mincho B1", serif; font-size: 19px; letter-spacing: .04em; }
 .org .stem { width: 2px; height: 28px; background: #bfdccb; }
@@ -614,7 +612,7 @@ footer.site { background: var(--pearl-2); border-top: 1px solid var(--line); pad
 /* footer group block */
 .foot-group { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; padding: 22px 24px; margin-bottom: 40px; background: var(--white); border: 1px solid var(--line); border-radius: var(--radius); }
 .foot-group p { margin: 0; flex: 1; min-width: 220px; line-height: 1.7; }
-.foot-group .mirai-logo { margin: 0; background: var(--pearl); }
+.foot-group .mirai-logo { margin: 0; width: 140px; flex: none; }
 footer.site { position: relative; }
 footer.site::before { content: ""; position: absolute; left: 0; right: 0; top: -24px; height: 24px; background: var(--seigaiha) repeat-x; background-size: 48px 24px; }
 
@@ -622,10 +620,7 @@ footer.site::before { content: ""; position: absolute; left: 0; right: 0; top: -
 .eyebrow { flex-wrap: wrap; row-gap: 2px; }
 .eyebrow .jp { white-space: nowrap; }
 @media (max-width: 600px) {
-  .mirai-logo { padding: 12px 14px; gap: 10px; max-width: 100%; }
-  .mirai-logo b { font-size: 15px; }
-  .mirai-logo small { font-size: 9.5px; letter-spacing: .1em; }
-  .mirai-logo .mk { width: 36px; }
+  .mirai-logo { width: 150px; }
 }
 @media (max-width: 600px) {
   .org .node-top { min-width: 0; width: 100%; padding: 16px; }
