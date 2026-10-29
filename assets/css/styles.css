@@ -570,9 +570,8 @@ footer.site { background: var(--pearl-2); border-top: 1px solid var(--line); pad
 }
 .org .org-logo { display: grid; place-items: center; width: 52px; height: 52px; margin: 0 auto 10px; border-radius: 50%; background: var(--white); border: 1px solid var(--line); }
 .org .org-logo img { width: 34px; height: auto; }
-.org .node-parent { background: var(--white); color: var(--ink); border: 2px solid var(--accent); padding: 16px 28px 8px; }
+.org .node-parent { background: var(--white); color: var(--ink); border: 2px solid var(--accent); }
 .org .node-parent small { color: var(--accent-strong); opacity: 1; }
-.org .node-parent img { display: block; width: 150px; height: auto; margin: 0 auto; }
 .org .node-top small { display: block; font-size: 11px; letter-spacing: .18em; opacity: .8; font-weight: 700; }
 .org .node-top b { font-family: "Shippori Mincho B1", serif; font-size: 19px; letter-spacing: .04em; }
 .org .stem { width: 2px; height: 28px; background: #bfdccb; }
