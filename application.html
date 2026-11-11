@@ -577,7 +577,8 @@
 
 <script>
   // ====== CONFIG: paste your Apps Script Web App URL (ends with /exec) ======
-  const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwdWualP7xJ6XmP9Oc_kuJ-9rrHvVFuqtyK7DiAbGC2qydOODTApz2_mlSH52EwLcmV/exec';
+  // Backend source and setup steps: apps-script/README.md
+  const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyoLq1vfnZ3zzRlAZ_kK3TfbL9vzmM2pkufuhwJkfLA1DtDBkyfj0uGdEOQG5m8j-dxkA/exec';
   // ==========================================================================
 
   // ?lang=ja or ?lang=en in the page URL picks the language; default is Bangla
@@ -896,6 +897,11 @@
     if (file) {
       if (file.size > MAX_CV) return showError('CV_SIZE');
       data.cv = { name: file.name, mimeType: file.type, base64: await fileToBase64(file) };
+    }
+
+    if (!/^https:\/\/script\.google\.com\/macros\/s\/.+\/exec$/.test(SCRIPT_URL)) {
+      console.error('application.html: SCRIPT_URL is not set. See apps-script/README.md.');
+      return showError('SERVER');
     }
 
     clearError();
