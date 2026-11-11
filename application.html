@@ -12,7 +12,7 @@
   <meta property="og:image" content="https://opearl.jp/assets/img/opearl-logo.png">
   <meta property="og:type" content="website">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Hind+Siliguri:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Hind+Siliguri:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;700&family=BBH+Bogle&display=swap" rel="stylesheet">
   <style>
     :root {
       --brand: #2e8b57; --brand-600: #237347; --brand-400: #4fbf83;
@@ -52,11 +52,27 @@
     }
     .nav-inner { max-width: 1040px; margin: 0 auto; padding: 10px 16px;
                  display: flex; align-items: center; justify-content: space-between; gap: 12px; }
-    .logo img { height: 34px; width: auto; display: block; }
+    .brands { display: flex; align-items: center; gap: 16px; min-width: 0; }
+    .logo img { height: 36px; width: auto; display: block; }
+    .brand-sep { width: 1px; height: 36px; background: rgba(15, 26, 20, .18); flex: none; }
+    .partner { height: 36px; display: flex; flex-direction: column; align-items: center;
+               justify-content: space-between; flex: none; }
+    .partner img { height: 25px; width: auto; display: block; }
+    .partner span { font-family: 'BBH Bogle', 'Plus Jakarta Sans', sans-serif; font-weight: 400;
+                    font-size: 12px; line-height: 9px; text-transform: uppercase;
+                    color: #2b2f36; }
+    @media (max-width: 480px) {
+      .nav-inner { padding: 10px 12px; gap: 8px; }
+      .brands { gap: 9px; }
+      .logo img, .brand-sep, .partner { height: 24px; }
+      .partner img { height: 17px; }
+      .partner span { font-size: 9px; line-height: 7px; }
+      .seg button { padding: 7px 8px; font-size: .76rem; }
+    }
     .seg { display: inline-flex; padding: 4px; gap: 2px; border-radius: 999px; background: #eef2ef; }
     .seg button {
       border: 0; background: transparent; color: #33423a; cursor: pointer;
-      font: 600 .82rem/1 inherit; font-family: inherit; padding: 8px 12px; border-radius: 999px;
+      font: 600 .82rem/1 inherit; font-family: inherit; padding: 8px 12px; border-radius: 999px; white-space: nowrap;
       transition: background .2s, color .2s, box-shadow .2s;
     }
     .seg button[aria-pressed="true"] { background: #fff; color: #1d6b42; box-shadow: 0 1px 3px rgba(0,0,0,.12); }
@@ -242,9 +258,16 @@
 
 <header class="nav">
   <div class="nav-inner">
-    <a class="logo" href="https://opearl.jp/">
-      <img src="https://opearl.jp/assets/img/opearl-logo.png" alt="OPearl">
-    </a>
+    <div class="brands">
+      <a class="logo" href="https://opearl.jp/">
+        <img src="https://opearl.jp/assets/img/opearl-logo.png" alt="OPearl">
+      </a>
+      <span class="brand-sep" aria-hidden="true"></span>
+      <div class="partner">
+        <img src="assets/img/acs-logo.png" alt="ACS">
+        <span>Abroad</span>
+      </div>
+    </div>
     <div class="seg" role="group" aria-label="Language">
       <button type="button" data-lang="bn">বাংলা</button>
       <button type="button" data-lang="ja">日本語</button>
