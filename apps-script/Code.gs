@@ -146,6 +146,8 @@ function validate_(d) {
   if (str_(d.whatsapp)) {
     d.whatsapp = normalizeBdPhone_(d.whatsapp);
     if (!d.whatsapp) return 'PHONE';
+  } else {
+    d.whatsapp = d.phone; // blank means same as the phone number
   }
 
   const email = str_(d.email);

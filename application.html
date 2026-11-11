@@ -869,6 +869,8 @@
     const data = {};
     for (const [k, v] of new FormData(form).entries()) if (!(v instanceof File)) data[k] = v;
     data.phone = normalizeBdPhone(data.phone);
+    // Blank WhatsApp means it is the same number as the phone
+    data.whatsapp = normalizeBdPhone(data.whatsapp) || data.phone;
 
     const file = $('cv').files[0];
     if (file) {
