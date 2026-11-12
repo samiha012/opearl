@@ -75,7 +75,7 @@ const COLUMNS = [
   ['College', 'collegeName'],
   ['HSC GPA', 'hscGpa'],
   ['University', 'universityName'],
-  ['Graduation (Month)', 'graduationDate'],
+  ['Graduation (Year)', 'graduationDate'],
   ['English Test', 'englishTest'],
   ['English Score', 'englishScore'],
 ];
@@ -186,7 +186,7 @@ function validate_(d) {
     if (!(gpa >= 1 && gpa <= 5)) return 'GPA';
     d.hscGpa = gpa.toFixed(2);
   }
-  if (str_(d.graduationDate) && !/^\d{4}-\d{2}$/.test(str_(d.graduationDate))) d.graduationDate = '';
+  if (str_(d.graduationDate) && !/^(19|20)\d{2}$/.test(str_(d.graduationDate))) d.graduationDate = '';
 
   // IELTS 0–9, TOEFL iBT 0–120; only kept when the English level is "IELTS / TOEFL"
   if (str_(d.englishLevel) !== 'IELTS / TOEFL') { d.englishTest = ''; d.englishScore = ''; }

@@ -559,7 +559,7 @@
               </div>
               <div class="field req">
                 <label class="lbl-row" for="graduationDate"><span data-i18n="f.graduation"></span><small data-i18n="h.graduation"></small></label>
-                <input id="graduationDate" name="graduationDate" type="month" placeholder="YYYY-MM" pattern="\d{4}-\d{2}" required>
+                <input id="graduationDate" name="graduationDate" type="number" inputmode="numeric" min="1980" step="1" placeholder="YYYY" required>
               </div>
             </div>
           </div>
@@ -753,7 +753,7 @@
 <script>
   // ====== CONFIG: paste your Apps Script Web App URL (ends with /exec) ======
   // Backend source and setup steps: apps-script/README.md
-  const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx1GiLe-Wtmmp8SeiuPRoFgcyZ6MK7-cadO_c9Kznoa8t4VTp-YFXcKI0lTN2vLP0Gm6g/exec';
+  const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwPVaoehtpTHMUTiq3AmgYt9chxNxQB0P4A-l8JQ3WaVbRG24jHdC4DzhFSxDhAWo9UTQ/exec';
   // ==========================================================================
 
   // ?lang=ja or ?lang=en in the page URL picks the language; default is Bangla
@@ -793,7 +793,7 @@
       'f.district': 'বর্তমান জেলা', 'ph.district': 'যেমন: ঢাকা', 'f.address': 'ঠিকানা',
       'f.education': 'সর্বোচ্চ শিক্ষাগত যোগ্যতা', 'f.subject': 'বিষয়',
       'f.schoolName': 'স্কুলের নাম', 'f.collegeName': 'কলেজের নাম', 'f.hscGpa': 'HSC GPA', 'h.gpa': '৫.০০ এর মধ্যে',
-      'f.universityName': 'বিশ্ববিদ্যালয়ের নাম', 'f.graduation': 'গ্র্যাজুয়েশনের মাস', 'h.graduation': 'সম্ভাব্য বা সম্পন্ন',
+      'f.universityName': 'বিশ্ববিদ্যালয়ের নাম', 'f.graduation': 'গ্র্যাজুয়েশনের বছর', 'h.graduation': 'সম্ভাব্য বা সম্পন্ন',
       'f.passport': 'পাসপোর্ট আছে?',
       'f.japaneseLevel': 'জাপানিজ ভাষার দক্ষতা', 'f.englishLevel': 'ইংরেজি ভাষার দক্ষতা',
       'f.caregiving': 'কেয়ারগিভিং অভিজ্ঞতা', 'f.trade': 'কাজের দক্ষতা',
@@ -867,7 +867,7 @@
       'f.district': '現住所（県・ディストリクト）', 'ph.district': '例：ダッカ', 'f.address': '住所',
       'f.education': '最終学歴', 'f.subject': '専攻',
       'f.schoolName': '学校名', 'f.collegeName': 'カレッジ名', 'f.hscGpa': 'HSC GPA', 'h.gpa': '5.00満点',
-      'f.universityName': '大学名', 'f.graduation': '卒業年月', 'h.graduation': '見込みまたは卒業済み',
+      'f.universityName': '大学名', 'f.graduation': '卒業年', 'h.graduation': '見込みまたは卒業済み',
       'f.passport': 'パスポートの有無',
       'f.japaneseLevel': '日本語レベル', 'f.englishLevel': '英語レベル',
       'f.caregiving': '介護の経験', 'f.trade': '職種・技能',
@@ -943,7 +943,7 @@
       'f.district': 'Current district', 'ph.district': 'e.g. Dhaka', 'f.address': 'Address',
       'f.education': 'Highest education', 'f.subject': 'Subject / major',
       'f.schoolName': 'School name', 'f.collegeName': 'College name', 'f.hscGpa': 'HSC GPA', 'h.gpa': 'out of 5.00',
-      'f.universityName': 'University name', 'f.graduation': 'Graduation month', 'h.graduation': 'expected or completed',
+      'f.universityName': 'University name', 'f.graduation': 'Graduation year', 'h.graduation': 'expected or completed',
       'f.passport': 'Do you have a passport?',
       'f.japaneseLevel': 'Japanese level', 'f.englishLevel': 'English level',
       'f.caregiving': 'Caregiving experience', 'f.trade': 'Trade / skill',
@@ -1823,7 +1823,8 @@
     clearError();
   }));
 
-  // Education follow-ups: SSC -> school; HSC -> college + GPA; Bachelor's -> university, subject, graduation
+  // Education follow-ups: SSC -> school; HSC -> college + GPA; Bachelor's -> university, subject, graduation year
+  $('graduationDate').max = new Date().getFullYear() + 6; // expected graduation is allowed
   function updateEducation() {
     const v = $('education').value;
     document.querySelectorAll('[data-edu]').forEach(el => {
