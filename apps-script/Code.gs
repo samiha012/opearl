@@ -71,6 +71,13 @@ const COLUMNS = [
   ['Form Language', 'lang'],
   ['Request Type', 'requestType'],
   ['Preferred Time', 'preferredTime'],
+  ['School', 'schoolName'],
+  ['College', 'collegeName'],
+  ['HSC GPA', 'hscGpa'],
+  ['University', 'universityName'],
+  ['Graduation (Month)', 'graduationDate'],
+  ['English Test', 'englishTest'],
+  ['English Score', 'englishScore'],
 ];
 
 /* ------------------------------------------------------------------ */
@@ -168,6 +175,27 @@ function validate_(d) {
   const age = ageFrom_(d.dob);
   if (age === null) return 'DOB';
   if (age < MIN_AGE || age > MAX_AGE) return 'AGE';
+
+  // Education follow-ups: keep only the ones that belong to the chosen level
+  const edu = str_(d.education);
+  if (edu !== 'SSC') d.schoolName = '';
+  if (edu !== 'HSC') { d.collegeName = ''; d.hscGpa = ''; }
+  if (edu !== "Bachelor's") { d.universityName = ''; d.graduationDate = ''; }
+  if (str_(d.hscGpa)) {
+    const gpa = Number(d.hscGpa);
+    if (!(gpa >= 1 && gpa <= 5)) return 'GPA';
+    d.hscGpa = gpa.toFixed(2);
+  }
+  if (str_(d.graduationDate) && !/^\d{4}-\d{2}$/.test(str_(d.graduationDate))) d.graduationDate = '';
+
+  // IELTS 0–9, TOEFL iBT 0–120; only kept when the English level is "IELTS / TOEFL"
+  if (str_(d.englishLevel) !== 'IELTS / TOEFL') { d.englishTest = ''; d.englishScore = ''; }
+  if (str_(d.englishTest)) {
+    const max = { 'IELTS': 9, 'TOEFL iBT': 120 }[str_(d.englishTest)];
+    const score = Number(d.englishScore);
+    if (!max || str_(d.englishScore) === '' || !(score >= 0 && score <= max)) return 'SCORE';
+    d.englishScore = String(score);
+  }
 
   if (str_(d.consent) !== 'yes') return 'CONSENT';
   return null;

@@ -197,7 +197,7 @@
     .lbl-row { display: flex; align-items: baseline; gap: 6px; margin-bottom: 7px; font-weight: 600; font-size: .92rem; }
     .lbl-row small { color: var(--muted); font-weight: 500; font-size: .8rem; }
     .req .lbl-row > span:first-child::after { content: ' *'; color: var(--error); }
-    input[type=text], input:not([type]), input[type=tel], input[type=email], input[type=date], input[type=number], select, textarea {
+    input[type=text], input:not([type]), input[type=tel], input[type=email], input[type=date], input[type=month], input[type=number], select, textarea {
       width: 100%; font: inherit; font-size: 1rem; color: var(--text);
       background: var(--surface-2); border: 1.5px solid var(--border); border-radius: 12px;
       padding: 12px 14px; min-height: 50px; transition: border-color .15s, box-shadow .15s, background .15s;
@@ -228,6 +228,24 @@
     /* Conditional block */
     .extra { border-left: 3px solid var(--brand); padding: 2px 0 2px 14px; margin: 4px 0 16px; animation: rise .3s ease; }
     .extra .field { margin-bottom: 0; }
+    .extra > * + * { margin-top: 14px; }
+    .extra .grid { gap: 14px; }
+
+    /* Option cards with a one-line explanation (English level) */
+    .opts { display: grid; gap: 8px; }
+    .opts label { position: relative; display: flex; cursor: pointer; padding: 12px 44px 12px 14px; border-radius: 14px;
+                  border: 1.5px solid var(--border); background: var(--surface-2); transition: border-color .15s, background .15s; }
+    .opts label:hover { border-color: var(--border-strong); }
+    .opts input { position: absolute; opacity: 0; pointer-events: none; }
+    .opts .ot { display: block; font-weight: 700; font-size: .95rem; }
+    .opts .od { display: block; color: var(--muted); font-size: .85rem; line-height: 1.45; margin-top: 2px; }
+    .opts .tick { position: absolute; top: 50%; right: 14px; transform: translateY(-50%); width: 22px; height: 22px; border-radius: 50%;
+                  border: 1.5px solid var(--border-strong); display: grid; place-items: center; }
+    .opts .tick svg { width: 13px; height: 13px; opacity: 0; color: #fff; }
+    .opts label:has(input:checked) { border-color: var(--brand); background: var(--brand-50); }
+    .opts label:has(input:checked) .tick { background: var(--brand); border-color: var(--brand); }
+    .opts label:has(input:checked) .tick svg { opacity: 1; }
+    .opts label:has(input:focus-visible) { box-shadow: 0 0 0 4px var(--ring); }
 
     /* Dropzone */
     .drop {
@@ -494,8 +512,7 @@
           <h2 class="step-title" data-i18n="t3"></h2>
           <p class="step-sub" data-i18n="d3"></p>
 
-          <div class="grid">
-            <div class="field req">
+          <div class="field req">
               <label class="lbl-row" for="education"><span data-i18n="f.education"></span></label>
               <select id="education" name="education" required>
                 <option value="" data-i18n="select"></option>
@@ -507,11 +524,49 @@
                 <option value="Master's" data-i18n="o.master"></option>
                 <option value="Other" data-i18n="o.other"></option>
               </select>
+          </div>
+
+          <!-- Follow-up questions for the chosen education level -->
+          <div class="extra" data-edu="SSC">
+            <div class="field req">
+              <label class="lbl-row" for="schoolName"><span data-i18n="f.schoolName"></span></label>
+              <input id="schoolName" name="schoolName" required>
             </div>
-            <div class="field">
-              <label class="lbl-row" for="subject"><span data-i18n="f.subject"></span></label>
-              <input id="subject" name="subject">
+          </div>
+
+          <div class="extra" data-edu="HSC">
+            <div class="grid">
+              <div class="field req">
+                <label class="lbl-row" for="collegeName"><span data-i18n="f.collegeName"></span></label>
+                <input id="collegeName" name="collegeName" required>
+              </div>
+              <div class="field req">
+                <label class="lbl-row" for="hscGpa"><span data-i18n="f.hscGpa"></span><small data-i18n="h.gpa"></small></label>
+                <input id="hscGpa" name="hscGpa" type="number" inputmode="decimal" min="1" max="5" step="0.01" placeholder="0.00" required>
+              </div>
             </div>
+          </div>
+
+          <div class="extra" data-edu="Bachelor's">
+            <div class="field req">
+              <label class="lbl-row" for="universityName"><span data-i18n="f.universityName"></span></label>
+              <input id="universityName" name="universityName" required>
+            </div>
+            <div class="grid">
+              <div class="field req">
+                <label class="lbl-row" for="subjectUni"><span data-i18n="f.subject"></span></label>
+                <input id="subjectUni" name="subject" required>
+              </div>
+              <div class="field req">
+                <label class="lbl-row" for="graduationDate"><span data-i18n="f.graduation"></span><small data-i18n="h.graduation"></small></label>
+                <input id="graduationDate" name="graduationDate" type="month" placeholder="YYYY-MM" pattern="\d{4}-\d{2}" required>
+              </div>
+            </div>
+          </div>
+
+          <div class="field" data-edu="Diploma,Master's,Other">
+            <label class="lbl-row" for="subject"><span data-i18n="f.subject"></span><small data-i18n="h.optional"></small></label>
+            <input id="subject" name="subject">
           </div>
 
           <div class="field req">
@@ -543,11 +598,29 @@
           <div class="extra" data-show="Malaysia,White Collar">
             <div class="field req">
               <div class="lbl-row"><span data-i18n="f.englishLevel"></span></div>
-              <div class="chips">
-                <label><input type="radio" name="englishLevel" value="Basic" required><span data-i18n="o.basic"></span></label>
-                <label><input type="radio" name="englishLevel" value="Intermediate"><span data-i18n="o.intermediate"></span></label>
-                <label><input type="radio" name="englishLevel" value="Fluent"><span data-i18n="o.fluent"></span></label>
-                <label><input type="radio" name="englishLevel" value="IELTS / TOEFL"><span>IELTS / TOEFL</span></label>
+              <div class="opts">
+                <label><input type="radio" name="englishLevel" value="Basic" required>
+                  <span><span class="ot" data-i18n="o.basic"></span><span class="od" data-i18n="od.basic"></span></span><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span></label>
+                <label><input type="radio" name="englishLevel" value="Intermediate">
+                  <span><span class="ot" data-i18n="o.intermediate"></span><span class="od" data-i18n="od.intermediate"></span></span><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span></label>
+                <label><input type="radio" name="englishLevel" value="Fluent">
+                  <span><span class="ot" data-i18n="o.fluent"></span><span class="od" data-i18n="od.fluent"></span></span><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span></label>
+                <label><input type="radio" name="englishLevel" value="IELTS / TOEFL">
+                  <span><span class="ot">IELTS / TOEFL</span><span class="od" data-i18n="od.test"></span></span><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span></label>
+              </div>
+            </div>
+            <!-- Only when "IELTS / TOEFL" is picked -->
+            <div class="grid" data-eng="IELTS / TOEFL">
+              <div class="field req">
+                <div class="lbl-row"><span data-i18n="f.englishTest"></span></div>
+                <div class="chips">
+                  <label><input type="radio" name="englishTest" value="IELTS" required><span>IELTS</span></label>
+                  <label><input type="radio" name="englishTest" value="TOEFL iBT"><span>TOEFL iBT</span></label>
+                </div>
+              </div>
+              <div class="field req">
+                <label class="lbl-row" for="englishScore"><span data-i18n="f.englishScore"></span><small id="scoreHint"></small></label>
+                <input id="englishScore" name="englishScore" type="number" inputmode="decimal" min="0" max="9" step="0.5" required>
               </div>
             </div>
           </div>
@@ -680,7 +753,7 @@
 <script>
   // ====== CONFIG: paste your Apps Script Web App URL (ends with /exec) ======
   // Backend source and setup steps: apps-script/README.md
-  const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzA70TOpDAxDVruKzZ36mnZP0ZwptY4tZS4BsUWOMN_kfYmwZ0QwOJTPPMEemO1VwxKgA/exec';
+  const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx1GiLe-Wtmmp8SeiuPRoFgcyZ6MK7-cadO_c9Kznoa8t4VTp-YFXcKI0lTN2vLP0Gm6g/exec';
   // ==========================================================================
 
   // ?lang=ja or ?lang=en in the page URL picks the language; default is Bangla
@@ -701,9 +774,9 @@
       'job.jpCare': 'জাপান Caregiver', 'jd.jpCare': 'বয়স্ক সেবা (Specified Skilled Worker)',
       'job.jpBlue': 'জাপান Blue Collar Job', 'jd.jpBlue': 'নির্মাণ, উৎপাদন, কৃষি, খাদ্য',
       'job.myWhite': 'মালয়েশিয়া White Collar Job', 'jd.myWhite': 'অফিস ও প্রফেশনাল পদ',
-      'job.myBlue': 'মালয়েশিয়া Blue Collar Job', 'jd.myBlue': 'ফ্যাক্টরি, নির্মাণ, সার্ভিস',
+      'job.myBlue': 'মালয়েশিয়া Blue Collar Job', 'jd.myBlue': 'রেস্টুরেন্ট, সুপার শপ',
       'job.jpUni': 'জাপান University তে Undergraduate & MBA Degree', 'jd.jpUni': 'জাপানের বিশ্ববিদ্যালয়ে স্নাতক ও MBA',
-      'job.jpLang': 'জাপান Language School', 'jd.jpLang': 'জাপানে থেকে জাপানি ভাষা শেখা',
+      'job.jpLang': 'জাপান Language School', 'jd.jpLang': 'জাপানে থেকে জাপানিজ ভাষা শেখা',
       'job.jpOnline': 'জাপান Online University', 'jd.jpOnline': '২ বছর বাংলাদেশে, ২ বছর জাপানে',
       'job.myUni': 'মালয়েশিয়া University তে Undergraduate Degree', 'jd.myUni': 'মালয়েশিয়ার বিশ্ববিদ্যালয়ে স্নাতক',
       'ov.about': 'সংক্ষেপে', 'ov.companies': 'কাজের ক্ষেত্র', 'ov.unis': 'কোথায় পড়বেন',
@@ -719,8 +792,10 @@
       'f.dob': 'জন্ম তারিখ', 'f.gender': 'লিঙ্গ',
       'f.district': 'বর্তমান জেলা', 'ph.district': 'যেমন: ঢাকা', 'f.address': 'ঠিকানা',
       'f.education': 'সর্বোচ্চ শিক্ষাগত যোগ্যতা', 'f.subject': 'বিষয়',
+      'f.schoolName': 'স্কুলের নাম', 'f.collegeName': 'কলেজের নাম', 'f.hscGpa': 'HSC GPA', 'h.gpa': '৫.০০ এর মধ্যে',
+      'f.universityName': 'বিশ্ববিদ্যালয়ের নাম', 'f.graduation': 'গ্র্যাজুয়েশনের মাস', 'h.graduation': 'সম্ভাব্য বা সম্পন্ন',
       'f.passport': 'পাসপোর্ট আছে?',
-      'f.japaneseLevel': 'জাপানি ভাষার দক্ষতা', 'f.englishLevel': 'ইংরেজি ভাষার দক্ষতা',
+      'f.japaneseLevel': 'জাপানিজ ভাষার দক্ষতা', 'f.englishLevel': 'ইংরেজি ভাষার দক্ষতা',
       'f.caregiving': 'কেয়ারগিভিং অভিজ্ঞতা', 'f.trade': 'কাজের দক্ষতা',
       'f.experienceYears': 'অভিজ্ঞতা (বছর)', 'f.experience': 'কাজের বিস্তারিত',
       'ph.experience': 'কোথায়, কী কাজ করেছেন...',
@@ -728,10 +803,15 @@
       'f.source': 'আমাদের কোথায় পেলেন?',
       select: 'বেছে নিন',
       'o.male': 'পুরুষ', 'o.female': 'নারী', 'o.other': 'অন্যান্য',
-      'o.belowSsc': 'SSC এর নিচে', 'o.diploma': 'ডিপ্লোমা', 'o.bachelor': 'স্নাতক', 'o.master': 'স্নাতকোত্তর',
+      'o.belowSsc': 'SSC এর নিচে', 'o.diploma': 'ডিপ্লোমা', 'o.bachelor': 'স্নাতক (অনার্স)', 'o.master': 'স্নাতকোত্তর',
       'o.yes': 'হ্যাঁ', 'o.no': 'না', 'o.applied': 'আবেদন করেছি',
       'o.none': 'জানি না', 'o.learning': 'শিখছি',
       'o.basic': 'প্রাথমিক', 'o.intermediate': 'মাঝারি', 'o.fluent': 'সাবলীল',
+      'od.basic': 'কিছু ইংরেজি শব্দ বুঝি, এখনো শিখছি',
+      'od.intermediate': 'সাধারণ ইংরেজি বুঝি; সাধারণ বিষয়ে কথা বলতে পারি, যেমন কাস্টমারকে কিছু বুঝিয়ে বলা',
+      'od.fluent': 'ইংরেজিতে ভালো দক্ষতা আছে',
+      'od.test': 'IELTS বা TOEFL পরীক্ষা দিয়েছি',
+      'f.englishTest': 'কোন পরীক্ষা?', 'f.englishScore': 'স্কোর', 'h.ielts': '০ – ৯', 'h.toefl': '০ – ১২০',
       'o.noExp': 'অভিজ্ঞতা নেই', 'o.training': 'প্রশিক্ষণ সম্পন্ন',
       'o.careTest': 'Nursing Care Skills Test পাস', 'o.workExp': 'কাজের অভিজ্ঞতা আছে',
       'o.construction': 'নির্মাণ', 'o.welding': 'ওয়েল্ডিং', 'o.factory': 'ফ্যাক্টরি / উৎপাদন',
@@ -747,7 +827,7 @@
       err: {
         BUSY: 'সার্ভার ব্যস্ত, একটু পরে আবার চেষ্টা করুন।', NAME: 'আপনার নাম লিখুন।',
         JOB: 'একটি ক্যাটাগরি বেছে নিন।', PHONE: 'সঠিক মোবাইল নম্বর দিন (01XXXXXXXXX)।',
-        EMAIL: 'সঠিক ইমেইল দিন।', DOB: 'সঠিক জন্ম তারিখ দিন।', AGE: 'বয়স ১৮ থেকে ৬০ বছরের মধ্যে হতে হবে।',
+        EMAIL: 'সঠিক ইমেইল দিন।', DOB: 'সঠিক জন্ম তারিখ দিন।', GPA: 'সঠিক GPA দিন (১.০০ থেকে ৫.০০)।', SCORE: 'সঠিক IELTS (০–৯) বা TOEFL (০–১২০) স্কোর দিন।', AGE: 'বয়স ১৮ থেকে ৬০ বছরের মধ্যে হতে হবে।',
         CONSENT: 'অনুগ্রহ করে সম্মতি দিন।', DUPLICATE: 'এই নম্বর দিয়ে এই ক্যাটাগরিতে আগেই জমা দেওয়া হয়েছে।',
         CV_TYPE: 'সিভি অবশ্যই PDF, DOC/DOCX, JPG বা PNG হতে হবে।', CV_SIZE: 'সিভি ফাইল ৫ MB এর বেশি।',
         SERVER: 'কিছু একটা সমস্যা হয়েছে। আবার চেষ্টা করুন।', NETWORK: 'নেটওয়ার্ক সমস্যা। আবার চেষ্টা করুন।',
@@ -768,7 +848,7 @@
       'job.jpCare': '日本 — 介護職', 'jd.jpCare': '介護（特定技能）',
       'job.jpBlue': '日本 — 技能職', 'jd.jpBlue': '建設・製造・農業・食品',
       'job.myWhite': 'マレーシア — ホワイトカラー職', 'jd.myWhite': '事務・専門職',
-      'job.myBlue': 'マレーシア — 技能職', 'jd.myBlue': '工場・建設・サービス',
+      'job.myBlue': 'マレーシア — 技能職', 'jd.myBlue': 'レストラン・スーパー',
       'job.jpUni': '日本 — 大学（学部・MBA）', 'jd.jpUni': '日本の大学で学士・MBA',
       'job.jpLang': '日本 — 日本語学校', 'jd.jpLang': '日本で日本語を学ぶ',
       'job.jpOnline': '日本 — オンライン大学', 'jd.jpOnline': 'バングラデシュで2年、日本で2年',
@@ -786,6 +866,8 @@
       'f.dob': '生年月日', 'f.gender': '性別',
       'f.district': '現住所（県・ディストリクト）', 'ph.district': '例：ダッカ', 'f.address': '住所',
       'f.education': '最終学歴', 'f.subject': '専攻',
+      'f.schoolName': '学校名', 'f.collegeName': 'カレッジ名', 'f.hscGpa': 'HSC GPA', 'h.gpa': '5.00満点',
+      'f.universityName': '大学名', 'f.graduation': '卒業年月', 'h.graduation': '見込みまたは卒業済み',
       'f.passport': 'パスポートの有無',
       'f.japaneseLevel': '日本語レベル', 'f.englishLevel': '英語レベル',
       'f.caregiving': '介護の経験', 'f.trade': '職種・技能',
@@ -795,10 +877,15 @@
       'f.source': 'OPearlを知ったきっかけ',
       select: '選択してください',
       'o.male': '男性', 'o.female': '女性', 'o.other': 'その他',
-      'o.belowSsc': 'SSC未満', 'o.diploma': 'ディプロマ', 'o.bachelor': '学士', 'o.master': '修士',
+      'o.belowSsc': 'SSC未満', 'o.diploma': 'ディプロマ', 'o.bachelor': '学士（Honours）', 'o.master': '修士',
       'o.yes': 'あり', 'o.no': 'なし', 'o.applied': '申請中',
       'o.none': 'なし', 'o.learning': '学習中',
       'o.basic': '初級', 'o.intermediate': '中級', 'o.fluent': '流暢',
+      'od.basic': 'いくつかの英単語がわかる。勉強中',
+      'od.intermediate': '基本的な英語がわかり、お客様への説明など簡単な会話ができる',
+      'od.fluent': '英語力が高い',
+      'od.test': 'IELTSまたはTOEFLを受験済み',
+      'f.englishTest': '受験した試験', 'f.englishScore': 'スコア', 'h.ielts': '0〜9', 'h.toefl': '0〜120',
       'o.noExp': '経験なし', 'o.training': '研修修了',
       'o.careTest': '介護技能評価試験 合格', 'o.workExp': '実務経験あり',
       'o.construction': '建設', 'o.welding': '溶接', 'o.factory': '製造業',
@@ -814,7 +901,7 @@
       err: {
         BUSY: 'サーバーが混み合っています。しばらくしてから再度お試しください。', NAME: '氏名を入力してください。',
         JOB: '希望のコースを選択してください。', PHONE: '正しい携帯電話番号を入力してください（01XXXXXXXXX）。',
-        EMAIL: '正しいメールアドレスを入力してください。', DOB: '正しい生年月日を入力してください。',
+        EMAIL: '正しいメールアドレスを入力してください。', DOB: '正しい生年月日を入力してください。', GPA: '正しいGPAを入力してください（1.00〜5.00）。', SCORE: '正しいIELTS（0〜9）またはTOEFL（0〜120）のスコアを入力してください。',
         AGE: '応募可能な年齢は18〜60歳です。', CONSENT: '同意にチェックしてください。',
         DUPLICATE: 'この電話番号で、このコースにはすでに送信済みです。',
         CV_TYPE: '履歴書はPDF、DOC/DOCX、JPG、PNGのいずれかでアップロードしてください。',
@@ -837,7 +924,7 @@
       'job.jpCare': 'Japan — Caregiver', 'jd.jpCare': 'Elderly care (Specified Skilled Worker)',
       'job.jpBlue': 'Japan — Blue Collar Job', 'jd.jpBlue': 'Construction, manufacturing, agriculture, food',
       'job.myWhite': 'Malaysia — White Collar Job', 'jd.myWhite': 'Office and professional roles',
-      'job.myBlue': 'Malaysia — Blue Collar Job', 'jd.myBlue': 'Factory, construction, services',
+      'job.myBlue': 'Malaysia — Blue Collar Job', 'jd.myBlue': 'Restaurants, super shops',
       'job.jpUni': 'Japan — University (Undergraduate & MBA)', 'jd.jpUni': "Bachelor's and MBA degrees in Japan",
       'job.jpLang': 'Japan — Language School', 'jd.jpLang': 'Learn Japanese in Japan',
       'job.jpOnline': 'Japan — Online University', 'jd.jpOnline': '2 years in Bangladesh, 2 years in Japan',
@@ -855,6 +942,8 @@
       'f.dob': 'Date of birth', 'f.gender': 'Gender',
       'f.district': 'Current district', 'ph.district': 'e.g. Dhaka', 'f.address': 'Address',
       'f.education': 'Highest education', 'f.subject': 'Subject / major',
+      'f.schoolName': 'School name', 'f.collegeName': 'College name', 'f.hscGpa': 'HSC GPA', 'h.gpa': 'out of 5.00',
+      'f.universityName': 'University name', 'f.graduation': 'Graduation month', 'h.graduation': 'expected or completed',
       'f.passport': 'Do you have a passport?',
       'f.japaneseLevel': 'Japanese level', 'f.englishLevel': 'English level',
       'f.caregiving': 'Caregiving experience', 'f.trade': 'Trade / skill',
@@ -864,10 +953,15 @@
       'f.source': 'How did you find us?',
       select: 'Select',
       'o.male': 'Male', 'o.female': 'Female', 'o.other': 'Other',
-      'o.belowSsc': 'Below SSC', 'o.diploma': 'Diploma', 'o.bachelor': "Bachelor's", 'o.master': "Master's",
+      'o.belowSsc': 'Below SSC', 'o.diploma': 'Diploma', 'o.bachelor': "Bachelor's (Hons)", 'o.master': "Master's",
       'o.yes': 'Yes', 'o.no': 'No', 'o.applied': 'Applied',
       'o.none': 'None', 'o.learning': 'Currently learning',
       'o.basic': 'Basic', 'o.intermediate': 'Intermediate', 'o.fluent': 'Fluent',
+      'od.basic': 'I understand some English words and am still learning',
+      'od.intermediate': 'I understand basic English and can talk about everyday things, like explaining something to a customer',
+      'od.fluent': 'I have good English skills',
+      'od.test': 'I have taken IELTS or TOEFL',
+      'f.englishTest': 'Which test?', 'f.englishScore': 'Score', 'h.ielts': '0 – 9', 'h.toefl': '0 – 120',
       'o.noExp': 'No experience', 'o.training': 'Training completed',
       'o.careTest': 'Passed Nursing Care Skills Test', 'o.workExp': 'Work experience',
       'o.construction': 'Construction', 'o.welding': 'Welding', 'o.factory': 'Factory / Manufacturing',
@@ -883,7 +977,7 @@
       err: {
         BUSY: 'The server is busy. Please try again shortly.', NAME: 'Please enter your name.',
         JOB: 'Please choose a category.', PHONE: 'Enter a valid mobile number (01XXXXXXXXX).',
-        EMAIL: 'Enter a valid email address.', DOB: 'Enter a valid date of birth.',
+        EMAIL: 'Enter a valid email address.', DOB: 'Enter a valid date of birth.', GPA: 'Enter a valid GPA (1.00 to 5.00).', SCORE: 'Enter a valid IELTS (0–9) or TOEFL (0–120) score.',
         AGE: 'Applicants must be between 18 and 60 years old.', CONSENT: 'Please give your consent.',
         DUPLICATE: 'This number has already been used for this category.',
         CV_TYPE: 'CV must be a PDF, DOC/DOCX, JPG or PNG file.', CV_SIZE: 'CV file is larger than 5 MB.',
@@ -899,13 +993,15 @@
   //   facts: [label, value] pairs, e.g. salary, cost, visa
   //   req:   requirements, one line each
   //   notes: "good to know" points
+  //   moreTitle + more: optional extra titled list (e.g. other sectors)
+  //   asof:  optional "figures as of" line; defaults to the November 2026 note
   // Japan content: "Japan Study & Career Routes for Bangladeshi Students" (Nov 2026).
   // Leave a field empty to hide that section. A missing language falls back to English, then Bangla.
   const blank = () => ({ desc: '', where: [], facts: [], req: [], notes: [] });
   const OVERVIEW = {
     jpWhite: {
       "bn": {
-        "desc": "বাংলাদেশে বিশ্ববিদ্যালয়ের ডিগ্রি শেষ করার পাশাপাশি জাপানি ভাষা শিখুন, তারপর সরাসরি জাপানি কোম্পানিতে অফিস, ইঞ্জিনিয়ারিং বা আইটি পদে চাকরি নিন। জাপানে পড়াশোনার খরচ লাগে না, তবে ভালো মানের জাপানি ভাষা জানতে হয়। OPearl জাপানি কোম্পানিগুলোকে বাংলাদেশে এনে সরাসরি নিয়োগের পরিকল্পনা করছে।",
+        "desc": "বাংলাদেশে বিশ্ববিদ্যালয়ের ডিগ্রি শেষ করার পাশাপাশি জাপানিজ ভাষা শিখুন, তারপর সরাসরি জাপানি কোম্পানিতে অফিস, ইঞ্জিনিয়ারিং বা আইটি পদে চাকরি নিন। জাপানে পড়াশোনার খরচ লাগে না, তবে ভালো মানের জাপানিজ ভাষা জানতে হয়। OPearl জাপানি কোম্পানিগুলোকে বাংলাদেশে এনে সরাসরি নিয়োগের পরিকল্পনা করছে।",
         "where": [
           "আইটি / CSE",
           "ইলেকট্রিক্যাল ও মেকানিক্যাল ইঞ্জিনিয়ারিং",
@@ -928,9 +1024,9 @@
           "জাপানি কোম্পানির জব অফার"
         ],
         "notes": [
-          "বেশিরভাগ কোম্পানি N2 চায়, কারণ মিটিং, ইমেইল ও টিমওয়ার্ক জাপানিতে হয়।",
+          "বেশিরভাগ কোম্পানি N2 চায়, কারণ মিটিং, ইমেইল ও টিমওয়ার্ক জাপানিজ ভাষায় হয়।",
           "ভালো সিভি, পোর্টফোলিও (আইটির জন্য) ও জাপানি স্টাইলের ইন্টারভিউ প্র্যাকটিস অনেক কাজে দেয়।",
-          "বিশ্ববিদ্যালয়ের ১ম বা ২য় বর্ষে জাপানি শেখা শুরু করলে যথেষ্ট সময় পাওয়া যায়।"
+          "বিশ্ববিদ্যালয়ের ১ম বা ২য় বর্ষে জাপানিজ ভাষা শেখা শুরু করলে যথেষ্ট সময় পাওয়া যায়।"
         ]
       },
       "ja": {
@@ -1160,10 +1256,10 @@
     },
     jpUni: {
       "bn": {
-        "desc": "HSC / A-level এর পরই সরাসরি জাপানের বিশ্ববিদ্যালয়ে পূর্ণ ডিগ্রি প্রোগ্রামে ভর্তি। ইংরেজি মাধ্যমের প্রোগ্রামে ভর্তির জন্য জাপানি লাগে না; জাপানি মাধ্যমের প্রোগ্রামে প্রায় N2 ও EJU স্কোর লাগে।",
+        "desc": "HSC / A-level এর পরই সরাসরি জাপানের বিশ্ববিদ্যালয়ে পূর্ণ ডিগ্রি প্রোগ্রামে ভর্তি। ইংরেজি মাধ্যমের প্রোগ্রামে ভর্তির জন্য জাপানিজ ভাষা লাগে না; জাপানিজ ভাষার প্রোগ্রামে প্রায় N2 ও EJU স্কোর লাগে।",
         "where": [
           "ইংরেজি মাধ্যমের ডিগ্রি প্রোগ্রাম",
-          "জাপানি মাধ্যমের ডিগ্রি প্রোগ্রাম",
+          "জাপানিজ ভাষার ডিগ্রি প্রোগ্রাম",
           "উদাহরণ: Ritsumeikan Asia Pacific University (APU)"
         ],
         "facts": [
@@ -1179,12 +1275,12 @@
         "req": [
           "HSC / A-level সম্পন্ন",
           "ইংরেজি প্রোগ্রাম: ভালো রেজাল্ট, IELTS/TOEFL, রচনা ও ইন্টারভিউ",
-          "জাপানি প্রোগ্রাম: প্রায় JLPT N2 + EJU স্কোর"
+          "জাপানিজ ভাষার প্রোগ্রাম: প্রায় JLPT N2 + EJU স্কোর"
         ],
         "notes": [
           "ইংরেজি ডিগ্রি থাকলেও বেশিরভাগ জাপানি কোম্পানি N2 বা তার বেশি চায় — চাকরি খোঁজার আগে N2 লক্ষ্য রাখুন।",
-          "কিছু বিশ্ববিদ্যালয়ে জাপানি ভাষার কোর্স ডিগ্রির ক্রেডিটে গণনা হয়; অন্যগুলোতে নিজে আলাদাভাবে শিখতে হয়।",
-          "N2 পর্যন্ত পৌঁছাতে সাধারণত ১.৫–২ বছর লাগে; OPearl এর অনলাইন জাপানি কোর্স (N5–N3) যাওয়ার আগে বা পড়ার পাশাপাশি করা যায়।"
+          "কিছু বিশ্ববিদ্যালয়ে জাপানিজ ভাষার কোর্স ডিগ্রির ক্রেডিটে গণনা হয়; অন্যগুলোতে নিজে আলাদাভাবে শিখতে হয়।",
+          "N2 পর্যন্ত পৌঁছাতে সাধারণত ১.৫–২ বছর লাগে; OPearl এর অনলাইন জাপানিজ ভাষা কোর্স (N5–N3) যাওয়ার আগে বা পড়ার পাশাপাশি করা যায়।"
         ]
       },
       "ja": {
@@ -1248,7 +1344,7 @@
       "bn": {
         "desc": "জাপানের ল্যাঙ্গুয়েজ স্কুলে ১.৫–২ বছর পড়ে N4 থেকে N2 তে পৌঁছান, তারপর জাপানের বিশ্ববিদ্যালয় (৪ বছর) বা সেনমন গাক্কো (২ বছরের ভোকেশনাল কলেজ) এ ভর্তি হয়ে চাকরিতে যান। বাংলাদেশি শিক্ষার্থীদের জন্য এটিই সবচেয়ে প্রচলিত ও নমনীয় পথ।",
         "where": [
-          "জাপানি ল্যাঙ্গুয়েজ স্কুল (১.৫–২ বছর)",
+          "জাপানিজ ল্যাঙ্গুয়েজ স্কুল (১.৫–২ বছর)",
           "তারপর বিশ্ববিদ্যালয় (৪ বছর)",
           "অথবা সেনমন গাক্কো (২ বছর)"
         ],
@@ -1359,7 +1455,7 @@
     },
     jpOnline: {
       "bn": {
-        "desc": "বাংলাদেশে থেকেই অনলাইনে Seisa University (星槎大学) থেকে পূর্ণ জাপানি স্নাতক ডিগ্রি — জাপানের শিক্ষা মন্ত্রণালয় (MEXT) অনুমোদিত বিশ্ববিদ্যালয়। ক্লাস জাপানিতে, তাই পড়তে পড়তেই N2 তে পৌঁছানো যায়। OPearl হলো Seisa University এর আন্তর্জাতিক শিক্ষার্থী রিক্রুটমেন্ট ও সাপোর্ট পার্টনার।",
+        "desc": "বাংলাদেশে থেকেই অনলাইনে Seisa University (星槎大学) থেকে পূর্ণ জাপানি স্নাতক ডিগ্রি — জাপানের শিক্ষা মন্ত্রণালয় (MEXT) অনুমোদিত বিশ্ববিদ্যালয়। ক্লাস জাপানিজ ভাষায়, তাই পড়তে পড়তেই N2 তে পৌঁছানো যায়। OPearl হলো Seisa University এর আন্তর্জাতিক শিক্ষার্থী রিক্রুটমেন্ট ও সাপোর্ট পার্টনার।",
         "where": [
           "Seisa University — Faculty of Social Coexistence (共生科学部)",
           "শিক্ষা",
@@ -1453,8 +1549,233 @@
       }
     },
     myWhite: { bn: blank(), ja: blank(), en: blank() },  // TODO: Malaysia info
-    myBlue: { bn: blank(), ja: blank(), en: blank() },  // TODO: Malaysia info
-    myUni: { bn: blank(), ja: blank(), en: blank() },  // TODO: Malaysia info
+    myBlue: {
+      "bn": {
+        "desc": "মালয়েশিয়ার রেস্টুরেন্ট ও সুপার শপে কাজ। এখন বিশেষ করে খাবার ও পানীয় (F&B) খাতে কর্মীর তীব্র সংকট চলছে।",
+        "where": [
+          "রেস্টুরেন্ট",
+          "সুপার শপ"
+        ],
+        "facts": [
+          [
+            "মোট খরচ (আনুমানিক)",
+            "৬.৫–৭.৫ লাখ টাকা"
+          ]
+        ],
+        "req": [
+          "মৌলিক শারীরিক সক্ষমতা",
+          "মৌলিক ইংরেজি — কাস্টমার কী বলছেন বা চাইছেন তা বুঝতে পারা"
+        ],
+        "moreTitle": "মালয়েশিয়ায় বিদেশি কর্মীদের অন্যান্য খাত",
+        "more": [
+          "ম্যানুফ্যাকচারিং (কারখানা): সবচেয়ে বড় খাত, ৬,২২,৩৮৮ জন বিদেশি কর্মী। ইলেকট্রনিক্স, রাবার, প্লাস্টিক ও খাদ্য প্রক্রিয়াজাতকরণ কারখানায় অপারেটর ও প্যাকিংয়ের কাজ।",
+          "নির্মাণ: রাজমিস্ত্রি, রড মিস্ত্রি, ওয়েল্ডার, সাধারণ শ্রমিক।",
+          "সেবা খাত: রেস্টুরেন্ট, সুপারমার্কেট, ক্লিনিং, বাবুর্চি, পাইকারি-খুচরা দোকান, সেলুন, রিসাইক্লিং।",
+          "প্লান্টেশন: পাম অয়েল ও রাবার বাগান — এই খাতে মূলত ইন্দোনেশিয়া ও বাংলাদেশ থেকে কর্মী আসে।",
+          "কৃষি: সবজি চাষ, খামার, পশুপালন, মাছ চাষ।",
+          "গৃহকর্মী: নারী কর্মীদের জন্য আলাদা পারমিট।"
+        ]
+      },
+      "ja": {
+        "desc": "マレーシアのレストランやスーパーでの仕事です。現在、特に飲食（F&B）業界で深刻な人手不足が続いています。",
+        "where": [
+          "レストラン",
+          "スーパー"
+        ],
+        "facts": [
+          [
+            "総費用（目安）",
+            "65万〜75万タカ"
+          ]
+        ],
+        "req": [
+          "基本的な体力",
+          "基本的な英語力（お客様の話や要望が理解できる程度）"
+        ],
+        "moreTitle": "マレーシアで外国人労働者が働くその他の分野",
+        "more": [
+          "製造業：最大の分野で、外国人労働者は622,388人。電子機器・ゴム・プラスチック・食品加工工場でのオペレーターや梱包作業。",
+          "建設：れんが職人、鉄筋工、溶接工、一般作業員。",
+          "サービス業：レストラン、スーパー、清掃、調理、卸売・小売店、理容室、リサイクル。",
+          "プランテーション：パーム油・ゴム農園。主にインドネシアとバングラデシュから労働者が来ています。",
+          "農業：野菜栽培、農場、畜産、養殖。",
+          "家事労働者：女性向けの別の許可制度があります。"
+        ]
+      },
+      "en": {
+        "desc": "Work at restaurants and super shops in Malaysia. The food and beverage (F&B) sector in particular is facing a severe worker shortage right now.",
+        "where": [
+          "Restaurants",
+          "Super shops"
+        ],
+        "facts": [
+          [
+            "Total cost (approx.)",
+            "BDT 6.5–7.5 lakh"
+          ]
+        ],
+        "req": [
+          "Basic physical fitness",
+          "Basic English — enough to understand what a customer is saying or wants"
+        ],
+        "moreTitle": "Other sectors that employ foreign workers in Malaysia",
+        "more": [
+          "Manufacturing: the largest sector, with 622,388 foreign workers. Operator and packing work in electronics, rubber, plastics and food-processing factories.",
+          "Construction: masons, steel fixers, welders, general labourers.",
+          "Services: restaurants, supermarkets, cleaning, cooks, wholesale and retail shops, salons, recycling.",
+          "Plantations: palm oil and rubber estates; workers here come mainly from Indonesia and Bangladesh.",
+          "Agriculture: vegetable farming, farms, livestock, fish farming.",
+          "Domestic workers: a separate permit for women workers."
+        ]
+      }
+    },
+    // Malaysia University: EduRio International undergraduate fee list (reviewed 12 Oct 2026), 875 records
+    myUni: {
+      "bn": {
+        "desc": "মালয়েশিয়ার সরকারি ও বেসরকারি বিশ্ববিদ্যালয়ে স্নাতক (Bachelor’s) ডিগ্রি। আমাদের তালিকায় ৫১টি বিশ্ববিদ্যালয় আছে — ৪৬টি বেসরকারি ও ৫টি সরকারি — বিজনেস, আইটি, ইঞ্জিনিয়ারিং, ডিজাইন, স্বাস্থ্য ও মেডিসিনসহ নানা বিষয়ে।",
+        "where": [
+          "Universiti Malaya (UM)",
+          "Universiti Putra Malaysia (UPM)",
+          "Universiti Sains Malaysia (USM)",
+          "Universiti Teknologi Malaysia (UTM)",
+          "IIUM",
+          "Taylor's University",
+          "Sunway University",
+          "UCSI University",
+          "Asia Pacific University (APU)",
+          "INTI",
+          "Monash University Malaysia",
+          "Curtin University Malaysia",
+          "University of Nottingham Malaysia",
+          "আরও ৩৮টি বিশ্ববিদ্যালয়"
+        ],
+        "facts": [
+          [
+            "পুরো ডিগ্রির টিউশন (বেসরকারি)",
+            "অর্ধেক প্রোগ্রাম RM60,000–99,999; আনুমানিক RM67,000–108,000"
+          ],
+          [
+            "পুরো ডিগ্রির টিউশন (সরকারি)",
+            "আনুমানিক RM61,000–75,000"
+          ],
+          [
+            "বিষয়ভেদে (আনুমানিক মাঝামাঝি)",
+            "বিজনেস / আইটি প্রায় RM75,000–80,000 · ইঞ্জিনিয়ারিং প্রায় RM104,000 · মেডিসিন সবচেয়ে বেশি"
+          ],
+          [
+            "মেয়াদ",
+            "সাধারণত ৩–৪ বছর"
+          ],
+          [
+            "টিউশনে ধরা নেই",
+            "থাকা-খাওয়ার খরচ, ভিসা (EMGS) ফি, SST ও অন্যান্য ফি"
+          ]
+        ],
+        "req": [],
+        "notes": [
+          "বিশ্ববিদ্যালয় ও বিষয়ভেদে ফি অনেক আলাদা — তুলনা করার সময় একই ধরনের ফি (মোট টিউশন বনাম মোট কোর্স ফি) মিলিয়ে দেখুন।",
+          "কিছু বিশ্ববিদ্যালয়ে স্কলারশিপ বা ছাড় পাওয়া যায়।",
+          "কিছু ফি ২০২৪–২০২৫ সালের তালিকা থেকে; আবেদনের আগে বর্তমান ফি নিশ্চিত করুন।"
+        ],
+        "asof": "ফি এর তথ্য ১২ অক্টোবর ২০২৬ এ যাচাই করা তালিকা থেকে; ফি পরিবর্তন হতে পারে।"
+      },
+      "ja": {
+        "desc": "マレーシアの国立・私立大学で学士号を取得するコースです。リストには51大学（私立46校・国立5校）があり、ビジネス、IT、工学、デザイン、医療・医学など幅広い分野を学べます。",
+        "where": [
+          "Universiti Malaya (UM)",
+          "Universiti Putra Malaysia (UPM)",
+          "Universiti Sains Malaysia (USM)",
+          "Universiti Teknologi Malaysia (UTM)",
+          "IIUM",
+          "Taylor's University",
+          "Sunway University",
+          "UCSI University",
+          "Asia Pacific University (APU)",
+          "INTI",
+          "Monash University Malaysia",
+          "Curtin University Malaysia",
+          "University of Nottingham Malaysia",
+          "ほか38大学"
+        ],
+        "facts": [
+          [
+            "学位取得までの授業料（私立）",
+            "プログラムの半数がRM60,000〜99,999。中央の半数はRM67,000〜108,000"
+          ],
+          [
+            "学位取得までの授業料（国立）",
+            "中央の半数はRM61,000〜75,000"
+          ],
+          [
+            "分野別の目安（中央値）",
+            "ビジネス・IT 約RM75,000〜80,000 · 工学 約RM104,000 · 医学が最も高額"
+          ],
+          [
+            "修業年限",
+            "通常3〜4年"
+          ],
+          [
+            "授業料に含まれないもの",
+            "生活費、ビザ（EMGS）費用、SST、その他の諸費用"
+          ]
+        ],
+        "req": [],
+        "notes": [
+          "学費は大学・分野によって大きく異なります。比較する際は同じ基準（授業料総額か、コース費用総額か）でご確認ください。",
+          "奨学金や割引がある大学もあります。",
+          "一部の学費は2024〜2025年の資料に基づきます。出願前に最新の学費をご確認ください。"
+        ],
+        "asof": "学費は2026年10月12日に確認した資料に基づきます。変更される場合があります。"
+      },
+      "en": {
+        "desc": "Bachelor's degrees at private and government universities in Malaysia. Our list covers 51 universities — 46 private and 5 government — across business, IT, engineering, design, health, medicine and more.",
+        "where": [
+          "Universiti Malaya (UM)",
+          "Universiti Putra Malaysia (UPM)",
+          "Universiti Sains Malaysia (USM)",
+          "Universiti Teknologi Malaysia (UTM)",
+          "IIUM",
+          "Taylor's University",
+          "Sunway University",
+          "UCSI University",
+          "Asia Pacific University (APU)",
+          "INTI",
+          "Monash University Malaysia",
+          "Curtin University Malaysia",
+          "University of Nottingham Malaysia",
+          "and 38 more universities"
+        ],
+        "facts": [
+          [
+            "Tuition for the whole degree (private)",
+            "Half of all programmes RM60,000–99,999; the middle half RM67,000–108,000"
+          ],
+          [
+            "Tuition for the whole degree (government)",
+            "The middle half RM61,000–75,000"
+          ],
+          [
+            "By subject (typical middle value)",
+            "Business / IT about RM75,000–80,000 · Engineering about RM104,000 · Medicine the highest"
+          ],
+          [
+            "Duration",
+            "Usually 3–4 years"
+          ],
+          [
+            "Not included in tuition",
+            "Living costs, visa (EMGS) fees, SST and other fees"
+          ]
+        ],
+        "req": [],
+        "notes": [
+          "Fees vary a lot by university and subject; when comparing, match the fee basis (total tuition vs. total course fees).",
+          "Some universities offer scholarships or discounts.",
+          "Some fees come from 2024–2025 schedules; confirm current-intake fees before applying."
+        ],
+        "asof": "Fee figures from a list reviewed on 12 October 2026; fees can change."
+      }
+    },
   };
 
   const $ = id => document.getElementById(id);
@@ -1495,11 +1816,40 @@
       el.hidden = !show;
       el.querySelectorAll('input, select, textarea').forEach(i => (i.disabled = !show));
     });
+    if (typeof updateEnglish === 'function') updateEnglish();
   }
   form.querySelectorAll('input[name="jobCategory"]').forEach(r => r.addEventListener('change', () => {
     updateConditional();
     clearError();
   }));
+
+  // Education follow-ups: SSC -> school; HSC -> college + GPA; Bachelor's -> university, subject, graduation
+  function updateEducation() {
+    const v = $('education').value;
+    document.querySelectorAll('[data-edu]').forEach(el => {
+      const show = el.dataset.edu.split(',').includes(v);
+      el.hidden = !show;
+      el.querySelectorAll('input, select, textarea').forEach(i => (i.disabled = !show));
+    });
+  }
+  $('education').addEventListener('change', updateEducation);
+
+  // English: IELTS / TOEFL -> which test + score (IELTS 0–9 in 0.5 steps, TOEFL iBT 0–120)
+  function updateEnglish() {
+    const lvl = form.querySelector('input[name="englishLevel"]:checked');
+    const block = form.querySelector('[data-eng]');
+    const show = !!lvl && !lvl.disabled && lvl.value === block.dataset.eng;
+    block.hidden = !show;
+    block.querySelectorAll('input').forEach(i => (i.disabled = !show));
+    const toefl = (form.querySelector('input[name="englishTest"]:checked') || {}).value === 'TOEFL iBT';
+    const sc = $('englishScore');
+    sc.max = toefl ? 120 : 9;
+    sc.step = toefl ? 1 : 0.5;
+    sc.placeholder = toefl ? '0 – 120' : '0 – 9';
+    $('scoreHint').dataset.i18n = toefl ? 'h.toefl' : 'h.ielts';
+    $('scoreHint').textContent = t($('scoreHint').dataset.i18n);
+  }
+  form.querySelectorAll('input[name="englishLevel"], input[name="englishTest"]').forEach(r => r.addEventListener('change', updateEnglish));
   // click (not change) so picking the already-selected tile again also opens it
   form.querySelectorAll('input[name="jobCategory"]').forEach(r => r.addEventListener('click', openOverview));
 
@@ -1507,8 +1857,9 @@
   const esc = v => String(v).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
   function overviewFor(key) {
     const o = OVERVIEW[key] || {};
-    const pick = f => [lang, 'en', 'bn'].map(l => o[l] && o[l][f]).find(v => v && v.length) || (f === 'desc' ? '' : []);
-    return { desc: pick('desc'), where: pick('where'), facts: pick('facts'), req: pick('req'), notes: pick('notes') };
+    const pick = f => [lang, 'en', 'bn'].map(l => o[l] && o[l][f]).find(v => v && v.length) || (['desc', 'asof', 'moreTitle'].includes(f) ? '' : []);
+    return { desc: pick('desc'), where: pick('where'), facts: pick('facts'), req: pick('req'), notes: pick('notes'),
+             moreTitle: pick('moreTitle'), more: pick('more'), asof: pick('asof') };
   }
   function renderOverview() {
     const c = form.querySelector('input[name="jobCategory"]:checked');
@@ -1528,7 +1879,8 @@
       `<div class="ov-facts">${o.facts.map(([l, v]) => `<div class="fact"><span>${esc(l)}</span><b>${esc(v)}</b></div>`).join('')}</div>`);
     if (o.req.length) html += sec('ov.req', list(o.req, 'ov-list'));
     if (o.notes.length) html += sec('ov.notes', list(o.notes, 'ov-list ov-notes'));
-    if (html) html += `<p class="ov-asof">${esc(t('ov.asof'))}</p>`;
+    if (o.more.length) html += `<div class="ov-sec"><h3>${esc(o.moreTitle)}</h3>${list(o.more, 'ov-list ov-notes')}</div>`;
+    if (html) html += `<p class="ov-asof">${esc(o.asof || t('ov.asof'))}</p>`;
     $('ovBody').innerHTML = html || `<div class="ov-soon">${esc(t('ov.soon'))}</div>`;
   }
   function openOverview() {
@@ -1671,6 +2023,7 @@
     data.phone = normalizeBdPhone(data.phone);
     // Blank WhatsApp means it is the same number as the phone
     data.whatsapp = normalizeBdPhone(data.whatsapp) || data.phone;
+    if (data.hscGpa) data.hscGpa = Number(data.hscGpa).toFixed(2);
 
     const file = $('cv').files[0];
     if (file) {
@@ -1715,6 +2068,7 @@
       const code = (res && res.code) || 'SERVER';
       if (code === 'JOB') { ovOpen = false; showStep(0); }
       else if (['NAME', 'PHONE', 'EMAIL', 'DOB', 'AGE', 'DUPLICATE'].includes(code)) showStep(1);
+      else if (code === 'GPA' || code === 'SCORE') showStep(2);
       showError(code);
     }
   });
@@ -1733,6 +2087,7 @@
   }
   setLang(start);
   updateConditional();
+  updateEducation();
   setIntent('Apply');
   showStep(0);
 </script>
