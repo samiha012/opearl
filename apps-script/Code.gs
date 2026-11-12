@@ -24,7 +24,14 @@ const JOB_CATEGORIES = [
   'Japan - Blue Collar',
   'Malaysia - White Collar',
   'Malaysia - Blue Collar',
+  'Japan - University (Undergraduate & MBA)',
+  'Japan - Language School',
+  'Japan - Online University',
+  'Malaysia - University (Undergraduate)',
 ];
+
+// "Apply" = free application, "Appointment" = one-to-one appointment request
+const REQUEST_TYPES = ['Apply', 'Appointment'];
 
 const CV_TYPES = {
   pdf: 'application/pdf',
@@ -62,6 +69,8 @@ const COLUMNS = [
   ['Heard About Us', 'source'],
   ['CV', '_cvUrl'],
   ['Form Language', 'lang'],
+  ['Request Type', 'requestType'],
+  ['Preferred Time', 'preferredTime'],
 ];
 
 /* ------------------------------------------------------------------ */
@@ -102,7 +111,7 @@ function doPost(e) {
   try {
     const sheet = getSheet_();
 
-    if (isDuplicate_(sheet, data.phone, data.jobCategory)) return fail_('DUPLICATE');
+    if (isDuplicate_(sheet, data.phone, data.jobCategory, data.requestType)) return fail_('DUPLICATE');
 
     const refId = makeRefId_();
     let cvUrl = '';
@@ -139,6 +148,9 @@ function doPost(e) {
 /* ------------------------------------------------------------------ */
 function validate_(d) {
   if (JOB_CATEGORIES.indexOf(str_(d.jobCategory)) === -1) return 'JOB';
+  if (!str_(d.requestType)) d.requestType = 'Apply';
+  if (REQUEST_TYPES.indexOf(str_(d.requestType)) === -1) return 'SERVER';
+  if (d.requestType !== 'Appointment') d.preferredTime = '';
   if (str_(d.fullName).length < 2) return 'NAME';
 
   d.phone = normalizeBdPhone_(d.phone);
@@ -181,14 +193,19 @@ function ageFrom_(dob) {
   return age;
 }
 
-function isDuplicate_(sheet, phone, jobCategory) {
+// Same phone + same category + same request type. Rows saved before the
+// "Request Type" column existed are free applications.
+function isDuplicate_(sheet, phone, jobCategory, requestType) {
   const last = sheet.getLastRow();
   if (last < 2) return false;
   const phoneCol = colIndex_('phone');
   const jobCol = colIndex_('jobCategory');
+  const typeCol = colIndex_('requestType');
   const values = sheet.getRange(2, 1, last - 1, COLUMNS.length).getValues();
   return values.some(r =>
-    String(r[phoneCol]).replace(/^'/, '') === phone && String(r[jobCol]) === jobCategory,
+    String(r[phoneCol]).replace(/^'/, '') === phone &&
+    String(r[jobCol]) === jobCategory &&
+    (String(r[typeCol]) || 'Apply') === requestType,
   );
 }
 
@@ -244,6 +261,12 @@ function getSheet_() {
     sheet.setFrozenRows(1);
     // Plain text everywhere so phone numbers keep their leading 0.
     sheet.getRange(1, 1, sheet.getMaxRows(), headers.length).setNumberFormat('@');
+  } else if (sheet.getLastColumn() < COLUMNS.length) {
+    // An older sheet: add headers for columns added since it was created.
+    const from = sheet.getLastColumn() + 1;
+    const extra = COLUMNS.slice(from - 1).map(c => c[0]);
+    sheet.getRange(1, from, 1, extra.length).setValues([extra]).setFontWeight('bold');
+    sheet.getRange(1, from, sheet.getMaxRows(), extra.length).setNumberFormat('@');
   }
   return sheet;
 }

@@ -58,9 +58,13 @@
     .partner { height: 36px; display: flex; flex-direction: column; align-items: center;
                justify-content: space-between; flex: none; }
     .partner img { height: 25px; width: auto; display: block; }
+    .partner span i { font-style: normal; }
     .partner span { font-family: 'BBH Bogle', 'Plus Jakarta Sans', sans-serif; font-weight: 400;
                     font-size: 12px; line-height: 9px; text-transform: uppercase;
-                    color: #2b2f36; }
+                    color: #2b2f36;
+                    /* spread the letters across exactly the ACS logo's width */
+                    display: flex; justify-content: space-between;
+                    width: 0; min-width: 100%; }
     @media (max-width: 480px) {
       .nav-inner { padding: 10px 12px; gap: 8px; }
       .brands { gap: 9px; }
@@ -134,7 +138,7 @@
     @media (max-width: 560px) { .tiles { grid-template-columns: 1fr; } }
     .tile {
       position: relative; display: flex; gap: 14px; align-items: flex-start; cursor: pointer;
-      padding: 16px; border-radius: 16px; border: 1.5px solid var(--border); background: var(--surface-2);
+      padding: 16px 42px 16px 16px; border-radius: 16px; border: 1.5px solid var(--border); background: var(--surface-2);
       transition: border-color .18s, background .18s, transform .18s, box-shadow .18s;
     }
     .tile:hover { border-color: var(--border-strong); transform: translateY(-1px); }
@@ -151,6 +155,39 @@
     .tile:has(input:checked) .tick svg { opacity: 1; }
     .tile:has(input:focus-visible) { outline: 2px solid var(--brand); outline-offset: 2px; }
     .tile.full { grid-column: 1 / -1; }
+    .group-lbl { margin: 22px 0 10px; font-size: .76rem; font-weight: 700; letter-spacing: .08em;
+                 text-transform: uppercase; color: var(--muted); }
+    .step-sub + .group-lbl { margin-top: 4px; }
+    .view { animation: rise .35s cubic-bezier(.2,.8,.2,1); }
+
+    /* Scope overview */
+    .ov-head { display: flex; gap: 14px; align-items: center; margin: 22px 0 6px; }
+    .ov-head .flag { font-size: 2rem; line-height: 1; width: 56px; height: 56px; flex: none; display: grid; place-items: center;
+                     border-radius: 14px; background: var(--brand-50); border: 1px solid var(--border); }
+    .ov-head .step-title { margin: 0 0 2px; }
+    .ov-head .step-sub { margin: 0; }
+    .ov-sec { margin-top: 18px; }
+    .ov-sec h3 { margin: 0 0 8px; font-size: .76rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+    .ov-sec p { margin: 0; line-height: 1.6; }
+    .ov-facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 8px; }
+    .fact { padding: 12px 14px; border-radius: 12px; background: var(--brand-50); }
+    .fact span { display: block; font-size: .8rem; color: var(--muted); font-weight: 600; margin-bottom: 3px; }
+    .fact b { display: block; color: var(--brand); font-weight: 700; font-size: .95rem; line-height: 1.45; }
+    .ov-notes li { color: var(--muted); font-size: .92rem; }
+    .ov-list.ov-notes li::before { background-image: none; background-color: var(--border-strong); width: 6px; height: 6px; margin: 9px 6px 0; }
+    .ov-asof { margin: 18px 0 0; font-size: .78rem; color: var(--muted); font-style: italic; }
+    .ov-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+    .ov-tags span { padding: 7px 12px; border-radius: 999px; border: 1px solid var(--border); background: var(--surface-2); font-size: .88rem; font-weight: 600; }
+    .ov-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+    .ov-list li { display: flex; gap: 10px; align-items: flex-start; line-height: 1.5; }
+    .ov-list li::before { content: ''; flex: none; width: 18px; height: 18px; margin-top: 2px; border-radius: 50%; background: var(--brand-100)
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%232e8b57' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6 9 17l-5-5'/%3E%3C/svg%3E") center / 11px no-repeat; }
+    .ov-soon { margin-top: 18px; padding: 14px 16px; border-radius: 14px; background: var(--surface-2); border: 1.5px dashed var(--border-strong);
+               color: var(--muted); font-size: .92rem; }
+    .ov-cta { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 24px; }
+    @media (max-width: 560px) { .ov-cta { grid-template-columns: 1fr; } }
+    .btn-outline { background: var(--surface); color: var(--brand); box-shadow: inset 0 0 0 1.5px var(--brand); }
+    .btn-outline:hover { background: var(--brand-50); }
 
     /* Fields */
     .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0 14px; }
@@ -265,7 +302,7 @@
       <span class="brand-sep" aria-hidden="true"></span>
       <div class="partner">
         <img src="assets/img/acs-logo.png" alt="ACS">
-        <span>Abroad</span>
+        <span aria-label="Abroad"><i aria-hidden="true">A</i><i aria-hidden="true">b</i><i aria-hidden="true">r</i><i aria-hidden="true">o</i><i aria-hidden="true">a</i><i aria-hidden="true">d</i></span>
       </div>
     </div>
     <div class="seg" role="group" aria-label="Language">
@@ -294,6 +331,8 @@
 
     <form id="f" novalidate>
       <input type="hidden" name="lang" id="langField" value="bn">
+      <!-- "Apply" or "Appointment", set by the buttons on the overview -->
+      <input type="hidden" name="requestType" id="requestType" value="Apply">
       <!-- Honeypot: hidden from people, bots fill it in -->
       <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true"
              style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
@@ -309,41 +348,92 @@
 
       <div class="card-body">
 
-        <!-- STEP 1: Job -->
+        <!-- STEP 1: Pick a scope, then see its overview -->
         <section class="step" data-step="0">
-          <h2 class="step-title" data-i18n="t1"></h2>
-          <p class="step-sub" data-i18n="d1"></p>
-          <div class="tiles">
+          <div class="view" id="pick">
+            <h2 class="step-title" data-i18n="t1"></h2>
+            <p class="step-sub" data-i18n="d1"></p>
+            <h3 class="group-lbl" data-i18n="g.work"></h3>
+            <div class="tiles">
             <label class="tile">
-              <input type="radio" name="jobCategory" value="Japan - White Collar" required>
+              <input type="radio" name="jobCategory" value="Japan - White Collar" data-kind="work" data-key="jpWhite" required>
               <span class="flag">🇯🇵</span>
               <span><span class="tt" data-i18n="job.jpWhite"></span><span class="td" data-i18n="jd.jpWhite" style="display:block"></span></span>
               <span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
             </label>
             <label class="tile">
-              <input type="radio" name="jobCategory" value="Japan - Caregiver">
+              <input type="radio" name="jobCategory" value="Japan - Caregiver" data-kind="work" data-key="jpCare">
               <span class="flag">🇯🇵</span>
               <span><span class="tt" data-i18n="job.jpCare"></span><span class="td" data-i18n="jd.jpCare" style="display:block"></span></span>
               <span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
             </label>
             <label class="tile">
-              <input type="radio" name="jobCategory" value="Japan - Blue Collar">
+              <input type="radio" name="jobCategory" value="Japan - Blue Collar" data-kind="work" data-key="jpBlue">
               <span class="flag">🇯🇵</span>
               <span><span class="tt" data-i18n="job.jpBlue"></span><span class="td" data-i18n="jd.jpBlue" style="display:block"></span></span>
               <span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
             </label>
             <label class="tile">
-              <input type="radio" name="jobCategory" value="Malaysia - White Collar">
+              <input type="radio" name="jobCategory" value="Malaysia - White Collar" data-kind="work" data-key="myWhite">
               <span class="flag">🇲🇾</span>
               <span><span class="tt" data-i18n="job.myWhite"></span><span class="td" data-i18n="jd.myWhite" style="display:block"></span></span>
               <span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
             </label>
             <label class="tile full">
-              <input type="radio" name="jobCategory" value="Malaysia - Blue Collar">
+              <input type="radio" name="jobCategory" value="Malaysia - Blue Collar" data-kind="work" data-key="myBlue">
               <span class="flag">🇲🇾</span>
               <span><span class="tt" data-i18n="job.myBlue"></span><span class="td" data-i18n="jd.myBlue" style="display:block"></span></span>
               <span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
             </label>
+            </div>
+            <h3 class="group-lbl" data-i18n="g.study"></h3>
+            <div class="tiles">
+            <label class="tile">
+              <input type="radio" name="jobCategory" value="Japan - University (Undergraduate &amp; MBA)" data-kind="study" data-key="jpUni">
+              <span class="flag">🇯🇵</span>
+              <span><span class="tt" data-i18n="job.jpUni"></span><span class="td" data-i18n="jd.jpUni" style="display:block"></span></span>
+              <span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
+            </label>
+            <label class="tile">
+              <input type="radio" name="jobCategory" value="Japan - Language School" data-kind="study" data-key="jpLang">
+              <span class="flag">🇯🇵</span>
+              <span><span class="tt" data-i18n="job.jpLang"></span><span class="td" data-i18n="jd.jpLang" style="display:block"></span></span>
+              <span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
+            </label>
+            <label class="tile">
+              <input type="radio" name="jobCategory" value="Japan - Online University" data-kind="study" data-key="jpOnline">
+              <span class="flag">🇯🇵</span>
+              <span><span class="tt" data-i18n="job.jpOnline"></span><span class="td" data-i18n="jd.jpOnline" style="display:block"></span></span>
+              <span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
+            </label>
+            <label class="tile">
+              <input type="radio" name="jobCategory" value="Malaysia - University (Undergraduate)" data-kind="study" data-key="myUni">
+              <span class="flag">🇲🇾</span>
+              <span><span class="tt" data-i18n="job.myUni"></span><span class="td" data-i18n="jd.myUni" style="display:block"></span></span>
+              <span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
+            </label>
+            </div>
+          </div>
+
+          <div class="view" id="ov" hidden>
+            <div class="ov-head">
+              <span class="flag" id="ovFlag"></span>
+              <div>
+                <h2 class="step-title" id="ovTitle"></h2>
+                <p class="step-sub" id="ovTag"></p>
+              </div>
+            </div>
+            <div id="ovBody"></div>
+            <div class="ov-cta">
+              <button type="button" class="btn btn-primary" data-go-intent="Apply">
+                <span data-i18n="ov.apply"></span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+              </button>
+              <button type="button" class="btn btn-outline" data-go-intent="Appointment">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 11h18"/></svg>
+                <span data-i18n="ov.appt"></span>
+              </button>
+            </div>
           </div>
         </section>
 
@@ -530,6 +620,18 @@
             </label>
           </div>
 
+          <div class="extra" data-intent="Appointment">
+            <div class="field req">
+              <div class="lbl-row"><span data-i18n="f.preferredTime"></span><small data-i18n="h.bdTime"></small></div>
+              <div class="chips">
+                <label><input type="radio" name="preferredTime" value="Morning" required><span data-i18n="o.morning"></span></label>
+                <label><input type="radio" name="preferredTime" value="Midday"><span data-i18n="o.midday"></span></label>
+                <label><input type="radio" name="preferredTime" value="Afternoon"><span data-i18n="o.afternoon"></span></label>
+                <label><input type="radio" name="preferredTime" value="Evening"><span data-i18n="o.evening"></span></label>
+              </div>
+            </div>
+          </div>
+
           <label class="consent">
             <input type="checkbox" name="consent" value="yes" required>
             <span data-i18n="consent"></span>
@@ -560,8 +662,8 @@
 
     <div class="success" id="done" hidden>
       <div class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div>
-      <h2 data-i18n="done.title"></h2>
-      <p class="note" data-i18n="done.note"></p>
+      <h2 id="doneTitle" data-i18n="done.title"></h2>
+      <p class="note" id="doneNote" data-i18n="done.note"></p>
       <div class="ref-box">
         <span style="text-align:left"><span class="lbl" data-i18n="done.ref" style="display:block"></span><span class="ref" id="ref"></span></span>
         <button type="button" id="copy" data-i18n="copy"></button>
@@ -587,10 +689,11 @@
   const I18N = {
     bn: {
       eyebrow: 'আবেদন চলছে', title: 'জাপান ও মালয়েশিয়ায় আপনার ক্যারিয়ার শুরু করুন',
-      subtitle: 'মাত্র কয়েক মিনিটে আবেদন করুন। আপনার প্রোফাইল দেখে উপযুক্ত চাকরির জন্য আমরা যোগাযোগ করব।',
+      subtitle: 'মাত্র কয়েক মিনিটে আবেদন করুন। আপনার প্রোফাইল দেখে উপযুক্ত চাকরি বা পড়াশোনার সুযোগ নিয়ে আমরা যোগাযোগ করব।',
       perk1: 'সম্পূর্ণ বিনামূল্যে আবেদন', perk2: 'মাত্র ৩ মিনিট', perk3: 'বাংলায় সহায়তা',
-      s1: 'চাকরি', s2: 'ব্যক্তিগত', s3: 'যোগ্যতা', s4: 'অভিজ্ঞতা',
-      t1: 'কোন চাকরির জন্য আবেদন করছেন?', d1: 'একটি ক্যাটাগরি বেছে নিন। প্রতিটির যোগ্যতা ও বেতন আলাদা।',
+      s1: 'ক্যাটাগরি', s2: 'ব্যক্তিগত', s3: 'যোগ্যতা', s4: 'অভিজ্ঞতা',
+      t1: 'আপনি কোন পথে যেতে চান?', d1: 'চাকরি বা পড়াশোনা — একটি বেছে নিলে বিস্তারিত দেখতে পাবেন।',
+      'g.work': 'চাকরি', 'g.study': 'পড়াশোনা',
       t2: 'আপনার সম্পর্কে বলুন', d2: 'পাসপোর্টে যেভাবে আছে সেভাবেই তথ্য দিন।',
       t3: 'শিক্ষা ও যোগ্যতা', d3: 'আপনার নির্বাচিত চাকরি অনুযায়ী কিছু প্রশ্ন।',
       t4: 'অভিজ্ঞতা ও সিভি', d4: 'প্রায় শেষ! অভিজ্ঞতা থাকলে লিখুন।',
@@ -599,6 +702,17 @@
       'job.jpBlue': 'জাপান Blue Collar Job', 'jd.jpBlue': 'নির্মাণ, উৎপাদন, কৃষি, খাদ্য',
       'job.myWhite': 'মালয়েশিয়া White Collar Job', 'jd.myWhite': 'অফিস ও প্রফেশনাল পদ',
       'job.myBlue': 'মালয়েশিয়া Blue Collar Job', 'jd.myBlue': 'ফ্যাক্টরি, নির্মাণ, সার্ভিস',
+      'job.jpUni': 'জাপান University তে Undergraduate & MBA Degree', 'jd.jpUni': 'জাপানের বিশ্ববিদ্যালয়ে স্নাতক ও MBA',
+      'job.jpLang': 'জাপান Language School', 'jd.jpLang': 'জাপানে থেকে জাপানি ভাষা শেখা',
+      'job.jpOnline': 'জাপান Online University', 'jd.jpOnline': '২ বছর বাংলাদেশে, ২ বছর জাপানে',
+      'job.myUni': 'মালয়েশিয়া University তে Undergraduate Degree', 'jd.myUni': 'মালয়েশিয়ার বিশ্ববিদ্যালয়ে স্নাতক',
+      'ov.about': 'সংক্ষেপে', 'ov.companies': 'কাজের ক্ষেত্র', 'ov.unis': 'কোথায় পড়বেন',
+      'ov.facts': 'মূল তথ্য', 'ov.req': 'যোগ্যতা (আনুমানিক)', 'ov.notes': 'জেনে রাখুন',
+      'ov.asof': 'তথ্য ও অঙ্কগুলো নভেম্বর ২০২৬ অনুযায়ী এবং পরিবর্তন হতে পারে।',
+      'ov.soon': 'এই পথের বিস্তারিত তথ্য শীঘ্রই যোগ করা হবে। প্রশ্ন থাকলে একটি ওয়ান-টু-ওয়ান অ্যাপয়েন্টমেন্ট নিন।',
+      'ov.apply': 'ফ্রিতে আবেদন করুন', 'ov.appt': 'ওয়ান-টু-ওয়ান অ্যাপয়েন্টমেন্ট নিন',
+      'f.preferredTime': 'অ্যাপয়েন্টমেন্টের সুবিধাজনক সময়', 'h.bdTime': 'বাংলাদেশ সময়',
+      'o.morning': 'সকাল', 'o.midday': 'দুপুর', 'o.afternoon': 'বিকেল', 'o.evening': 'সন্ধ্যা',
       'f.fullName': 'পূর্ণ নাম', 'h.fullName': 'পাসপোর্ট অনুযায়ী',
       'f.phone': 'মোবাইল নম্বর', 'f.whatsapp': 'WhatsApp', 'h.whatsapp': 'ভিন্ন হলে',
       'f.email': 'ইমেইল', 'h.optional': 'ঐচ্ছিক',
@@ -624,15 +738,17 @@
       'o.agriculture': 'কৃষি', 'o.food': 'খাদ্য প্রক্রিয়াজাতকরণ', 'o.driving': 'ড্রাইভিং',
       'o.electrical': 'ইলেকট্রিক্যাল', 'o.hospitality': 'হোটেল / ক্লিনিং', 'o.friend': 'বন্ধু / পরিবার',
       consent: 'আমি নিশ্চিত করছি যে দেওয়া সব তথ্য সঠিক, এবং যোগাযোগের জন্য OPearl এই তথ্য ব্যবহার করতে পারবে।',
-      back: 'পেছনে', next: 'পরবর্তী', submit: 'আবেদন জমা দিন', submitting: 'জমা হচ্ছে...',
+      back: 'পেছনে', next: 'পরবর্তী', submit: 'আবেদন জমা দিন', submitAppt: 'অ্যাপয়েন্টমেন্ট বুক করুন', submitting: 'জমা হচ্ছে...',
       'done.title': 'আবেদন সফলভাবে জমা হয়েছে!', 'done.ref': 'রেফারেন্স আইডি',
       'done.note': 'আইডিটি সংরক্ষণ করুন। আমাদের টিম শীঘ্রই আপনার সাথে যোগাযোগ করবে।',
+      'done.titleAppt': 'অ্যাপয়েন্টমেন্টের অনুরোধ জমা হয়েছে!',
+      'done.noteAppt': 'আইডিটি সংরক্ষণ করুন। সময় ঠিক করতে আমাদের টিম শীঘ্রই আপনার সাথে যোগাযোগ করবে।',
       copy: 'কপি', copied: 'কপি হয়েছে ✓', footer: 'OPearl Co., Ltd.',
       err: {
         BUSY: 'সার্ভার ব্যস্ত, একটু পরে আবার চেষ্টা করুন।', NAME: 'আপনার নাম লিখুন।',
-        JOB: 'একটি জব ক্যাটাগরি বেছে নিন।', PHONE: 'সঠিক মোবাইল নম্বর দিন (01XXXXXXXXX)।',
+        JOB: 'একটি ক্যাটাগরি বেছে নিন।', PHONE: 'সঠিক মোবাইল নম্বর দিন (01XXXXXXXXX)।',
         EMAIL: 'সঠিক ইমেইল দিন।', DOB: 'সঠিক জন্ম তারিখ দিন।', AGE: 'বয়স ১৮ থেকে ৬০ বছরের মধ্যে হতে হবে।',
-        CONSENT: 'অনুগ্রহ করে সম্মতি দিন।', DUPLICATE: 'এই নম্বর দিয়ে এই ক্যাটাগরিতে আগেই আবেদন করা হয়েছে।',
+        CONSENT: 'অনুগ্রহ করে সম্মতি দিন।', DUPLICATE: 'এই নম্বর দিয়ে এই ক্যাটাগরিতে আগেই জমা দেওয়া হয়েছে।',
         CV_TYPE: 'সিভি অবশ্যই PDF, DOC/DOCX, JPG বা PNG হতে হবে।', CV_SIZE: 'সিভি ফাইল ৫ MB এর বেশি।',
         SERVER: 'কিছু একটা সমস্যা হয়েছে। আবার চেষ্টা করুন।', NETWORK: 'নেটওয়ার্ক সমস্যা। আবার চেষ্টা করুন।',
       },
@@ -640,10 +756,11 @@
 
     ja: {
       eyebrow: '応募受付中', title: '日本・マレーシアで、新しいキャリアを。',
-      subtitle: '数分で応募が完了します。プロフィールを確認のうえ、ぴったりのお仕事をご紹介します。',
+      subtitle: '数分で応募が完了します。プロフィールを確認のうえ、ぴったりのお仕事や留学先をご紹介します。',
       perk1: '応募は無料', perk2: '約3分で完了', perk3: 'ベンガル語でサポート',
-      s1: '職種', s2: '個人情報', s3: '学歴・資格', s4: '職歴',
-      t1: '希望する職種を選んでください', d1: '職種ごとに応募条件や給与が異なります。',
+      s1: 'コース', s2: '個人情報', s3: '学歴・資格', s4: '職歴',
+      t1: '希望の進路を選んでください', d1: '就職・留学から選ぶと、詳細が表示されます。',
+      'g.work': '就職', 'g.study': '留学',
       t2: 'あなたについて教えてください', d2: 'パスポートの記載どおりに入力してください。',
       t3: '学歴・資格', d3: '選択した職種に応じた質問です。',
       t4: '職歴と履歴書', d4: 'あと少しです！経験があればご記入ください。',
@@ -652,6 +769,17 @@
       'job.jpBlue': '日本 — 技能職', 'jd.jpBlue': '建設・製造・農業・食品',
       'job.myWhite': 'マレーシア — ホワイトカラー職', 'jd.myWhite': '事務・専門職',
       'job.myBlue': 'マレーシア — 技能職', 'jd.myBlue': '工場・建設・サービス',
+      'job.jpUni': '日本 — 大学（学部・MBA）', 'jd.jpUni': '日本の大学で学士・MBA',
+      'job.jpLang': '日本 — 日本語学校', 'jd.jpLang': '日本で日本語を学ぶ',
+      'job.jpOnline': '日本 — オンライン大学', 'jd.jpOnline': 'バングラデシュで2年、日本で2年',
+      'job.myUni': 'マレーシア — 大学（学部）', 'jd.myUni': 'マレーシアの大学で学士',
+      'ov.about': '概要', 'ov.companies': '主な分野', 'ov.unis': '進学先',
+      'ov.facts': '主なポイント', 'ov.req': '応募条件（目安）', 'ov.notes': '知っておきたいこと',
+      'ov.asof': '情報・金額は2026年11月時点のもので、変更される場合があります。',
+      'ov.soon': 'このコースの詳細は近日公開予定です。ご質問は個別相談でお気軽にどうぞ。',
+      'ov.apply': '無料で応募する', 'ov.appt': '個別相談を予約する',
+      'f.preferredTime': 'ご希望の相談時間帯', 'h.bdTime': 'バングラデシュ時間',
+      'o.morning': '朝', 'o.midday': '昼', 'o.afternoon': '午後', 'o.evening': '夕方',
       'f.fullName': '氏名', 'h.fullName': 'パスポート表記',
       'f.phone': '携帯電話番号', 'f.whatsapp': 'WhatsApp', 'h.whatsapp': '異なる場合',
       'f.email': 'メールアドレス', 'h.optional': '任意',
@@ -677,16 +805,18 @@
       'o.agriculture': '農業', 'o.food': '食品製造', 'o.driving': '運転',
       'o.electrical': '電気', 'o.hospitality': '宿泊・清掃', 'o.friend': '友人・家族',
       consent: '入力した情報が正確であることを確認し、OPearlからの連絡のために使用されることに同意します。',
-      back: '戻る', next: '次へ', submit: '応募する', submitting: '送信中...',
+      back: '戻る', next: '次へ', submit: '応募する', submitAppt: '相談を予約する', submitting: '送信中...',
       'done.title': '応募を受け付けました', 'done.ref': '受付番号',
       'done.note': '受付番号を保存してください。担当者より追ってご連絡します。',
+      'done.titleAppt': '個別相談のお申し込みを受け付けました',
+      'done.noteAppt': '受付番号を保存してください。日程調整のため、担当者よりご連絡します。',
       copy: 'コピー', copied: 'コピーしました ✓', footer: 'OPearl株式会社',
       err: {
         BUSY: 'サーバーが混み合っています。しばらくしてから再度お試しください。', NAME: '氏名を入力してください。',
-        JOB: '希望する職種を選択してください。', PHONE: '正しい携帯電話番号を入力してください（01XXXXXXXXX）。',
+        JOB: '希望のコースを選択してください。', PHONE: '正しい携帯電話番号を入力してください（01XXXXXXXXX）。',
         EMAIL: '正しいメールアドレスを入力してください。', DOB: '正しい生年月日を入力してください。',
         AGE: '応募可能な年齢は18〜60歳です。', CONSENT: '同意にチェックしてください。',
-        DUPLICATE: 'この電話番号で、この職種にはすでに応募済みです。',
+        DUPLICATE: 'この電話番号で、このコースにはすでに送信済みです。',
         CV_TYPE: '履歴書はPDF、DOC/DOCX、JPG、PNGのいずれかでアップロードしてください。',
         CV_SIZE: '履歴書のファイルサイズが5MBを超えています。',
         SERVER: 'エラーが発生しました。もう一度お試しください。', NETWORK: '通信エラーが発生しました。もう一度お試しください。',
@@ -695,10 +825,11 @@
 
     en: {
       eyebrow: 'Applications open', title: 'Start your career in Japan & Malaysia',
-      subtitle: 'Apply in a few minutes. We review your profile and get in touch about jobs that fit.',
+      subtitle: 'Apply in a few minutes. We review your profile and get in touch about jobs or study options that fit.',
       perk1: 'Free to apply', perk2: 'Takes 3 minutes', perk3: 'Support in Bangla',
-      s1: 'Job', s2: 'Personal', s3: 'Qualifications', s4: 'Experience',
-      t1: 'Which job are you applying for?', d1: 'Pick one category. Requirements and salary differ for each.',
+      s1: 'Path', s2: 'Personal', s3: 'Qualifications', s4: 'Experience',
+      t1: 'Where do you want to go?', d1: 'Pick a job or study path to see what it involves.',
+      'g.work': 'Work', 'g.study': 'Study',
       t2: 'Tell us about yourself', d2: 'Enter your details exactly as they appear on your passport.',
       t3: 'Education & qualifications', d3: 'A few questions based on the job you chose.',
       t4: 'Experience & CV', d4: 'Almost done! Add any work experience you have.',
@@ -707,6 +838,17 @@
       'job.jpBlue': 'Japan — Blue Collar Job', 'jd.jpBlue': 'Construction, manufacturing, agriculture, food',
       'job.myWhite': 'Malaysia — White Collar Job', 'jd.myWhite': 'Office and professional roles',
       'job.myBlue': 'Malaysia — Blue Collar Job', 'jd.myBlue': 'Factory, construction, services',
+      'job.jpUni': 'Japan — University (Undergraduate & MBA)', 'jd.jpUni': "Bachelor's and MBA degrees in Japan",
+      'job.jpLang': 'Japan — Language School', 'jd.jpLang': 'Learn Japanese in Japan',
+      'job.jpOnline': 'Japan — Online University', 'jd.jpOnline': '2 years in Bangladesh, 2 years in Japan',
+      'job.myUni': 'Malaysia — University (Undergraduate)', 'jd.myUni': "Bachelor's degrees in Malaysia",
+      'ov.about': 'Overview', 'ov.companies': 'Fields & sectors', 'ov.unis': 'Where you study',
+      'ov.facts': 'Key facts', 'ov.req': 'Requirements (typical)', 'ov.notes': 'Good to know',
+      'ov.asof': 'Figures and rules as of November 2026; they can change.',
+      'ov.soon': 'Full details for this path are coming soon. Book a one-to-one appointment if you have questions.',
+      'ov.apply': 'Apply free', 'ov.appt': 'Book a one-to-one appointment',
+      'f.preferredTime': 'Preferred time for the appointment', 'h.bdTime': 'Bangladesh time',
+      'o.morning': 'Morning', 'o.midday': 'Midday', 'o.afternoon': 'Afternoon', 'o.evening': 'Evening',
       'f.fullName': 'Full name', 'h.fullName': 'as on passport',
       'f.phone': 'Mobile number', 'f.whatsapp': 'WhatsApp', 'h.whatsapp': 'if different',
       'f.email': 'Email', 'h.optional': 'optional',
@@ -732,20 +874,587 @@
       'o.agriculture': 'Agriculture', 'o.food': 'Food processing', 'o.driving': 'Driving',
       'o.electrical': 'Electrical', 'o.hospitality': 'Hospitality / Cleaning', 'o.friend': 'Friend / Family',
       consent: 'I confirm that this information is correct and agree that OPearl may use it to contact me.',
-      back: 'Back', next: 'Continue', submit: 'Submit application', submitting: 'Submitting...',
+      back: 'Back', next: 'Continue', submit: 'Submit application', submitAppt: 'Book appointment', submitting: 'Submitting...',
       'done.title': 'Application submitted!', 'done.ref': 'Reference ID',
       'done.note': 'Please save this ID. Our team will contact you soon.',
+      'done.titleAppt': 'Appointment request received!',
+      'done.noteAppt': 'Please save this ID. Our team will contact you soon to fix a time.',
       copy: 'Copy', copied: 'Copied ✓', footer: 'OPearl Co., Ltd.',
       err: {
         BUSY: 'The server is busy. Please try again shortly.', NAME: 'Please enter your name.',
-        JOB: 'Please choose a job category.', PHONE: 'Enter a valid mobile number (01XXXXXXXXX).',
+        JOB: 'Please choose a category.', PHONE: 'Enter a valid mobile number (01XXXXXXXXX).',
         EMAIL: 'Enter a valid email address.', DOB: 'Enter a valid date of birth.',
         AGE: 'Applicants must be between 18 and 60 years old.', CONSENT: 'Please give your consent.',
-        DUPLICATE: 'You have already applied for this category with this number.',
+        DUPLICATE: 'This number has already been used for this category.',
         CV_TYPE: 'CV must be a PDF, DOC/DOCX, JPG or PNG file.', CV_SIZE: 'CV file is larger than 5 MB.',
         SERVER: 'Something went wrong. Please try again.', NETWORK: 'Network error. Please try again.',
       },
     },
+  };
+
+  // ====== Overview shown after a scope is picked ======
+  // One entry per scope (keyed by the tile's data-key), per language.
+  //   desc:  short description of the path
+  //   where: fields / sectors (jobs) or universities / schools (study)
+  //   facts: [label, value] pairs, e.g. salary, cost, visa
+  //   req:   requirements, one line each
+  //   notes: "good to know" points
+  // Japan content: "Japan Study & Career Routes for Bangladeshi Students" (Nov 2026).
+  // Leave a field empty to hide that section. A missing language falls back to English, then Bangla.
+  const blank = () => ({ desc: '', where: [], facts: [], req: [], notes: [] });
+  const OVERVIEW = {
+    jpWhite: {
+      "bn": {
+        "desc": "বাংলাদেশে বিশ্ববিদ্যালয়ের ডিগ্রি শেষ করার পাশাপাশি জাপানি ভাষা শিখুন, তারপর সরাসরি জাপানি কোম্পানিতে অফিস, ইঞ্জিনিয়ারিং বা আইটি পদে চাকরি নিন। জাপানে পড়াশোনার খরচ লাগে না, তবে ভালো মানের জাপানি ভাষা জানতে হয়। OPearl জাপানি কোম্পানিগুলোকে বাংলাদেশে এনে সরাসরি নিয়োগের পরিকল্পনা করছে।",
+        "where": [
+          "আইটি / CSE",
+          "ইলেকট্রিক্যাল ও মেকানিক্যাল ইঞ্জিনিয়ারিং",
+          "বিজনেস",
+          "অ্যাকাউন্টিং"
+        ],
+        "facts": [
+          [
+            "শুরুর বেতন (বিশ্ববিদ্যালয় স্নাতক)",
+            "গড় ¥262,300/মাস (২০২৫, করের আগে)"
+          ],
+          [
+            "ভিসা",
+            "Engineer / Specialist in Humanities / International Services — চাকরি থাকলে নবায়নযোগ্য, পরিবার সাধারণত আনা যায়"
+          ]
+        ],
+        "req": [
+          "সংশ্লিষ্ট বিষয়ে স্নাতক ডিগ্রি",
+          "JLPT N3 সর্বনিম্ন, N2 থাকলে সবচেয়ে ভালো",
+          "জাপানি কোম্পানির জব অফার"
+        ],
+        "notes": [
+          "বেশিরভাগ কোম্পানি N2 চায়, কারণ মিটিং, ইমেইল ও টিমওয়ার্ক জাপানিতে হয়।",
+          "ভালো সিভি, পোর্টফোলিও (আইটির জন্য) ও জাপানি স্টাইলের ইন্টারভিউ প্র্যাকটিস অনেক কাজে দেয়।",
+          "বিশ্ববিদ্যালয়ের ১ম বা ২য় বর্ষে জাপানি শেখা শুরু করলে যথেষ্ট সময় পাওয়া যায়।"
+        ]
+      },
+      "ja": {
+        "desc": "バングラデシュで大学の学位を取りながら日本語を学び、日本企業に事務・エンジニア・IT職として直接採用されるルートです。日本での留学費用はかかりませんが、高い日本語力が必要です。OPearlは日本企業をバングラデシュに招いた直接採用を計画しています。",
+        "where": [
+          "IT / CSE",
+          "電気・機械工学",
+          "ビジネス",
+          "会計"
+        ],
+        "facts": [
+          [
+            "初任給（大卒）",
+            "平均 月¥262,300（2025年、税引前）"
+          ],
+          [
+            "在留資格",
+            "技術・人文知識・国際業務 — 雇用が続く限り更新可、家族帯同も可能な場合が多い"
+          ]
+        ],
+        "req": [
+          "関連分野の学士号",
+          "JLPT N3以上（N2を強く推奨）",
+          "日本企業からの内定"
+        ],
+        "notes": [
+          "会議・メール・チームワークが日本語のため、多くの企業がN2を求めます。",
+          "充実した履歴書、ポートフォリオ（IT職）、日本式面接の練習が大きな差になります。",
+          "大学1〜2年生のうちに日本語を始めると十分な時間があります。"
+        ]
+      },
+      "en": {
+        "desc": "Finish a university degree in Bangladesh while learning Japanese, then get hired directly by a Japanese company for an office, engineering or IT role. You avoid the cost of studying in Japan, but you need strong Japanese. OPearl plans to bring Japanese companies to Bangladesh for direct hiring.",
+        "where": [
+          "IT / CSE",
+          "Electrical & mechanical engineering",
+          "Business",
+          "Accounting"
+        ],
+        "facts": [
+          [
+            "Starting salary (university graduate)",
+            "Avg ¥262,300/month (2025, before tax)"
+          ],
+          [
+            "Visa",
+            "Engineer / Specialist in Humanities / International Services — renewable while the job continues; family can usually join"
+          ]
+        ],
+        "req": [
+          "Bachelor's degree in a relevant field",
+          "JLPT N3 minimum, N2 highly recommended",
+          "A job offer from a Japanese company"
+        ],
+        "notes": [
+          "Most companies ask for N2 because meetings, emails and teamwork happen in Japanese.",
+          "A strong CV, a portfolio (for IT) and Japanese-style interview practice make a big difference.",
+          "Starting Japanese in your 1st or 2nd year of university gives enough time."
+        ]
+      }
+    },
+    jpCare: {
+      "bn": {
+        "desc": "Specified Skilled Worker (SSW i) ভিসায় জাপানে বয়স্কদের সেবার কাজ। এটি স্বল্পমেয়াদি, চুক্তিভিত্তিক কাজের ভিসা — দ্রুত জাপানে কাজ শুরু করা যায়, তবে এতে কোনো ডিগ্রি হয় না এবং নির্দিষ্ট সময়সীমা আছে।",
+        "where": [
+          "কেয়ারগিভিং (বয়স্ক সেবা)"
+        ],
+        "facts": [
+          [
+            "সর্বোচ্চ মেয়াদ",
+            "মোট ৫ বছর, ছোট ছোট মেয়াদে নবায়ন"
+          ],
+          [
+            "পরিবার",
+            "স্বামী/স্ত্রী বা সন্তান আনা যায় না"
+          ]
+        ],
+        "req": [
+          "JLPT N4 অথবা JFT-Basic (A2)",
+          "সংশ্লিষ্ট সেক্টরের স্কিল টেস্টে পাস"
+        ],
+        "notes": [
+          "৫ বছর পর দেশে ফিরতে হয় বা স্ট্যাটাস পরিবর্তন করতে হয়; কিছু সেক্টরে SSW (ii) পাস করলে সময়সীমা থাকে না।",
+          "SSW (i) এর সময় স্থায়ী বসবাসের (PR) জন্য গণনা হয় না।",
+          "পরে হোয়াইট কলার চাকরিতে যেতে সাধারণত ডিগ্রি লাগে, যা SSW থেকে পাওয়া যায় না।"
+        ]
+      },
+      "ja": {
+        "desc": "特定技能1号による介護の仕事です。短期・契約ベースの就労ビザで、早く日本で働き始められますが、学位にはつながらず、期間の上限があります。",
+        "where": [
+          "介護"
+        ],
+        "facts": [
+          [
+            "在留期間",
+            "通算5年まで（更新制）"
+          ],
+          [
+            "家族",
+            "配偶者・子どもの帯同は不可"
+          ]
+        ],
+        "req": [
+          "JLPT N4 または JFT-Basic（A2）",
+          "分野別の技能試験に合格"
+        ],
+        "notes": [
+          "5年後は帰国または在留資格の変更が必要。一部の分野では特定技能2号に合格すると期限がなくなります。",
+          "特定技能1号の期間は永住申請の就労期間に算入されません。",
+          "後にホワイトカラー職へ移るには通常学位が必要で、特定技能では得られません。"
+        ]
+      },
+      "en": {
+        "desc": "Hands-on elderly care work in Japan on the Specified Skilled Worker (SSW i) visa. It is a short-term, contract-based visa: a fast way to work in Japan, but it does not lead to a degree and has a fixed time limit.",
+        "where": [
+          "Caregiving (elderly care)"
+        ],
+        "facts": [
+          [
+            "Maximum period",
+            "5 years in total, renewed in shorter periods"
+          ],
+          [
+            "Family",
+            "Cannot bring spouse or children"
+          ]
+        ],
+        "req": [
+          "JLPT N4 or JFT-Basic (A2 level)",
+          "Pass the skills test for the sector"
+        ],
+        "notes": [
+          "After 5 years: return home or switch status; passing SSW (ii) in some sectors removes the time limit.",
+          "Time on SSW (i) does not count toward permanent residence.",
+          "Moving to a white-collar job later usually needs a degree, which SSW does not provide."
+        ]
+      }
+    },
+    jpBlue: {
+      "bn": {
+        "desc": "Specified Skilled Worker (SSW i) ভিসায় শ্রমিক-সংকটে থাকা সেক্টরে হাতে-কলমে কাজ। এটি স্বল্পমেয়াদি, চুক্তিভিত্তিক ভিসা — দ্রুত জাপানে কাজ শুরু করা যায়, তবে এতে কোনো ডিগ্রি হয় না এবং নির্দিষ্ট সময়সীমা আছে।",
+        "where": [
+          "ফুড সার্ভিস",
+          "খাদ্য উৎপাদন",
+          "নির্মাণ",
+          "কৃষি",
+          "ভবন পরিচ্ছন্নতা"
+        ],
+        "facts": [
+          [
+            "সর্বোচ্চ মেয়াদ",
+            "মোট ৫ বছর, ছোট ছোট মেয়াদে নবায়ন"
+          ],
+          [
+            "পরিবার",
+            "স্বামী/স্ত্রী বা সন্তান আনা যায় না"
+          ]
+        ],
+        "req": [
+          "JLPT N4 অথবা JFT-Basic (A2)",
+          "সংশ্লিষ্ট সেক্টরের স্কিল টেস্টে পাস"
+        ],
+        "notes": [
+          "৫ বছর পর দেশে ফিরতে হয় বা স্ট্যাটাস পরিবর্তন করতে হয়; কিছু সেক্টরে SSW (ii) পাস করলে সময়সীমা থাকে না।",
+          "SSW (i) এর সময় স্থায়ী বসবাসের (PR) জন্য গণনা হয় না।",
+          "পরে হোয়াইট কলার চাকরিতে যেতে সাধারণত ডিগ্রি লাগে, যা SSW থেকে পাওয়া যায় না।"
+        ]
+      },
+      "ja": {
+        "desc": "人手不足の分野で働く特定技能1号の現場職です。短期・契約ベースの就労ビザで、早く日本で働き始められますが、学位にはつながらず、期間の上限があります。",
+        "where": [
+          "外食",
+          "飲食料品製造",
+          "建設",
+          "農業",
+          "ビルクリーニング"
+        ],
+        "facts": [
+          [
+            "在留期間",
+            "通算5年まで（更新制）"
+          ],
+          [
+            "家族",
+            "配偶者・子どもの帯同は不可"
+          ]
+        ],
+        "req": [
+          "JLPT N4 または JFT-Basic（A2）",
+          "分野別の技能試験に合格"
+        ],
+        "notes": [
+          "5年後は帰国または在留資格の変更が必要。一部の分野では特定技能2号に合格すると期限がなくなります。",
+          "特定技能1号の期間は永住申請の就労期間に算入されません。",
+          "後にホワイトカラー職へ移るには通常学位が必要で、特定技能では得られません。"
+        ]
+      },
+      "en": {
+        "desc": "Hands-on work in sectors facing labour shortages, on the Specified Skilled Worker (SSW i) visa. It is a short-term, contract-based visa: a fast way to work in Japan, but it does not lead to a degree and has a fixed time limit.",
+        "where": [
+          "Food service",
+          "Food manufacturing",
+          "Construction",
+          "Agriculture",
+          "Building cleaning"
+        ],
+        "facts": [
+          [
+            "Maximum period",
+            "5 years in total, renewed in shorter periods"
+          ],
+          [
+            "Family",
+            "Cannot bring spouse or children"
+          ]
+        ],
+        "req": [
+          "JLPT N4 or JFT-Basic (A2 level)",
+          "Pass the skills test for the sector"
+        ],
+        "notes": [
+          "After 5 years: return home or switch status; passing SSW (ii) in some sectors removes the time limit.",
+          "Time on SSW (i) does not count toward permanent residence.",
+          "Moving to a white-collar job later usually needs a degree, which SSW does not provide."
+        ]
+      }
+    },
+    jpUni: {
+      "bn": {
+        "desc": "HSC / A-level এর পরই সরাসরি জাপানের বিশ্ববিদ্যালয়ে পূর্ণ ডিগ্রি প্রোগ্রামে ভর্তি। ইংরেজি মাধ্যমের প্রোগ্রামে ভর্তির জন্য জাপানি লাগে না; জাপানি মাধ্যমের প্রোগ্রামে প্রায় N2 ও EJU স্কোর লাগে।",
+        "where": [
+          "ইংরেজি মাধ্যমের ডিগ্রি প্রোগ্রাম",
+          "জাপানি মাধ্যমের ডিগ্রি প্রোগ্রাম",
+          "উদাহরণ: Ritsumeikan Asia Pacific University (APU)"
+        ],
+        "facts": [
+          [
+            "স্নাতকের পর শুরুর বেতন",
+            "গড় ¥262,300/মাস (২০২৫, করের আগে)"
+          ],
+          [
+            "স্কলারশিপ",
+            "ভালো শিক্ষার্থীদের জন্য টিউশন ছাড় প্রায়ই পাওয়া যায় (ইংরেজি প্রোগ্রাম)"
+          ]
+        ],
+        "req": [
+          "HSC / A-level সম্পন্ন",
+          "ইংরেজি প্রোগ্রাম: ভালো রেজাল্ট, IELTS/TOEFL, রচনা ও ইন্টারভিউ",
+          "জাপানি প্রোগ্রাম: প্রায় JLPT N2 + EJU স্কোর"
+        ],
+        "notes": [
+          "ইংরেজি ডিগ্রি থাকলেও বেশিরভাগ জাপানি কোম্পানি N2 বা তার বেশি চায় — চাকরি খোঁজার আগে N2 লক্ষ্য রাখুন।",
+          "কিছু বিশ্ববিদ্যালয়ে জাপানি ভাষার কোর্স ডিগ্রির ক্রেডিটে গণনা হয়; অন্যগুলোতে নিজে আলাদাভাবে শিখতে হয়।",
+          "N2 পর্যন্ত পৌঁছাতে সাধারণত ১.৫–২ বছর লাগে; OPearl এর অনলাইন জাপানি কোর্স (N5–N3) যাওয়ার আগে বা পড়ার পাশাপাশি করা যায়।"
+        ]
+      },
+      "ja": {
+        "desc": "HSC / Aレベル修了後、日本の大学の学位課程に直接入学するルートです。英語で学ぶプログラムは入学時に日本語不要、日本語で学ぶプログラムはN2程度とEJUのスコアが必要です。",
+        "where": [
+          "英語で学ぶ学位プログラム",
+          "日本語で学ぶ学位プログラム",
+          "例：立命館アジア太平洋大学（APU）"
+        ],
+        "facts": [
+          [
+            "卒業後の初任給",
+            "平均 月¥262,300（2025年、税引前）"
+          ],
+          [
+            "奨学金",
+            "成績優秀者には授業料減免が多い（英語プログラム）"
+          ]
+        ],
+        "req": [
+          "HSC / Aレベル修了",
+          "英語プログラム：学業成績、IELTS/TOEFL、エッセイ、面接",
+          "日本語プログラム：JLPT N2程度 + EJU"
+        ],
+        "notes": [
+          "英語の学位でも、多くの日本企業はN2以上を求めます。就職活動までにN2を目指しましょう。",
+          "日本語科目が卒業単位に含まれる大学と、自分で別に学ぶ必要がある大学があります。",
+          "N2までは通常1.5〜2年。OPearlのオンライン日本語講座（N5〜N3）は渡日前や在学中にも利用できます。"
+        ]
+      },
+      "en": {
+        "desc": "Go to Japan straight after HSC / A-level on a full university degree program. English-taught programs need no Japanese to enter; Japanese-taught programs need about N2 and an EJU score.",
+        "where": [
+          "English-taught degree programs",
+          "Japanese-taught degree programs",
+          "e.g. Ritsumeikan Asia Pacific University (APU)"
+        ],
+        "facts": [
+          [
+            "Starting salary after graduation",
+            "Avg ¥262,300/month (2025, before tax)"
+          ],
+          [
+            "Scholarships",
+            "Tuition reductions often available for strong students (English programs)"
+          ]
+        ],
+        "req": [
+          "HSC / A-level completed",
+          "English programs: academic results, IELTS/TOEFL, essays and interview",
+          "Japanese programs: about JLPT N2 + EJU score"
+        ],
+        "notes": [
+          "Even with an English degree, most Japanese companies hire at N2 or above, so aim for N2 before job hunting.",
+          "Some universities count Japanese classes toward graduation; at others you learn Japanese on your own.",
+          "Reaching N2 takes most learners 1.5–2 years. OPearl's online Japanese courses (N5–N3) can be taken before departure or alongside your studies."
+        ]
+      }
+    },
+    jpLang: {
+      "bn": {
+        "desc": "জাপানের ল্যাঙ্গুয়েজ স্কুলে ১.৫–২ বছর পড়ে N4 থেকে N2 তে পৌঁছান, তারপর জাপানের বিশ্ববিদ্যালয় (৪ বছর) বা সেনমন গাক্কো (২ বছরের ভোকেশনাল কলেজ) এ ভর্তি হয়ে চাকরিতে যান। বাংলাদেশি শিক্ষার্থীদের জন্য এটিই সবচেয়ে প্রচলিত ও নমনীয় পথ।",
+        "where": [
+          "জাপানি ল্যাঙ্গুয়েজ স্কুল (১.৫–২ বছর)",
+          "তারপর বিশ্ববিদ্যালয় (৪ বছর)",
+          "অথবা সেনমন গাক্কো (২ বছর)"
+        ],
+        "facts": [
+          [
+            "প্রথম বছরের ফি",
+            "¥750,000–¥900,000 (ভর্তি + টিউশন + বই)"
+          ],
+          [
+            "থাকার খরচ",
+            "¥30,000–¥50,000/মাস (ডরমিটরি বা শেয়ার্ড বাসা)"
+          ],
+          [
+            "পার্ট-টাইম কাজ",
+            "অনুমতি নিয়ে সপ্তাহে সর্বোচ্চ ২৮ ঘণ্টা, লম্বা ছুটিতে দিনে ৮ ঘণ্টা"
+          ],
+          [
+            "স্নাতকের পর শুরুর বেতন",
+            "বিশ্ববিদ্যালয় ¥262,300 / সেনমন গাক্কো ¥230,700 প্রতি মাসে (২০২৫)"
+          ]
+        ],
+        "req": [
+          "SSC / HSC সার্টিফিকেট",
+          "বাংলাদেশেই JLPT N4 শেষ করা (অন্তত N5 + ১৫০ ঘণ্টা পড়াশোনা)",
+          "স্পন্সরের আয় ও ব্যাংক সলভেন্সির কাগজ",
+          "পাসপোর্ট ও ছবি"
+        ],
+        "notes": [
+          "ভর্তির (এপ্রিল বা অক্টোবর) প্রায় ৬ মাস আগে আবেদন করুন।",
+          "উপস্থিতি ৮০%+ (ভালো হয় ৯০%+) রাখতে হয়; কম হলে ভিসা নবায়ন ও বিশ্ববিদ্যালয় ভর্তিতে সমস্যা হয়।",
+          "ফি স্কুলভেদে আলাদা; এগুলো সাধারণ রেঞ্জ।"
+        ]
+      },
+      "ja": {
+        "desc": "日本の日本語学校で1.5〜2年学んでN4からN2へ。その後、大学（4年）または専門学校（2年）に進学し、就職します。バングラデシュの学生に最も一般的で柔軟なルートです。",
+        "where": [
+          "日本語学校（1.5〜2年）",
+          "その後 大学（4年）",
+          "または 専門学校（2年）"
+        ],
+        "facts": [
+          [
+            "初年度の学費",
+            "¥750,000〜¥900,000（入学金＋授業料＋教材）"
+          ],
+          [
+            "住居費",
+            "月¥30,000〜¥50,000（寮・シェアハウス）"
+          ],
+          [
+            "アルバイト",
+            "許可を得て週28時間まで、長期休暇中は1日8時間まで"
+          ],
+          [
+            "卒業後の初任給",
+            "大卒 ¥262,300 / 専門卒 ¥230,700（月額、2025年）"
+          ]
+        ],
+        "req": [
+          "SSC / HSC の卒業証明",
+          "バングラデシュでJLPT N4を取得（少なくともN5＋学習150時間以上）",
+          "経費支弁者の収入・預金残高証明",
+          "パスポート・写真"
+        ],
+        "notes": [
+          "入学時期（4月または10月）の約6か月前に出願します。",
+          "出席率は80%以上（できれば90%以上）が必要。低いとビザ更新や大学進学に影響します。",
+          "学費は学校により異なります（一般的な目安です）。"
+        ]
+      },
+      "en": {
+        "desc": "Study at a Japanese language school in Japan for 1.5–2 years to go from N4 to N2, then enter a Japanese university (4 years) or senmon gakkou (2-year vocational college) and move into a job. The most common and most flexible route for Bangladeshi students.",
+        "where": [
+          "Japanese language school (1.5–2 years)",
+          "Then university (4 years)",
+          "Or senmon gakkou (2 years)"
+        ],
+        "facts": [
+          [
+            "First-year fees",
+            "¥750,000–¥900,000 (admission + tuition + materials)"
+          ],
+          [
+            "Housing",
+            "¥30,000–¥50,000/month (dormitory or shared housing)"
+          ],
+          [
+            "Part-time work",
+            "With permission: up to 28 hours/week in term, 8 hours/day in long holidays"
+          ],
+          [
+            "Starting salary after graduation",
+            "University ¥262,300 / senmon gakkou ¥230,700 per month (2025)"
+          ]
+        ],
+        "req": [
+          "SSC / HSC certificates",
+          "JLPT N4 completed in Bangladesh (at least N5 + 150 study hours)",
+          "Sponsor's income and bank solvency papers",
+          "Passport and photos"
+        ],
+        "notes": [
+          "Apply about 6 months before the intake (April or October).",
+          "Attendance must stay high (80%+, better 90%+); low attendance can block visa renewal and university entry.",
+          "Fees vary by school; these are typical ranges."
+        ]
+      }
+    },
+    jpOnline: {
+      "bn": {
+        "desc": "বাংলাদেশে থেকেই অনলাইনে Seisa University (星槎大学) থেকে পূর্ণ জাপানি স্নাতক ডিগ্রি — জাপানের শিক্ষা মন্ত্রণালয় (MEXT) অনুমোদিত বিশ্ববিদ্যালয়। ক্লাস জাপানিতে, তাই পড়তে পড়তেই N2 তে পৌঁছানো যায়। OPearl হলো Seisa University এর আন্তর্জাতিক শিক্ষার্থী রিক্রুটমেন্ট ও সাপোর্ট পার্টনার।",
+        "where": [
+          "Seisa University — Faculty of Social Coexistence (共生科学部)",
+          "শিক্ষা",
+          "সমাজকল্যাণ",
+          "পরিবেশ",
+          "আন্তর্জাতিক সম্পর্ক",
+          "খেলাধুলা"
+        ],
+        "facts": [
+          [
+            "খরচ",
+            "জাপানে ৪ বছরের টিউশন ও থাকার খরচের চেয়ে অনেক কম — বর্তমান ফি জানতে OPearl এ যোগাযোগ করুন"
+          ],
+          [
+            "স্নাতকের পর শুরুর বেতন",
+            "গড় ¥262,300/মাস (বিশ্ববিদ্যালয় স্নাতক, ২০২৫)"
+          ]
+        ],
+        "req": [
+          "HSC সম্পন্ন",
+          "ভর্তির আগে JLPT N3",
+          "ডিগ্রি চলাকালীন N2 তে পৌঁছানোর লক্ষ্য"
+        ],
+        "notes": [
+          "ডিগ্রি + N2 থাকলে বেশিরভাগ জাপানি কোম্পানির চাহিদা পূরণ হয় এবং বিশ্ববিদ্যালয় স্নাতকের পদ ও বেতন পাওয়া যায়।",
+          "OPearl অনেক জাপানি কোম্পানিকে Seisa শিক্ষার্থীদের কাছে আনার পরিকল্পনা করছে।",
+          "জাপানে কর্মরত সেনমন গাক্কো গ্র্যাজুয়েটরাও চাকরি ছাড়াই Seisa অনলাইনে ডিগ্রি করতে পারেন।"
+        ]
+      },
+      "ja": {
+        "desc": "バングラデシュにいながら、文部科学省認可の星槎大学でオンラインで日本の学士号を取得できます。授業は日本語のため、在学中にN2レベルまで伸ばせます。OPearlは星槎大学の留学生募集・サポートパートナーです。",
+        "where": [
+          "星槎大学 共生科学部",
+          "教育",
+          "福祉",
+          "環境",
+          "国際関係",
+          "スポーツ"
+        ],
+        "facts": [
+          [
+            "費用",
+            "日本で4年間の学費＋生活費より大幅に低い — 最新の学費はOPearlにお問い合わせください"
+          ],
+          [
+            "卒業後の初任給",
+            "平均 月¥262,300（大卒、2025年）"
+          ]
+        ],
+        "req": [
+          "HSC修了",
+          "入学前にJLPT N3",
+          "在学中にN2を目指す"
+        ],
+        "notes": [
+          "学位＋N2で多くの日本企業の採用条件を満たし、大卒としての職位・給与の対象になります。",
+          "OPearlは多くの日本企業を星槎の学生に紹介する計画です。",
+          "日本で働く専門学校卒の方も、仕事を続けながら星槎のオンライン課程で学位を取得できます。"
+        ]
+      },
+      "en": {
+        "desc": "Earn a full Japanese Bachelor's degree online from Bangladesh through Seisa University (星槎大学), approved by Japan's Ministry of Education (MEXT). Classes are in Japanese, so you build up to N2 during the degree. OPearl is Seisa University's international student recruitment and support partner.",
+        "where": [
+          "Seisa University — Faculty of Social Coexistence",
+          "Education",
+          "Welfare",
+          "Environment",
+          "International relations",
+          "Sports"
+        ],
+        "facts": [
+          [
+            "Cost",
+            "Much lower than 4 years of tuition and living costs in Japan — contact OPearl for current fees"
+          ],
+          [
+            "Starting salary after graduation",
+            "Avg ¥262,300/month (university graduate, 2025)"
+          ]
+        ],
+        "req": [
+          "HSC completed",
+          "JLPT N3 before entering",
+          "Aim to reach N2 during the degree"
+        ],
+        "notes": [
+          "A degree plus N2 meets most Japanese companies’ hiring requirements and qualifies you for university-graduate positions and pay.",
+          "OPearl plans to introduce many Japanese companies to Seisa students.",
+          "Senmon gakkou graduates already working in Japan can also earn a Seisa degree online without leaving their job."
+        ]
+      }
+    },
+    myWhite: { bn: blank(), ja: blank(), en: blank() },  // TODO: Malaysia info
+    myBlue: { bn: blank(), ja: blank(), en: blank() },  // TODO: Malaysia info
+    myUni: { bn: blank(), ja: blank(), en: blank() },  // TODO: Malaysia info
   };
 
   const $ = id => document.getElementById(id);
@@ -754,7 +1463,7 @@
   const stepperItems = [...document.querySelectorAll('#stepper li')];
   const btnBack = $('back'), btnNext = $('next'), btnSubmit = $('submit');
   const MAX_CV = 5 * 1024 * 1024;
-  let lang = 'bn', step = 0, lastErr = null, submitting = false;
+  let lang = 'bn', step = 0, lastErr = null, submitting = false, ovOpen = false;
 
   const t = k => I18N[lang][k] ?? I18N.en[k] ?? k;
   const tErr = c => I18N[lang].err[c] || I18N[lang].err.SERVER;
@@ -769,6 +1478,7 @@
     document.querySelectorAll('.seg button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.lang === lang)));
     const f = $('cv').files[0];
     if (f) $('dropTitle').textContent = f.name;
+    renderOverview();
     if (submitting) $('submitLabel').textContent = t('submitting');
     if (lastErr) $('msgText').textContent = tErr(lastErr);
     validatePhones();
@@ -789,6 +1499,61 @@
   form.querySelectorAll('input[name="jobCategory"]').forEach(r => r.addEventListener('change', () => {
     updateConditional();
     clearError();
+  }));
+  // click (not change) so picking the already-selected tile again also opens it
+  form.querySelectorAll('input[name="jobCategory"]').forEach(r => r.addEventListener('click', openOverview));
+
+  // ---------- Scope overview ----------
+  const esc = v => String(v).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
+  function overviewFor(key) {
+    const o = OVERVIEW[key] || {};
+    const pick = f => [lang, 'en', 'bn'].map(l => o[l] && o[l][f]).find(v => v && v.length) || (f === 'desc' ? '' : []);
+    return { desc: pick('desc'), where: pick('where'), facts: pick('facts'), req: pick('req'), notes: pick('notes') };
+  }
+  function renderOverview() {
+    const c = form.querySelector('input[name="jobCategory"]:checked');
+    if (!c) return;
+    const key = c.dataset.key, study = c.dataset.kind === 'study';
+    const o = overviewFor(key);
+    $('ovFlag').textContent = c.closest('.tile').querySelector('.flag').textContent;
+    $('ovTitle').textContent = t('job.' + key);
+    $('ovTag').textContent = t('jd.' + key);
+    const sec = (label, html) => `<div class="ov-sec"><h3>${esc(t(label))}</h3>${html}</div>`;
+    const list = (items, cls) => `<ul class="${cls}">${items.map(r => `<li>${esc(r)}</li>`).join('')}</ul>`;
+    let html = '';
+    if (o.desc) html += sec('ov.about', `<p>${esc(o.desc)}</p>`);
+    if (o.where.length) html += sec(study ? 'ov.unis' : 'ov.companies',
+      `<div class="ov-tags">${o.where.map(w => `<span>${esc(w)}</span>`).join('')}</div>`);
+    if (o.facts.length) html += sec('ov.facts',
+      `<div class="ov-facts">${o.facts.map(([l, v]) => `<div class="fact"><span>${esc(l)}</span><b>${esc(v)}</b></div>`).join('')}</div>`);
+    if (o.req.length) html += sec('ov.req', list(o.req, 'ov-list'));
+    if (o.notes.length) html += sec('ov.notes', list(o.notes, 'ov-list ov-notes'));
+    if (html) html += `<p class="ov-asof">${esc(t('ov.asof'))}</p>`;
+    $('ovBody').innerHTML = html || `<div class="ov-soon">${esc(t('ov.soon'))}</div>`;
+  }
+  function openOverview() {
+    renderOverview();
+    ovOpen = true;
+    showStep(0);
+  }
+
+  // "Apply free" or "Book a one-to-one appointment": both continue to the form
+  function setIntent(intent) {
+    $('requestType').value = intent;
+    const appt = intent === 'Appointment';
+    document.querySelectorAll('[data-intent]').forEach(el => {
+      const show = el.dataset.intent === intent;
+      el.hidden = !show;
+      el.querySelectorAll('input, select, textarea').forEach(i => (i.disabled = !show));
+    });
+    $('submitLabel').dataset.i18n = appt ? 'submitAppt' : 'submit';
+    $('doneTitle').dataset.i18n = appt ? 'done.titleAppt' : 'done.title';
+    $('doneNote').dataset.i18n = appt ? 'done.noteAppt' : 'done.note';
+    ['submitLabel', 'doneTitle', 'doneNote'].forEach(id => ($(id).textContent = t($(id).dataset.i18n)));
+  }
+  document.querySelectorAll('[data-go-intent]').forEach(b => b.addEventListener('click', () => {
+    setIntent(b.dataset.goIntent);
+    showStep(1);
   }));
 
   // ---------- Phone ----------
@@ -846,8 +1611,11 @@
       li.classList.toggle('done', k < i);
     });
     const last = i === steps.length - 1;
-    btnBack.hidden = i === 0;
-    btnNext.hidden = last;
+    const onOverview = i === 0 && ovOpen;
+    $('pick').hidden = onOverview;
+    $('ov').hidden = !onOverview;
+    btnBack.hidden = i === 0 && !onOverview;
+    btnNext.hidden = last || onOverview;
     btnSubmit.hidden = !last;
     clearError();
     const top = $('card').getBoundingClientRect().top + window.scrollY - 70;
@@ -856,8 +1624,17 @@
     if (first && i > 0 && window.matchMedia('(min-width: 700px)').matches) first.focus({ preventScroll: true });
   }
 
-  btnNext.addEventListener('click', () => { if (validStep(step)) showStep(step + 1); });
-  btnBack.addEventListener('click', () => showStep(step - 1));
+  // On step 1 "Continue" opens the overview; its buttons move on to step 2
+  function goNext() {
+    if (!validStep(step)) return;
+    if (step === 0) openOverview();
+    else showStep(step + 1);
+  }
+  btnNext.addEventListener('click', goNext);
+  btnBack.addEventListener('click', () => {
+    if (step === 0 && ovOpen) { ovOpen = false; showStep(0); }
+    else showStep(step - 1);
+  });
   stepperItems.forEach((li, k) => li.addEventListener('click', () => { if (k < step) showStep(k); }));
 
   // ---------- Submit ----------
@@ -874,7 +1651,7 @@
     submitting = on;
     btnSubmit.disabled = on;
     btnBack.disabled = on;
-    $('submitLabel').textContent = t(on ? 'submitting' : 'submit');
+    $('submitLabel').textContent = t(on ? 'submitting' : $('submitLabel').dataset.i18n);
     const sp = btnSubmit.querySelector('.spin');
     if (on && !sp) btnSubmit.insertAdjacentHTML('afterbegin', '<span class="spin"></span>');
     if (!on && sp) sp.remove();
@@ -883,7 +1660,7 @@
   form.addEventListener('submit', async e => {
     e.preventDefault();
     if (submitting) return;
-    if (step < steps.length - 1) { if (validStep(step)) showStep(step + 1); return; }
+    if (step < steps.length - 1) { if (!(step === 0 && ovOpen)) goNext(); return; }
 
     for (let i = 0; i < steps.length; i++) {
       if (!validStep(i)) { if (i !== step) { showStep(i); validStep(i); } return; }
@@ -936,7 +1713,7 @@
     } else {
       setSubmitting(false);
       const code = (res && res.code) || 'SERVER';
-      if (code === 'JOB') showStep(0);
+      if (code === 'JOB') { ovOpen = false; showStep(0); }
       else if (['NAME', 'PHONE', 'EMAIL', 'DOB', 'AGE', 'DUPLICATE'].includes(code)) showStep(1);
       showError(code);
     }
@@ -956,6 +1733,7 @@
   }
   setLang(start);
   updateConditional();
+  setIntent('Apply');
   showStep(0);
 </script>
 </body>

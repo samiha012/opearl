@@ -3,7 +3,7 @@
 `application.html` sends each application to a Google Apps Script web app (`Code.gs`). The script:
 
 - checks the data again on the server: job category, name, Bangladeshi mobile number, email, age 18–60 and consent
-- rejects a second application with the same phone number for the same job category (`DUPLICATE`)
+- rejects a second submission with the same phone number, category and request type (`DUPLICATE`). The request type is **Apply** (free application) or **Appointment** (one-to-one appointment request), saved in the **Request Type** column
 - saves the CV, if one was uploaded, to a private Drive folder named **OPearl Applications - CVs**
 - adds one row to an **Applications** tab in your Google Sheet, and returns a Reference ID such as `OP-251111-7K3Q`
 
