@@ -180,7 +180,8 @@ function validate_(d) {
   const edu = str_(d.education);
   if (edu !== 'SSC') d.schoolName = '';
   if (edu !== 'HSC') { d.collegeName = ''; d.hscGpa = ''; }
-  if (edu !== "Bachelor's") { d.universityName = ''; d.graduationDate = ''; }
+  if (edu !== "Bachelor's") d.universityName = '';
+  if (edu !== "Bachelor's" && edu !== "Master's") d.graduationDate = '';
   if (str_(d.hscGpa)) {
     const gpa = Number(d.hscGpa);
     if (!(gpa >= 1 && gpa <= 5)) return 'GPA';
