@@ -47,7 +47,7 @@ const COLUMNS = [
   ['Submitted At', '_submittedAt'],
   ['Reference ID', '_refId'],
   ['Status', '_status'],
-  ['Job Category', 'jobCategory'],
+  ['Category', 'jobCategory'],
   ['Full Name', 'fullName'],
   ['Phone', 'phone'],
   ['WhatsApp', 'whatsapp'],
