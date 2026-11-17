@@ -2151,6 +2151,37 @@
   }
   ['phone', 'whatsapp'].forEach(id => $(id).addEventListener('input', validatePhones));
 
+  // ---------- Date of birth: applicants must be 18 to 60 (same as Code.gs) ----------
+  const MIN_AGE = 18, MAX_AGE = 60;
+  function ageFrom(dob) {
+    const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(dob || '');
+    if (!m) return null;
+    const y = +m[1], mo = +m[2], da = +m[3];
+    const birth = new Date(y, mo - 1, da);
+    if (birth.getFullYear() !== y || birth.getMonth() !== mo - 1 || birth.getDate() !== da) return null;
+    const now = new Date();
+    if (birth > now) return null;
+    let age = now.getFullYear() - y;
+    if (now.getMonth() < mo - 1 || (now.getMonth() === mo - 1 && now.getDate() < da)) age--;
+    return age;
+  }
+  function validateDob() {
+    const el = $('dob');
+    if (!el.value) { el.setCustomValidity(''); return; } // "required" handles empty
+    const age = ageFrom(el.value);
+    el.setCustomValidity(age === null ? tErr('DOB') : age < MIN_AGE || age > MAX_AGE ? tErr('AGE') : '');
+  }
+  (function setDobRange() {
+    const iso = d => d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+    const now = new Date();
+    const latest = new Date(now.getFullYear() - MIN_AGE, now.getMonth(), now.getDate());
+    const earliest = new Date(now.getFullYear() - MAX_AGE - 1, now.getMonth(), now.getDate() + 1);
+    $('dob').max = iso(latest);
+    $('dob').min = iso(earliest);
+  })();
+  $('dob').addEventListener('input', validateDob);
+  $('dob').addEventListener('change', validateDob);
+
   // ---------- CV dropzone ----------
   $('cv').addEventListener('change', () => {
     const f = $('cv').files[0];
@@ -2196,6 +2227,7 @@
   function validStep(i) {
     steps[i].classList.add('touched');
     validatePhones();
+    validateDob();
     const els = [...steps[i].querySelectorAll('input, select, textarea')].filter(el => !el.disabled);
     for (const el of els) {
       if (!el.checkValidity()) {
