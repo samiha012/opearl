@@ -221,6 +221,15 @@
       background-repeat: no-repeat; background-position: right 14px center;
     }
     textarea { min-height: 110px; resize: vertical; }
+    /* District combobox: suggestions open right under the field, same width */
+    .combo { position: relative; }
+    .combo-list { position: absolute; left: 0; right: 0; z-index: 20; margin: 6px 0 0; padding: 6px; list-style: none;
+                  max-height: 264px; overflow-y: auto; overscroll-behavior: contain;
+                  background: var(--surface); border: 1.5px solid var(--border); border-radius: 12px; box-shadow: var(--shadow); }
+    .combo-list li { display: flex; justify-content: space-between; gap: 12px; padding: 10px 12px; border-radius: 8px; cursor: pointer; }
+    .combo-list li small { color: var(--muted); font-size: .9rem; }
+    .combo-list li[aria-selected="true"] { background: var(--brand-50); color: var(--brand); }
+    @media (hover: hover) { .combo-list li:hover { background: var(--brand-50); } }
     input:hover, select:hover, textarea:hover { border-color: var(--border-strong); }
     input:focus, select:focus, textarea:focus { outline: none; border-color: var(--brand); background: var(--surface); box-shadow: 0 0 0 4px var(--ring); }
     .touched :invalid { border-color: var(--error); }
@@ -677,9 +686,11 @@
             </div>
           </div>
 
-          <div class="field req">
+          <div class="field req combo">
             <label class="lbl-row" for="district"><span data-i18n="f.district"></span></label>
-            <input id="district" name="district" required data-i18n-ph="ph.district">
+            <input id="district" name="district" autocomplete="off" required data-i18n-ph="ph.district"
+                   role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="districtList">
+            <ul id="districtList" class="combo-list" role="listbox" hidden></ul>
           </div>
 
           <div class="field">
@@ -1013,7 +1024,7 @@
       err: {
         BUSY: 'সার্ভার ব্যস্ত, একটু পরে আবার চেষ্টা করুন।', NAME: 'আপনার নাম লিখুন।',
         JOB: 'একটি ক্যাটাগরি বেছে নিন।', PHONE: 'সঠিক মোবাইল নম্বর দিন (01XXXXXXXXX)।',
-        EMAIL: 'সঠিক ইমেইল দিন।', DOB: 'সঠিক জন্ম তারিখ দিন।', GPA: 'সঠিক GPA দিন (১.০০ থেকে ৫.০০)।', SCORE: 'সঠিক IELTS (০–৯) বা TOEFL (০–১২০) স্কোর দিন।', AGE: 'বয়স ১৮ থেকে ৬০ বছরের মধ্যে হতে হবে।',
+        EMAIL: 'সঠিক ইমেইল দিন।', DOB: 'সঠিক জন্ম তারিখ দিন।', DISTRICT: 'তালিকা থেকে একটি জেলা বেছে নিন।', GPA: 'সঠিক GPA দিন (১.০০ থেকে ৫.০০)।', SCORE: 'সঠিক IELTS (০–৯) বা TOEFL (০–১২০) স্কোর দিন।', AGE: 'বয়স ১৮ থেকে ৬০ বছরের মধ্যে হতে হবে।',
         CONSENT: 'অনুগ্রহ করে সম্মতি দিন।', DUPLICATE: 'এই নম্বর দিয়ে এই ক্যাটাগরিতে আগেই জমা দেওয়া হয়েছে।',
         CV_TYPE: 'সিভি অবশ্যই PDF, DOC/DOCX, JPG বা PNG হতে হবে।', CV_SIZE: 'সিভি ফাইল ৫ MB এর বেশি।',
         SERVER: 'কিছু একটা সমস্যা হয়েছে। আবার চেষ্টা করুন।', NETWORK: 'নেটওয়ার্ক সমস্যা। আবার চেষ্টা করুন।',
@@ -1092,7 +1103,7 @@
       err: {
         BUSY: 'サーバーが混み合っています。しばらくしてから再度お試しください。', NAME: '氏名を入力してください。',
         JOB: '希望のコースを選択してください。', PHONE: '正しい携帯電話番号を入力してください（01XXXXXXXXX）。',
-        EMAIL: '正しいメールアドレスを入力してください。', DOB: '正しい生年月日を入力してください。', GPA: '正しいGPAを入力してください（1.00〜5.00）。', SCORE: '正しいIELTS（0〜9）またはTOEFL（0〜120）のスコアを入力してください。',
+        EMAIL: '正しいメールアドレスを入力してください。', DOB: '正しい生年月日を入力してください。', DISTRICT: 'リストから地区を選択してください。', GPA: '正しいGPAを入力してください（1.00〜5.00）。', SCORE: '正しいIELTS（0〜9）またはTOEFL（0〜120）のスコアを入力してください。',
         AGE: '応募可能な年齢は18〜60歳です。', CONSENT: '同意にチェックしてください。',
         DUPLICATE: 'この電話番号で、このコースにはすでに送信済みです。',
         CV_TYPE: '履歴書はPDF、DOC/DOCX、JPG、PNGのいずれかでアップロードしてください。',
@@ -1173,7 +1184,7 @@
       err: {
         BUSY: 'The server is busy. Please try again shortly.', NAME: 'Please enter your name.',
         JOB: 'Please choose a category.', PHONE: 'Enter a valid mobile number (01XXXXXXXXX).',
-        EMAIL: 'Enter a valid email address.', DOB: 'Enter a valid date of birth.', GPA: 'Enter a valid GPA (1.00 to 5.00).', SCORE: 'Enter a valid IELTS (0–9) or TOEFL (0–120) score.',
+        EMAIL: 'Enter a valid email address.', DOB: 'Enter a valid date of birth.', DISTRICT: 'Choose a district from the list.', GPA: 'Enter a valid GPA (1.00 to 5.00).', SCORE: 'Enter a valid IELTS (0–9) or TOEFL (0–120) score.',
         AGE: 'Applicants must be between 18 and 60 years old.', CONSENT: 'Please give your consent.',
         DUPLICATE: 'This number has already been used for this category.',
         CV_TYPE: 'CV must be a PDF, DOC/DOCX, JPG or PNG file.', CV_SIZE: 'CV file is larger than 5 MB.',
@@ -2180,6 +2191,109 @@
     $('dob').min = iso(earliest);
   })();
   $('dob').addEventListener('input', validateDob);
+
+  // ---------- District: searchable list of Bangladesh's 64 districts ----------
+  // Saved as the English name; the Bengali name and older spellings are accepted too.
+  const DISTRICTS = [
+    ['Bagerhat', 'বাগেরহাট'], ['Bandarban', 'বান্দরবান'], ['Barguna', 'বরগুনা'], ['Barishal', 'বরিশাল', 'Barisal'],
+    ['Bhola', 'ভোলা'], ['Bogura', 'বগুড়া', 'Bogra'], ['Brahmanbaria', 'ব্রাহ্মণবাড়িয়া'], ['Chandpur', 'চাঁদপুর'],
+    ['Chapainawabganj', 'চাঁপাইনবাবগঞ্জ', 'Chapai Nawabganj', 'Nawabganj'], ['Chattogram', 'চট্টগ্রাম', 'Chittagong'],
+    ['Chuadanga', 'চুয়াডাঙ্গা'], ["Cox's Bazar", 'কক্সবাজার', 'Coxs Bazar', 'Cox Bazar'], ['Cumilla', 'কুমিল্লা', 'Comilla'],
+    ['Dhaka', 'ঢাকা'], ['Dinajpur', 'দিনাজপুর'], ['Faridpur', 'ফরিদপুর'], ['Feni', 'ফেনী'], ['Gaibandha', 'গাইবান্ধা'],
+    ['Gazipur', 'গাজীপুর'], ['Gopalganj', 'গোপালগঞ্জ'], ['Habiganj', 'হবিগঞ্জ'], ['Jamalpur', 'জামালপুর'],
+    ['Jashore', 'যশোর', 'Jessore'], ['Jhalokati', 'ঝালকাঠি', 'Jhalakathi'], ['Jhenaidah', 'ঝিনাইদহ'], ['Joypurhat', 'জয়পুরহাট'],
+    ['Khagrachhari', 'খাগড়াছড়ি', 'Khagrachari'], ['Khulna', 'খুলনা'], ['Kishoreganj', 'কিশোরগঞ্জ'], ['Kurigram', 'কুড়িগ্রাম'],
+    ['Kushtia', 'কুষ্টিয়া'], ['Lakshmipur', 'লক্ষ্মীপুর', 'Laxmipur'], ['Lalmonirhat', 'লালমনিরহাট'], ['Madaripur', 'মাদারীপুর'],
+    ['Magura', 'মাগুরা'], ['Manikganj', 'মানিকগঞ্জ'], ['Meherpur', 'মেহেরপুর'], ['Moulvibazar', 'মৌলভীবাজার', 'Maulvibazar'],
+    ['Munshiganj', 'মুন্সিগঞ্জ'], ['Mymensingh', 'ময়মনসিংহ'], ['Naogaon', 'নওগাঁ'], ['Narail', 'নড়াইল'],
+    ['Narayanganj', 'নারায়ণগঞ্জ'], ['Narsingdi', 'নরসিংদী'], ['Natore', 'নাটোর'], ['Netrokona', 'নেত্রকোণা', 'Netrakona'],
+    ['Nilphamari', 'নীলফামারী'], ['Noakhali', 'নোয়াখালী'], ['Pabna', 'পাবনা'], ['Panchagarh', 'পঞ্চগড়'],
+    ['Patuakhali', 'পটুয়াখালী'], ['Pirojpur', 'পিরোজপুর'], ['Rajbari', 'রাজবাড়ী'], ['Rajshahi', 'রাজশাহী'],
+    ['Rangamati', 'রাঙ্গামাটি'], ['Rangpur', 'রংপুর'], ['Satkhira', 'সাতক্ষীরা'], ['Shariatpur', 'শরীয়তপুর'],
+    ['Sherpur', 'শেরপুর'], ['Sirajganj', 'সিরাজগঞ্জ'], ['Sunamganj', 'সুনামগঞ্জ'], ['Sylhet', 'সিলেট'],
+    ['Tangail', 'টাঙ্গাইল'], ['Thakurgaon', 'ঠাকুরগাঁও'],
+  ];
+  const districtKey = v => String(v || '').normalize('NFC').toLowerCase().replace(/[\s'’.-]+/g, '').replace(/district$|জেলা$/, '');
+  const districtByKey = new Map();
+  DISTRICTS.forEach(([en, ...alts]) => [en, ...alts].forEach(n => districtByKey.set(districtKey(n), en)));
+  function validateDistrict() {
+    const el = $('district');
+    if (!el.value.trim()) { el.setCustomValidity(''); return; } // "required" handles empty
+    const en = districtByKey.get(districtKey(el.value));
+    if (en && el.value !== en) el.value = en;
+    el.setCustomValidity(en ? '' : tErr('DISTRICT'));
+  }
+
+  // Suggestion list: filters by English, Bengali or old spelling; prefix matches first
+  const dIn = $('district'), dList = $('districtList');
+  let dShown = [], dActive = -1;
+  function renderDistricts() {
+    const q = districtKey(dIn.value);
+    const hits = DISTRICTS.map(d => {
+      const keys = d.map(districtKey);
+      return { d, rank: !q ? 0 : keys.some(k => k.startsWith(q)) ? 0 : keys.some(k => k.includes(q)) ? 1 : -1 };
+    }).filter(h => h.rank >= 0);
+    hits.sort((a, b) => a.rank - b.rank);
+    dShown = hits.map(h => h.d);
+    dActive = q && dShown.length ? 0 : -1;
+    dList.replaceChildren(...dShown.map(([en, bn], i) => {
+      const li = document.createElement('li');
+      li.id = 'district-opt-' + i;
+      li.setAttribute('role', 'option');
+      li.dataset.i = i;
+      li.append(en);
+      const sm = document.createElement('small');
+      sm.textContent = bn;
+      li.append(sm);
+      return li;
+    }));
+    dList.scrollTop = 0;
+    setDistrictOpen(dShown.length > 0);
+    markActive();
+  }
+  function setDistrictOpen(open) {
+    dList.hidden = !open;
+    dIn.setAttribute('aria-expanded', String(open));
+    if (!open) { dActive = -1; dIn.removeAttribute('aria-activedescendant'); }
+  }
+  function markActive() {
+    [...dList.children].forEach((li, i) => li.setAttribute('aria-selected', String(i === dActive)));
+    const li = dList.children[dActive];
+    if (li) { dIn.setAttribute('aria-activedescendant', li.id); li.scrollIntoView({ block: 'nearest' }); }
+    else dIn.removeAttribute('aria-activedescendant');
+  }
+  function pickDistrict(i) {
+    if (!dShown[i]) return;
+    dIn.value = dShown[i][0];
+    setDistrictOpen(false);
+    validateDistrict();
+  }
+  dIn.addEventListener('input', () => { dIn.setCustomValidity(''); renderDistricts(); });
+  dIn.addEventListener('focus', renderDistricts);
+  dIn.addEventListener('blur', () => { setDistrictOpen(false); validateDistrict(); });
+  dIn.addEventListener('keydown', e => {
+    const open = !dList.hidden;
+    if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+      e.preventDefault();
+      if (!open) { renderDistricts(); return; }
+      const n = dShown.length;
+      dActive = e.key === 'ArrowDown' ? (dActive + 1) % n : (dActive <= 0 ? n - 1 : dActive - 1);
+      markActive();
+    } else if (e.key === 'Enter' && open && dActive >= 0) {
+      e.preventDefault();
+      pickDistrict(dActive);
+    } else if (e.key === 'Escape' && open) {
+      e.preventDefault();
+      setDistrictOpen(false);
+    } else if (e.key === 'Tab' && open && dActive >= 0 && dIn.value.trim()) {
+      pickDistrict(dActive);
+    }
+  });
+  dList.addEventListener('mousedown', e => e.preventDefault()); // keep focus in the field
+  dList.addEventListener('click', e => {
+    const li = e.target.closest('li');
+    if (li) pickDistrict(+li.dataset.i);
+  });
   $('dob').addEventListener('change', validateDob);
 
   // ---------- CV dropzone ----------
@@ -2228,6 +2342,7 @@
     steps[i].classList.add('touched');
     validatePhones();
     validateDob();
+    validateDistrict();
     const els = [...steps[i].querySelectorAll('input, select, textarea')].filter(el => !el.disabled);
     for (const el of els) {
       if (!el.checkValidity()) {
