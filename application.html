@@ -53,14 +53,15 @@
     .nav-inner { max-width: 1040px; margin: 0 auto; padding: 10px 16px;
                  display: flex; align-items: center; justify-content: space-between; gap: 12px; }
     .brands { display: flex; align-items: center; gap: 16px; min-width: 0; }
-    .logo img { height: 36px; width: auto; display: block; }
-    .brand-sep { width: 1px; height: 36px; background: rgba(15, 26, 20, .18); flex: none; }
-    .partner { height: 36px; display: flex; flex-direction: column; align-items: center;
+    /* ACS leads the header; OPearl follows as the smaller, secondary mark */
+    .logo img { height: 22px; width: auto; display: block; }
+    .brand-sep { width: 1px; height: 32px; background: rgba(15, 26, 20, .18); flex: none; }
+    .partner { height: 54px; display: flex; flex-direction: column; align-items: center;
                justify-content: space-between; flex: none; }
-    .partner img { height: 25px; width: auto; display: block; }
+    .partner img { height: 40px; width: auto; display: block; }
     .partner span i { font-style: normal; }
     .partner span { font-family: 'BBH Bogle', 'Plus Jakarta Sans', sans-serif; font-weight: 400;
-                    font-size: 12px; line-height: 9px; text-transform: uppercase;
+                    font-size: 15px; line-height: 11px; text-transform: uppercase;
                     color: #2b2f36;
                     /* spread the letters across exactly the ACS logo's width */
                     display: flex; justify-content: space-between;
@@ -68,9 +69,11 @@
     @media (max-width: 480px) {
       .nav-inner { padding: 10px 12px; gap: 8px; }
       .brands { gap: 9px; }
-      .logo img, .brand-sep, .partner { height: 24px; }
-      .partner img { height: 17px; }
-      .partner span { font-size: 9px; line-height: 7px; }
+      .logo img { height: 15px; }
+      .brand-sep { height: 24px; }
+      .partner { height: 38px; }
+      .partner img { height: 28px; }
+      .partner span { font-size: 11px; line-height: 8px; }
       .seg button { padding: 7px 8px; font-size: .76rem; }
     }
     .seg { display: inline-flex; padding: 4px; gap: 2px; border-radius: 999px; background: #eef2ef; }
@@ -172,8 +175,7 @@
     .ov-facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 8px; }
     .fact { padding: 12px 14px; border-radius: 12px; background: var(--brand-50); }
     .fact span { display: block; font-size: .8rem; color: var(--muted); font-weight: 600; margin-bottom: 3px; }
-    .fact b { display: block; color: var(--brand); font-weight: 700; font-size: .95rem; line-height: 1.45; }
-    .ov-notes li { color: var(--muted); font-size: .92rem; }
+    .fact b { display: block; color: var(--brand); font-weight: 700; font-size: .95rem; line-height: 1.45; }    .ov-notes li { color: var(--muted); font-size: .92rem; }
     .ov-list.ov-notes li::before { background-image: none; background-color: var(--border-strong); width: 6px; height: 6px; margin: 9px 6px 0; }
     .ov-asof { margin: 18px 0 0; font-size: .78rem; color: var(--muted); font-style: italic; }
     .ov-tags { display: flex; flex-wrap: wrap; gap: 8px; }
@@ -456,14 +458,14 @@
 <header class="nav">
   <div class="nav-inner">
     <div class="brands">
-      <a class="logo" href="https://opearl.jp/">
-        <img src="https://opearl.jp/assets/img/opearl-logo.png" alt="OPearl">
-      </a>
-      <span class="brand-sep" aria-hidden="true"></span>
       <div class="partner">
         <img src="assets/img/acs-logo.png" alt="ACS">
         <span aria-label="Abroad"><i aria-hidden="true">A</i><i aria-hidden="true">b</i><i aria-hidden="true">r</i><i aria-hidden="true">o</i><i aria-hidden="true">a</i><i aria-hidden="true">d</i></span>
       </div>
+      <span class="brand-sep" aria-hidden="true"></span>
+      <a class="logo" href="https://opearl.jp/">
+        <img src="https://opearl.jp/assets/img/opearl-logo.png" alt="OPearl">
+      </a>
     </div>
     <div class="seg" role="group" aria-label="Language">
       <button type="button" data-lang="bn">বাংলা</button>
@@ -1701,8 +1703,8 @@
         ],
         "facts": [
           [
-            "মোট খরচ (আনুমানিক)",
-            "৬.৫–৭.৫ লাখ টাকা"
+            "মোট খরচ",
+            "খরচ পরিবর্তন হতে পারে। বিস্তারিত জানতে একটি অ্যাপয়েন্টমেন্ট নিন।"
           ]
         ],
         "req": [
@@ -1727,8 +1729,8 @@
         ],
         "facts": [
           [
-            "総費用（目安）",
-            "65万〜75万タカ"
+            "総費用",
+            "費用は変更される場合があります。詳しくは個別相談をご予約ください。"
           ]
         ],
         "req": [
@@ -1753,8 +1755,8 @@
         ],
         "facts": [
           [
-            "Total cost (approx.)",
-            "BDT 6.5–7.5 lakh"
+            "Total cost",
+            "Cost is subject to change. To know more, book an appointment."
           ]
         ],
         "req": [
