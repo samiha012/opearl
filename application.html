@@ -176,6 +176,7 @@
     .fact { padding: 12px 14px; border-radius: 12px; background: var(--brand-50); }
     .fact span { display: block; font-size: .8rem; color: var(--muted); font-weight: 600; margin-bottom: 3px; }
     .fact b { display: block; color: var(--brand); font-weight: 700; font-size: .95rem; line-height: 1.45; }
+    .fact small { display: block; margin-top: 4px; font-size: .78rem; color: var(--muted); line-height: 1.45; }
     .ov-notes li { color: var(--muted); font-size: .92rem; }
     .ov-list.ov-notes li::before { background-image: none; background-color: var(--border-strong); width: 6px; height: 6px; margin: 9px 6px 0; }
     .ov-asof { margin: 18px 0 0; font-size: .78rem; color: var(--muted); font-style: italic; }
@@ -1136,7 +1137,7 @@
   // One entry per scope (keyed by the tile's data-key), per language.
   //   desc:  short description of the path
   //   where: fields / sectors (jobs) or universities / schools (study)
-  //   facts: [label, value] pairs, e.g. salary, cost, visa
+  //   facts: [label, value] pairs, e.g. salary, cost, visa; an optional third item adds a small note below the value
   //   req:   requirements, one line each
   //   notes: "good to know" points
   //   moreTitle + more: optional extra titled list (e.g. other sectors)
@@ -1705,7 +1706,8 @@
         "facts": [
           [
             "মোট খরচ (আনুমানিক)",
-            "৬.৫–৭.৫ লাখ টাকা"
+            "৬.৫–৭.৫ লাখ টাকা",
+            "খরচ পরিবর্তন হতে পারে। বিস্তারিত জানতে একটি অ্যাপয়েন্টমেন্ট নিন।"
           ]
         ],
         "req": [
@@ -1731,7 +1733,8 @@
         "facts": [
           [
             "総費用（目安）",
-            "65万〜75万タカ"
+            "65万〜75万タカ",
+            "費用は変更される場合があります。詳しくは個別相談をご予約ください。"
           ]
         ],
         "req": [
@@ -1757,7 +1760,8 @@
         "facts": [
           [
             "Total cost (approx.)",
-            "BDT 6.5–7.5 lakh"
+            "BDT 6.5–7.5 lakh",
+            "Cost is subject to change. To know more, book an appointment."
           ]
         ],
         "req": [
@@ -2025,7 +2029,7 @@
     if (o.where.length) html += sec(study ? 'ov.unis' : 'ov.companies',
       `<div class="ov-tags">${o.where.map(w => `<span>${esc(w)}</span>`).join('')}</div>`);
     if (o.facts.length) html += sec('ov.facts',
-      `<div class="ov-facts">${o.facts.map(([l, v]) => `<div class="fact"><span>${esc(l)}</span><b>${esc(v)}</b></div>`).join('')}</div>`);
+      `<div class="ov-facts">${o.facts.map(([l, v, note]) => `<div class="fact"><span>${esc(l)}</span><b>${esc(v)}</b>${note ? `<small>${esc(note)}</small>` : ''}</div>`).join('')}</div>`);
     if (o.req.length) html += sec('ov.req', list(o.req, 'ov-list'));
     if (o.notes.length) html += sec('ov.notes', list(o.notes, 'ov-list ov-notes'));
     if (o.more.length) html += `<div class="ov-sec" style="--i:${n++}"><h3>${esc(o.moreTitle)}</h3>${list(o.more, 'ov-list ov-notes')}</div>`;
