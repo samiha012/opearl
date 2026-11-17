@@ -158,6 +158,16 @@
     .tile:has(input:checked) .tick svg { opacity: 1; }
     .tile:has(input:focus-visible) { outline: 2px solid var(--brand); outline-offset: 2px; }
     .tile.full { grid-column: 1 / -1; }
+    /* Track picker: 2 x 2 on every screen size */
+    .tracks { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    button.tile { font: inherit; color: inherit; text-align: left; width: 100%; }
+    .tile.track { flex-direction: column; gap: 10px; padding: 16px; }
+    @media (max-width: 420px) { .tile.track { padding: 14px 12px; } .tile.track .tt { font-size: .92rem; } .tile.track .td { font-size: .78rem; } }
+    .pick-head { display: flex; align-items: center; gap: 12px; margin: 22px 0 18px; }
+    .pick-head .flag { font-size: 1.6rem; line-height: 1; width: 48px; height: 48px; flex: none; display: grid; place-items: center;
+                       border-radius: 14px; background: var(--brand-50); border: 1px solid var(--border); }
+    .pick-head .step-title { margin: 0 0 2px; }
+    .pick-head .step-sub { margin: 0; }
     .group-lbl { margin: 22px 0 10px; font-size: .76rem; font-weight: 700; letter-spacing: .08em;
                  text-transform: uppercase; color: var(--muted); }
     .step-sub + .group-lbl { margin-top: 4px; }
@@ -513,11 +523,38 @@
 
         <!-- STEP 1: Pick a scope, then see its overview -->
         <section class="step" data-step="0">
-          <div class="view" id="pick">
+          <div class="view" id="track">
             <h2 class="step-title" data-i18n="t1"></h2>
             <p class="step-sub" data-i18n="d1"></p>
-            <h3 class="group-lbl"><span data-i18n="g.study"></span></h3>
-            <div class="tiles">
+            <div class="tracks">
+              <button type="button" class="tile track" data-track="jp-work">
+                <span class="flag">🇯🇵</span>
+                <span><span class="tt" data-i18n="tr.jp-work"></span><span class="td" data-i18n="trd.jp-work" style="display:block"></span></span>
+              </button>
+              <button type="button" class="tile track" data-track="my-work">
+                <span class="flag">🇲🇾</span>
+                <span><span class="tt" data-i18n="tr.my-work"></span><span class="td" data-i18n="trd.my-work" style="display:block"></span></span>
+              </button>
+              <button type="button" class="tile track" data-track="jp-study">
+                <span class="flag">🇯🇵</span>
+                <span><span class="tt" data-i18n="tr.jp-study"></span><span class="td" data-i18n="trd.jp-study" style="display:block"></span></span>
+              </button>
+              <button type="button" class="tile track" data-track="my-study">
+                <span class="flag">🇲🇾</span>
+                <span><span class="tt" data-i18n="tr.my-study"></span><span class="td" data-i18n="trd.my-study" style="display:block"></span></span>
+              </button>
+            </div>
+          </div>
+
+          <div class="view" id="pick" hidden>
+            <div class="pick-head">
+              <span class="flag" id="pickFlag"></span>
+              <div>
+                <h2 class="step-title" id="pickTitle"></h2>
+                <p class="step-sub" data-i18n="d1b"></p>
+              </div>
+            </div>
+            <div class="tiles" data-group="study">
             <label class="tile">
               <input type="radio" name="jobCategory" value="Japan - University (Undergraduate &amp; MBA)" data-kind="study" data-key="jpUni">
               <span class="flag">🇯🇵</span>
@@ -543,8 +580,7 @@
               <span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
             </label>
             </div>
-            <h3 class="group-lbl"><span data-i18n="g.work"></span></h3>
-            <div class="tiles">
+            <div class="tiles" data-group="work">
             <label class="tile">
               <input type="radio" name="jobCategory" value="Japan - White Collar" data-kind="work" data-key="jpWhite" required>
               <span class="flag">🇯🇵</span>
@@ -569,7 +605,7 @@
               <span><span class="tt" data-i18n="job.myWhite"></span><span class="td" data-i18n="jd.myWhite" style="display:block"></span></span>
               <span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
             </label>
-            <label class="tile full">
+            <label class="tile">
               <input type="radio" name="jobCategory" value="Malaysia - Blue Collar" data-kind="work" data-key="myBlue">
               <span class="flag">🇲🇾</span>
               <span><span class="tt" data-i18n="job.myBlue"></span><span class="td" data-i18n="jd.myBlue" style="display:block"></span></span>
@@ -910,8 +946,13 @@
       subtitle: 'মাত্র কয়েক মিনিটে আবেদন করুন। আপনার প্রোফাইল দেখে উপযুক্ত চাকরি বা পড়াশোনার সুযোগ নিয়ে আমরা যোগাযোগ করব।',
       perk1: 'সম্পূর্ণ বিনামূল্যে আবেদন', perk2: 'মাত্র ৩ মিনিট', perk3: 'বাংলায় সহায়তা',
       s1: 'ক্যাটাগরি', s2: 'ব্যক্তিগত', s3: 'যোগ্যতা', s4: 'অভিজ্ঞতা',
-      t1: 'আপনি কোন পথে যেতে চান?', d1: 'চাকরি বা পড়াশোনা — একটি বেছে নিলে বিস্তারিত দেখতে পাবেন।',
+      t1: 'আপনি কোন পথে যেতে চান?', d1: 'দেশ এবং চাকরি না পড়াশোনা — একটি বেছে নিন।',
       'g.work': 'চাকরি', 'g.study': 'পড়াশোনা',
+      d1b: 'একটি অপশন বেছে নিলে বিস্তারিত দেখতে পাবেন।',
+      'tr.jp-work': 'জাপানে চাকরি', 'trd.jp-work': 'অফিস, কেয়ারগিভিং ও দক্ষ কর্মী',
+      'tr.my-work': 'মালয়েশিয়ায় চাকরি', 'trd.my-work': 'অফিস, রেস্টুরেন্ট ও সুপার শপ',
+      'tr.jp-study': 'জাপানে পড়াশোনা', 'trd.jp-study': 'বিশ্ববিদ্যালয়, ভাষা স্কুল ও অনলাইন ডিগ্রি',
+      'tr.my-study': 'মালয়েশিয়ায় পড়াশোনা', 'trd.my-study': 'বিশ্ববিদ্যালয়ে স্নাতক ডিগ্রি',
       t2: 'আপনার সম্পর্কে বলুন', d2: 'পাসপোর্টে যেভাবে আছে সেভাবেই তথ্য দিন।',
       t3: 'শিক্ষা ও যোগ্যতা', d3: 'আপনার নির্বাচিত চাকরি অনুযায়ী কিছু প্রশ্ন।',
       t4: 'অভিজ্ঞতা ও সিভি', d4: 'প্রায় শেষ! অভিজ্ঞতা থাকলে লিখুন।',
@@ -984,8 +1025,13 @@
       subtitle: '数分で応募が完了します。プロフィールを確認のうえ、ぴったりのお仕事や留学先をご紹介します。',
       perk1: '応募は無料', perk2: '約3分で完了', perk3: 'ベンガル語でサポート',
       s1: 'コース', s2: '個人情報', s3: '学歴・資格', s4: '職歴',
-      t1: '希望の進路を選んでください', d1: '就職・留学から選ぶと、詳細が表示されます。',
+      t1: '希望の進路を選んでください', d1: '国と、就職か留学かを選んでください。',
       'g.work': '就職', 'g.study': '留学',
+      d1b: '項目を選ぶと、詳細が表示されます。',
+      'tr.jp-work': '日本で就職', 'trd.jp-work': 'オフィス・介護・特定技能',
+      'tr.my-work': 'マレーシアで就職', 'trd.my-work': 'オフィス・飲食店・スーパー',
+      'tr.jp-study': '日本に留学', 'trd.jp-study': '大学・日本語学校・オンライン大学',
+      'tr.my-study': 'マレーシアに留学', 'trd.my-study': '大学の学士課程',
       t2: 'あなたについて教えてください', d2: 'パスポートの記載どおりに入力してください。',
       t3: '学歴・資格', d3: '選択した職種に応じた質問です。',
       t4: '職歴と履歴書', d4: 'あと少しです！経験があればご記入ください。',
@@ -1060,8 +1106,13 @@
       subtitle: 'Apply in a few minutes. We review your profile and get in touch about jobs or study options that fit.',
       perk1: 'Free to apply', perk2: 'Takes 3 minutes', perk3: 'Support in Bangla',
       s1: 'Path', s2: 'Personal', s3: 'Qualifications', s4: 'Experience',
-      t1: 'Where do you want to go?', d1: 'Pick a job or study path to see what it involves.',
+      t1: 'Where do you want to go?', d1: 'Choose a country and whether you want to work or study.',
       'g.work': 'Work', 'g.study': 'Study',
+      d1b: 'Pick an option to see what it involves.',
+      'tr.jp-work': 'Job in Japan', 'trd.jp-work': 'Office, caregiving and skilled work',
+      'tr.my-work': 'Job in Malaysia', 'trd.my-work': 'Office, restaurants and super shops',
+      'tr.jp-study': 'Study in Japan', 'trd.jp-study': 'University, language school and online degree',
+      'tr.my-study': 'Study in Malaysia', 'trd.my-study': "Bachelor's degrees at universities",
       t2: 'Tell us about yourself', d2: 'Enter your details exactly as they appear on your passport.',
       t3: 'Education & qualifications', d3: 'A few questions based on the job you chose.',
       t4: 'Experience & CV', d4: 'Almost done! Add any work experience you have.',
@@ -1929,7 +1980,7 @@
   const stepperItems = [...document.querySelectorAll('#stepper li')];
   const btnBack = $('back'), btnNext = $('next'), btnSubmit = $('submit');
   const MAX_CV = 5 * 1024 * 1024;
-  let lang = 'bn', step = 0, lastErr = null, submitting = false, ovOpen = false;
+  let lang = 'bn', step = 0, lastErr = null, submitting = false, ovOpen = false, track = null;
 
   const t = k => I18N[lang][k] ?? I18N.en[k] ?? k;
   const tErr = c => I18N[lang].err[c] || I18N[lang].err.SERVER;
@@ -1944,6 +1995,7 @@
     document.querySelectorAll('.seg button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.lang === lang)));
     const f = $('cv').files[0];
     if (f) $('dropTitle').textContent = f.name;
+    renderTrack();
     renderOverview();
     if (submitting) $('submitLabel').textContent = t('submitting');
     if (lastErr) $('msgText').textContent = tErr(lastErr);
@@ -1999,6 +2051,34 @@
   form.querySelectorAll('input[name="englishLevel"], input[name="englishTest"]').forEach(r => r.addEventListener('change', updateEnglish));
   // click (not change) so picking the already-selected tile again also opens it
   form.querySelectorAll('input[name="jobCategory"]').forEach(r => r.addEventListener('click', openOverview));
+
+  // ---------- Track (country + work/study), then the options in that track ----------
+  const trackTiles = c => [...form.querySelectorAll('input[name="jobCategory"]')]
+    .filter(r => r.dataset.key.startsWith(c.split('-')[0]) && r.dataset.kind === c.split('-')[1]);
+  function renderTrack() {
+    if (!track) return;
+    const btn = form.querySelector(`[data-track="${track}"]`);
+    $('pickFlag').textContent = btn.querySelector('.flag').textContent;
+    $('pickTitle').textContent = t('tr.' + track);
+  }
+  function chooseTrack(c) {
+    track = c;
+    const inTrack = trackTiles(c);
+    form.querySelectorAll('input[name="jobCategory"]').forEach(r => {
+      r.closest('.tile').hidden = !inTrack.includes(r);
+      if (r.checked && !inTrack.includes(r)) r.checked = false;
+    });
+    form.querySelectorAll('.tiles[data-group]').forEach(g => (g.hidden = g.dataset.group !== c.split('-')[1]));
+    // an odd last tile spans the full row
+    inTrack.forEach((r, k) => r.closest('.tile').classList.toggle('full', inTrack.length % 2 === 1 && k === inTrack.length - 1));
+    updateConditional();
+    renderTrack();
+    // a track with a single option goes straight to its overview
+    if (inTrack.length === 1) { inTrack[0].checked = true; updateConditional(); openOverview(); }
+    else showStep(0);
+  }
+  form.querySelectorAll('[data-track]').forEach(b => b.addEventListener('click', () => chooseTrack(b.dataset.track)));
+  const singleTrack = () => track && trackTiles(track).length === 1;
 
   // ---------- Scope overview ----------
   const esc = v => String(v).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
@@ -2131,7 +2211,7 @@
 
   let pos = -1; // step index, +0.5 while the overview is open
   function showStep(i) {
-    const np = i + (i === 0 && ovOpen ? .5 : 0);
+    const np = i + (i === 0 ? (ovOpen ? .5 : track ? .25 : 0) : 0);
     document.querySelector('.card-body').dataset.dir = pos < 0 || np === pos ? '' : np > pos ? 'fwd' : 'back';
     pos = np;
     step = i;
@@ -2142,10 +2222,12 @@
     });
     const last = i === steps.length - 1;
     const onOverview = i === 0 && ovOpen;
-    $('pick').hidden = onOverview;
+    const onTrack = i === 0 && !ovOpen && !track;
+    $('track').hidden = !onTrack;
+    $('pick').hidden = onOverview || onTrack;
     $('ov').hidden = !onOverview;
-    btnBack.hidden = i === 0 && !onOverview;
-    btnNext.hidden = last || onOverview;
+    btnBack.hidden = onTrack;
+    btnNext.hidden = last || onOverview || onTrack;
     btnSubmit.hidden = !last;
     clearError();
     const top = $('card').getBoundingClientRect().top + window.scrollY - 70;
@@ -2162,7 +2244,8 @@
   }
   btnNext.addEventListener('click', goNext);
   btnBack.addEventListener('click', () => {
-    if (step === 0 && ovOpen) { ovOpen = false; showStep(0); }
+    if (step === 0 && ovOpen) { ovOpen = false; if (singleTrack()) track = null; showStep(0); }
+    else if (step === 0 && track) { track = null; showStep(0); }
     else showStep(step - 1);
   });
   stepperItems.forEach((li, k) => li.addEventListener('click', () => { if (k < step) showStep(k); }));
@@ -2190,7 +2273,7 @@
   form.addEventListener('submit', async e => {
     e.preventDefault();
     if (submitting) return;
-    if (step < steps.length - 1) { if (!(step === 0 && ovOpen)) goNext(); return; }
+    if (step < steps.length - 1) { if (!(step === 0 && (ovOpen || !track))) goNext(); return; }
 
     for (let i = 0; i < steps.length; i++) {
       if (!validStep(i)) { if (i !== step) { showStep(i); validStep(i); } return; }
@@ -2245,7 +2328,7 @@
     } else {
       setSubmitting(false);
       const code = (res && res.code) || 'SERVER';
-      if (code === 'JOB') { ovOpen = false; showStep(0); }
+      if (code === 'JOB') { ovOpen = false; track = null; showStep(0); }
       else if (['NAME', 'PHONE', 'EMAIL', 'DOB', 'AGE', 'DUPLICATE'].includes(code)) showStep(1);
       else if (code === 'GPA' || code === 'SCORE') showStep(2);
       showError(code);
