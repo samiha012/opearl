@@ -275,6 +275,7 @@
     }
     .drop:hover, .drop.has { border-color: var(--brand); background: var(--brand-50); }
     .drop input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+    .touched .drop:has(input:invalid) { border-color: var(--error); }
     .drop .ico { width: 42px; height: 42px; border-radius: 12px; background: var(--brand-100); color: var(--brand); display: grid; place-items: center; flex: none; }
     .drop .ico svg { width: 20px; height: 20px; }
     .drop .dt { font-weight: 600; font-size: .95rem; word-break: break-all; }
@@ -876,10 +877,10 @@
             <textarea id="experience" name="experience" data-i18n-ph="ph.experience"></textarea>
           </div>
 
-          <div class="field">
-            <div class="lbl-row"><span data-i18n="f.cv"></span><small data-i18n="h.optional"></small></div>
+          <div class="field req">
+            <div class="lbl-row"><span data-i18n="f.cv"></span></div>
             <label class="drop" id="drop">
-              <input id="cv" name="cv" type="file" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png">
+              <input id="cv" name="cv" type="file" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png" required>
               <span class="ico"><svg class="up" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4m0 0-4 4m4-4 4 4"/><path d="M4 16v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg><svg class="ok" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
               <span><span class="dt" id="dropTitle" data-i18n="cv.tap"></span><span class="dd" data-i18n="cv.hint" style="display:block"></span></span>
             </label>
@@ -1026,7 +1027,7 @@
         JOB: 'একটি ক্যাটাগরি বেছে নিন।', PHONE: 'সঠিক মোবাইল নম্বর দিন (01XXXXXXXXX)।',
         EMAIL: 'সঠিক ইমেইল দিন।', DOB: 'সঠিক জন্ম তারিখ দিন।', DISTRICT: 'তালিকা থেকে একটি জেলা বেছে নিন।', GPA: 'সঠিক GPA দিন (১.০০ থেকে ৫.০০)।', SCORE: 'সঠিক IELTS (০–৯) বা TOEFL (০–১২০) স্কোর দিন।', AGE: 'বয়স ১৮ থেকে ৬০ বছরের মধ্যে হতে হবে।',
         CONSENT: 'অনুগ্রহ করে সম্মতি দিন।', DUPLICATE: 'এই নম্বর দিয়ে এই ক্যাটাগরিতে আগেই জমা দেওয়া হয়েছে।',
-        CV_TYPE: 'সিভি অবশ্যই PDF, DOC/DOCX, JPG বা PNG হতে হবে।', CV_SIZE: 'সিভি ফাইল ৫ MB এর বেশি।',
+        CV_TYPE: 'সিভি অবশ্যই PDF, DOC/DOCX, JPG বা PNG হতে হবে।', CV_SIZE: 'সিভি ফাইল ৫ MB এর বেশি।', CV_REQUIRED: 'আপনার সিভি আপলোড করুন।',
         SERVER: 'কিছু একটা সমস্যা হয়েছে। আবার চেষ্টা করুন।', NETWORK: 'নেটওয়ার্ক সমস্যা। আবার চেষ্টা করুন।',
       },
     },
@@ -1107,7 +1108,7 @@
         AGE: '応募可能な年齢は18〜60歳です。', CONSENT: '同意にチェックしてください。',
         DUPLICATE: 'この電話番号で、このコースにはすでに送信済みです。',
         CV_TYPE: '履歴書はPDF、DOC/DOCX、JPG、PNGのいずれかでアップロードしてください。',
-        CV_SIZE: '履歴書のファイルサイズが5MBを超えています。',
+        CV_SIZE: '履歴書のファイルサイズが5MBを超えています。', CV_REQUIRED: '履歴書をアップロードしてください。',
         SERVER: 'エラーが発生しました。もう一度お試しください。', NETWORK: '通信エラーが発生しました。もう一度お試しください。',
       },
     },
@@ -1187,7 +1188,7 @@
         EMAIL: 'Enter a valid email address.', DOB: 'Enter a valid date of birth.', DISTRICT: 'Choose a district from the list.', GPA: 'Enter a valid GPA (1.00 to 5.00).', SCORE: 'Enter a valid IELTS (0–9) or TOEFL (0–120) score.',
         AGE: 'Applicants must be between 18 and 60 years old.', CONSENT: 'Please give your consent.',
         DUPLICATE: 'This number has already been used for this category.',
-        CV_TYPE: 'CV must be a PDF, DOC/DOCX, JPG or PNG file.', CV_SIZE: 'CV file is larger than 5 MB.',
+        CV_TYPE: 'CV must be a PDF, DOC/DOCX, JPG or PNG file.', CV_SIZE: 'CV file is larger than 5 MB.', CV_REQUIRED: 'Please upload your CV.',
         SERVER: 'Something went wrong. Please try again.', NETWORK: 'Network error. Please try again.',
       },
     },
@@ -2349,6 +2350,8 @@
         if (el.name === 'jobCategory') { showError('JOB'); return false; }
         const fld = el.closest('.field');
         if (fld) { fld.classList.remove('shake'); void fld.offsetWidth; fld.classList.add('shake'); }
+        // The file input is visually hidden, so show the message in the error bar instead of a bubble
+        if (el.id === 'cv') { showError('CV_REQUIRED'); $('drop').scrollIntoView({ block: 'center', behavior: 'smooth' }); return false; }
         el.reportValidity();
         return false;
       }
