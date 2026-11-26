@@ -823,3 +823,17 @@ dialog.sunrise .lead { color: var(--ink-2); margin: 0 0 20px; }
 .org .kid.is-soon b { color: var(--muted); }
 .org .kid.is-soon .soon-pill { margin-left: 0; }
 .office-photo { display: block; width: 100%; max-width: 420px; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 12px; margin: 12px 0; border: 1px solid var(--line); }
+
+/* Upcoming events (home page) */
+section.events-sec { padding-bottom: 0; }
+.event { display: flex; align-items: center; gap: 24px; border-color: #bfdccb; }
+.event-badge { flex: none; width: 64px; height: 64px; display: grid; place-items: center; font-size: 34px; line-height: 1;
+               border-radius: 14px; background: var(--accent-soft); }
+.event-body { flex: 1; min-width: 0; }
+.event .label { font-family: "Inter", sans-serif; font-size: 12px; font-weight: 700; letter-spacing: .12em; color: var(--accent-strong); }
+.event h3 { margin: 2px 0 6px; font-size: 21px; }
+.event .btn { flex: none; }
+@media (max-width: 760px) {
+  .event { flex-direction: column; align-items: flex-start; gap: 14px; }
+  .event .btn { width: 100%; justify-content: center; }
+}
